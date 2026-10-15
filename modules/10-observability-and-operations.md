@@ -6,13 +6,15 @@
 
 Know the system is wrong before a customer does: traces across async boundaries, business metrics, SLOs with burn-rate alerts, runbooks and postmortems.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | Site Reliability Engineering, ch. 6: monitoring, symptoms vs. causes, the four golden signals.<br>Site Reliability Engineering, ch. 4 (SLOs) and SRE Workbook, "Alerting on SLOs" (burn rate). | OpenTelemetry SDK in NestJS + Jaeger in Compose; trace one HTTP request. |
-| Tue | OpenTelemetry: traces, spans and context propagation, including through messaging.<br>Business metrics as the main signal; cardinality and cost. | Prometheus + Grafana in Compose; basic technical metrics. |
-| Wed | Site Reliability Engineering, ch. 15 (blameless postmortems); how to write a runbook.<br>On paper: the double-charge detector (query, window, threshold) and the incident you'll inject. | Capstone prep: Alertmanager in Compose and task list. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) (O(n²) DP, then patience sorting in O(n log n)) | Site Reliability Engineering, ch. 6: monitoring, symptoms vs. causes, the four golden signals.<br>Site Reliability Engineering, ch. 4 (SLOs) and SRE Workbook, "Alerting on SLOs" (burn rate). | OpenTelemetry SDK in NestJS + Jaeger in Compose; trace one HTTP request. |
+| Tue | [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (preorder DFS with null markers) | OpenTelemetry: traces, spans and context propagation, including through messaging.<br>Business metrics as the main signal; cardinality and cost. | Prometheus + Grafana in Compose; basic technical metrics. |
+| Wed | [Word Break](https://leetcode.com/problems/word-break/) (DP, then trie to speed up prefix checks) | Site Reliability Engineering, ch. 15 (blameless postmortems); how to write a runbook.<br>On paper: the double-charge detector (query, window, threshold) and the incident you'll inject. | Capstone prep: Alertmanager in Compose and task list. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

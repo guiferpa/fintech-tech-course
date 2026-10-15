@@ -6,13 +6,15 @@
 
 Construir o vocabulário que sustenta todo o resto: falhas parciais, semânticas de entrega, replicação, particionamento, modelos de consistência e relógios. Consenso e Raft ficam para o Módulo 9.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | DDIA cap. 8, primeira metade: falhas parciais, redes não confiáveis, timeouts. Anote os 3 desfechos possíveis de um timeout (aconteceu, não aconteceu, desconhecido).<br>DDIA cap. 8, segunda metade: relógios não confiáveis, pausas de processo, verdade definida pela maioria. Anote por que não ordenar eventos pelo relógio da máquina e o que é um Lamport clock. | Crie o repositório público (services/, docs/, chaos/) com o esqueleto NestJS e o Docker Compose com Postgres primário + réplica assíncrona (streaming replication). |
-| Ter | DDIA cap. 5 até "Problems with Replication Lag": líder e seguidor, replicação síncrona x assíncrona, failover e perda de escrita, read-your-writes, monotonic reads.<br>DDIA cap. 5, resto: multi-líder, leaderless, quorum (R + W > N). | Experimento de leitura velha: script que escreve no primário e lê na réplica em loop, medindo o lag. Coloque o Toxiproxy entre as duas para tornar o lag visível. Anote os números. |
-| Qua | DDIA cap. 6: particionamento por chave e por hash, hot partitions, rebalanceamento. Pense: qual a chave de partição de uma carteira digital?<br>DDIA cap. 9 até "Ordering Guarantees": linearizabilidade e CAP. Complemento: PACELC (artigo de Daniel Abadi, 2012). Rascunhe a tabela de 8 operações da carteira x modelo de consistência. | Preparação do dia de conclusão (sem escrever o código do TCM): suba o banco parceiro falso (endpoint com atraso configurável) atrás do Toxiproxy e escreva no papel a lista de tarefas e os casos de teste de sábado. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Two Sum](https://leetcode.com/problems/two-sum/) (hash map)<br>[Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) (two pointers em array ordenado) | DDIA cap. 8, primeira metade: falhas parciais, redes não confiáveis, timeouts. Anote os 3 desfechos possíveis de um timeout (aconteceu, não aconteceu, desconhecido).<br>DDIA cap. 8, segunda metade: relógios não confiáveis, pausas de processo, verdade definida pela maioria. Anote por que não ordenar eventos pelo relógio da máquina e o que é um Lamport clock. | Crie o repositório público (services/, docs/, chaos/) com o esqueleto NestJS e o Docker Compose com Postgres primário + réplica assíncrona (streaming replication). |
+| Ter | [3Sum](https://leetcode.com/problems/3sum/) (ordenação + two pointers, generaliza para k-sum) | DDIA cap. 5 até "Problems with Replication Lag": líder e seguidor, replicação síncrona x assíncrona, failover e perda de escrita, read-your-writes, monotonic reads.<br>DDIA cap. 5, resto: multi-líder, leaderless, quorum (R + W > N). | Experimento de leitura velha: script que escreve no primário e lê na réplica em loop, medindo o lag. Coloque o Toxiproxy entre as duas para tornar o lag visível. Anote os números. |
+| Qua | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) (heap, depois bucket sort em O(n)) | DDIA cap. 6: particionamento por chave e por hash, hot partitions, rebalanceamento. Pense: qual a chave de partição de uma carteira digital?<br>DDIA cap. 9 até "Ordering Guarantees": linearizabilidade e CAP. Complemento: PACELC (artigo de Daniel Abadi, 2012). Rascunhe a tabela de 8 operações da carteira x modelo de consistência. | Preparação do dia de conclusão (sem escrever o código do TCM): suba o banco parceiro falso (endpoint com atraso configurável) atrás do Toxiproxy e escreva no papel a lista de tarefas e os casos de teste de sábado. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

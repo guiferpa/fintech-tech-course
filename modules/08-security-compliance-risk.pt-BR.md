@@ -6,13 +6,15 @@
 
 Aplicar segurança onde o dinheiro passa: gestão e rotação de chaves, envelope encryption, escopo de PCI/LGPD, limites e antifraude.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Hashing x criptografia x HMAC; TLS e mTLS entre serviços e com parceiros.<br>KMS e HSM, envelope encryption (documentação da AWS KMS), rotação de chaves. | Vault em modo dev (ou LocalStack KMS) no Compose; criptografar e descriptografar pela CLI. |
-| Ter | OWASP API Security Top 10 (2023).<br>PCI DSS Quick Reference Guide e tokenização; LGPD art. 7, 16 e 18 (exclusão x obrigação de guardar registro financeiro). | Threat model STRIDE: diagrama de fluxo de dados do sistema e lista de ameaças (rascunho do docs/m08.md). |
-| Qua | RFC 9700 (OAuth 2.0 Security BCP), riscos de JWT, autorização por recurso (BOLA).<br>Antifraude e limites (velocity checks), KYC/AML e regulação do Bacen em alto nível. | Preparação do dia de conclusão: cliente de webhook de teste e lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [LRU Cache](https://leetcode.com/problems/lru-cache/) (hash map + lista duplamente ligada) | Hashing x criptografia x HMAC; TLS e mTLS entre serviços e com parceiros.<br>KMS e HSM, envelope encryption (documentação da AWS KMS), rotação de chaves. | Vault em modo dev (ou LocalStack KMS) no Compose; criptografar e descriptografar pela CLI. |
+| Ter | [LFU Cache (1/2)](https://leetcode.com/problems/lfu-cache/) (hash map + buckets de frequência)<br>Desenhe as estruturas e faça get/put funcionarem. | OWASP API Security Top 10 (2023).<br>PCI DSS Quick Reference Guide e tokenização; LGPD art. 7, 16 e 18 (exclusão x obrigação de guardar registro financeiro). | Threat model STRIDE: diagrama de fluxo de dados do sistema e lista de ameaças (rascunho do docs/m08.md). |
+| Qua | [LFU Cache (2/2)](https://leetcode.com/problems/lfu-cache/) (hash map + buckets de frequência)<br>Termine e teste empates na remoção (mesma frequência, sai o usado há mais tempo). | RFC 9700 (OAuth 2.0 Security BCP), riscos de JWT, autorização por recurso (BOLA).<br>Antifraude e limites (velocity checks), KYC/AML e regulação do Bacen em alto nível. | Preparação do dia de conclusão: cliente de webhook de teste e lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

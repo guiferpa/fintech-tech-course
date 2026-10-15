@@ -6,13 +6,15 @@
 
 Build the vocabulary everything else depends on: partial failures, delivery semantics, replication, partitioning, consistency models and clocks. Consensus and Raft are left for Module 9.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | DDIA ch. 8, first half: partial failures, unreliable networks, timeouts. Write down the 3 possible outcomes of a timeout (happened, didn't happen, unknown).<br>DDIA ch. 8, second half: unreliable clocks, process pauses, truth defined by the majority. Write down why you can't order events by wall clock and what a Lamport clock is. | Create the public repo (services/, docs/, chaos/) with the NestJS skeleton and Docker Compose with a Postgres primary + async replica (streaming replication). |
-| Tue | DDIA ch. 5 up to "Problems with Replication Lag": leader/follower, sync vs. async replication, failover and lost writes, read-your-writes, monotonic reads.<br>DDIA ch. 5, rest: multi-leader, leaderless, quorums (R + W > N). | Stale-read experiment (short version): a script writes to the primary and reads from the replica in a loop, measuring lag; put Toxiproxy between them to make lag visible. |
-| Wed | DDIA ch. 6: partitioning by key range and by hash, hot partitions, rebalancing. Think: what is the partition key of a digital wallet?<br>DDIA ch. 9 up to "Ordering Guarantees": linearizability and CAP. Extra: PACELC (Daniel Abadi, 2012). Draft the table of 8 wallet operations vs. required consistency model. | Capstone prep (no TCM code yet): spin up the fake partner bank (endpoint with configurable delay) behind Toxiproxy and write on paper the task list and test cases for Thu/Fri. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Two Sum](https://leetcode.com/problems/two-sum/) (hash map)<br>[Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/) (two pointers on a sorted array) | DDIA ch. 8, first half: partial failures, unreliable networks, timeouts. Write down the 3 possible outcomes of a timeout (happened, didn't happen, unknown).<br>DDIA ch. 8, second half: unreliable clocks, process pauses, truth defined by the majority. Write down why you can't order events by wall clock and what a Lamport clock is. | Create the public repo (services/, docs/, chaos/) with the NestJS skeleton and Docker Compose with a Postgres primary + async replica (streaming replication). |
+| Tue | [3Sum](https://leetcode.com/problems/3sum/) (sort + two pointers, generalizes to k-sum) | DDIA ch. 5 up to "Problems with Replication Lag": leader/follower, sync vs. async replication, failover and lost writes, read-your-writes, monotonic reads.<br>DDIA ch. 5, rest: multi-leader, leaderless, quorums (R + W > N). | Stale-read experiment (short version): a script writes to the primary and reads from the replica in a loop, measuring lag; put Toxiproxy between them to make lag visible. |
+| Wed | [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) (heap, then bucket sort in O(n)) | DDIA ch. 6: partitioning by key range and by hash, hot partitions, rebalancing. Think: what is the partition key of a digital wallet?<br>DDIA ch. 9 up to "Ordering Guarantees": linearizability and CAP. Extra: PACELC (Daniel Abadi, 2012). Draft the table of 8 wallet operations vs. required consistency model. | Capstone prep (no TCM code yet): spin up the fake partner bank (endpoint with configurable delay) behind Toxiproxy and write on paper the task list and test cases for Thu/Fri. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

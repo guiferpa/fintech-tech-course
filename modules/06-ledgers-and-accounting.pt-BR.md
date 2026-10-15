@@ -6,13 +6,15 @@
 
 Modelar dinheiro como um contador: dupla entrada, saldos por estado, holds, taxas, estornos e invariantes garantidas pelo banco.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Modern Treasury, "Accounting for Developers" partes 1 e 2: dupla entrada, débito e crédito, saldo normal de cada tipo de conta.<br>Modern Treasury, "Accounting for Developers" parte 3 e a série sobre ledgers: saldos pending, posted e available. | Modelagem e migrations: accounts, transactions, postings. |
-| Ter | Documentação do TigerBeetle: modelo de dados (accounts, transfers), pending transfers em duas fases e flags como debits_must_not_exceed_credits.<br>Stripe, "Ledger: Stripe's system for tracking and validating money movement". | Tipo Money (bigint de centavos + moeda), split determinístico de 100 em 3 e banker's rounding, com testes unitários. |
-| Qua | Hot accounts (sub-contas, agregação em lote), auditabilidade append-only, moeda e taxa de câmbio no lançamento.<br>No papel: lançamentos de depósito, transferência com taxa, estorno parcial, hold e captura. | Preparação do dia de conclusão: fast-check instalado, geradores de operação esboçados, lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Word Ladder](https://leetcode.com/problems/word-ladder/) (BFS para menor caminho) | Modern Treasury, "Accounting for Developers" partes 1 e 2: dupla entrada, débito e crédito, saldo normal de cada tipo de conta.<br>Modern Treasury, "Accounting for Developers" parte 3 e a série sobre ledgers: saldos pending, posted e available. | Modelagem e migrations: accounts, transactions, postings. |
+| Ter | [Word Ladder (optimization)](https://leetcode.com/problems/word-ladder/) (BFS bidirecional + mapa de curingas)<br>Refaça a solução de ontem, agora com BFS bidirecional, e compare os tempos. | Documentação do TigerBeetle: modelo de dados (accounts, transfers), pending transfers em duas fases e flags como debits_must_not_exceed_credits.<br>Stripe, "Ledger: Stripe's system for tracking and validating money movement". | Tipo Money (bigint de centavos + moeda), split determinístico de 100 em 3 e banker's rounding, com testes unitários. |
+| Qua | [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) (min-heap, ou dividir e conquistar)<br>Mesmo formato de juntar streams ordenados de eventos numa reconciliação. | Hot accounts (sub-contas, agregação em lote), auditabilidade append-only, moeda e taxa de câmbio no lançamento.<br>No papel: lançamentos de depósito, transferência com taxa, estorno parcial, hold e captura. | Preparação do dia de conclusão: fast-check instalado, geradores de operação esboçados, lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

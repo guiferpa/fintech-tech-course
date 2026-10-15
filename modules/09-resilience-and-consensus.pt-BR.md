@@ -6,13 +6,15 @@
 
 Fazer o sistema degradar de forma controlada: timeouts, retry com jitter, circuit breaker, bulkhead, rate limiting, migrações seguras, DR e consenso em alto nível.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Release It! (Nygard), padrões de estabilidade: timeouts, circuit breaker, bulkhead.<br>Amazon Builders' Library, "Timeouts, retries, and backoff with jitter". Retry storms e orçamento de retry. | k6 + Toxiproxy: cenário com provedor respondendo em 30 s; medir sem proteção (p99, erros, conexões). |
-| Ter | Amazon Builders' Library, "Avoiding insurmountable queue backlogs". Load shedding e rate limiting por token bucket.<br>DDIA cap. 9, consenso; artigo do Raft (seção 5) com a visualização de raft.github.io. | Timeouts explícitos e circuit breaker (opossum) no provedor; medir de novo. |
-| Qua | Multi-AZ e multi-região, ativo-passivo x ativo-ativo e por que ativo-ativo com saldo é difícil. RPO, RTO e disaster recovery.<br>Deploy seguro: canary, feature flags e migração expand/contract (Martin Fowler, "Parallel Change"). | Preparação do dia de conclusão: script de backup e cenário de migração escolhido; lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) (dois heaps) | Release It! (Nygard), padrões de estabilidade: timeouts, circuit breaker, bulkhead.<br>Amazon Builders' Library, "Timeouts, retries, and backoff with jitter". Retry storms e orçamento de retry. | k6 + Toxiproxy: cenário com provedor respondendo em 30 s; medir sem proteção (p99, erros, conexões). |
+| Ter | [Task Scheduler](https://leetcode.com/problems/task-scheduler/) (guloso + max-heap) | Amazon Builders' Library, "Avoiding insurmountable queue backlogs". Load shedding e rate limiting por token bucket.<br>DDIA cap. 9, consenso; artigo do Raft (seção 5) com a visualização de raft.github.io. | Timeouts explícitos e circuit breaker (opossum) no provedor; medir de novo. |
+| Qua | Priority scheduler (design + código: heap ordenado por (runAt, prioridade))<br>Sem link do LeetCode: schedule(task, priority, runAt) e next(now), mais retry com backoff exponencial para tarefas que falham. | Multi-AZ e multi-região, ativo-passivo x ativo-ativo e por que ativo-ativo com saldo é difícil. RPO, RTO e disaster recovery.<br>Deploy seguro: canary, feature flags e migração expand/contract (Martin Fowler, "Parallel Change"). | Preparação do dia de conclusão: script de backup e cenário de migração escolhido; lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

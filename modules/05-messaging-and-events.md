@@ -6,13 +6,15 @@
 
 Run events through a log safely: partition keys, offsets, retries, DLQ, ordering and signed webhooks.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | DDIA ch. 11, first part: queues vs. logs, brokers, offsets, consumers.<br>Kafka: The Definitive Guide, producers chapter: acks, idempotent producer, partition key and per-key ordering. | Redpanda in Compose; create partitioned topics; produce and consume with kcat. |
-| Tue | Kafka: The Definitive Guide, consumers chapter: consumer groups, rebalancing, committing offsets before or after processing.<br>Kafka: The Definitive Guide, reliable delivery chapter; Confluent docs on transactions and exactly-once. | Switch the outbox publisher to Redpanda with account_id as key; simple consumer. |
-| Wed | Retries, DLQ, poison messages and backpressure. Uber Engineering, "Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka".<br>Event sourcing and CQRS (DDIA ch. 11, "Event Sourcing"; microservices.io). Webhooks: the Standard Webhooks spec (HMAC, id, timestamp). | Capstone prep: sketch chaos scripts (kill consumer, poison message, out-of-order) and the task list. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Course Schedule](https://leetcode.com/problems/course-schedule/) (cycle detection in a directed graph (3-color DFS))<br>Same idea as deadlock detection in a wait-for graph. | DDIA ch. 11, first part: queues vs. logs, brokers, offsets, consumers.<br>Kafka: The Definitive Guide, producers chapter: acks, idempotent producer, partition key and per-key ordering. | Redpanda in Compose; create partitioned topics; produce and consume with kcat. |
+| Tue | [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (topological sort (Kahn)) | Kafka: The Definitive Guide, consumers chapter: consumer groups, rebalancing, committing offsets before or after processing.<br>Kafka: The Definitive Guide, reliable delivery chapter; Confluent docs on transactions and exactly-once. | Switch the outbox publisher to Redpanda with account_id as key; simple consumer. |
+| Wed | [Accounts Merge](https://leetcode.com/problems/accounts-merge/) (union-find) | Retries, DLQ, poison messages and backpressure. Uber Engineering, "Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka".<br>Event sourcing and CQRS (DDIA ch. 11, "Event Sourcing"; microservices.io). Webhooks: the Standard Webhooks spec (HMAC, id, timestamp). | Capstone prep: sketch chaos scripts (kill consumer, poison message, out-of-order) and the task list. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

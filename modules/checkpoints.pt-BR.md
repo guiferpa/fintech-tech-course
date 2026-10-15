@@ -14,6 +14,16 @@ As semanas de checkpoint não têm conteúdo novo: um simulado de entrevista cro
 
 **Aprovado se** cada gravação cobre falhas e idempotência sem você ser perguntado. O que faltou vira flashcard.
 
+## DSA (segunda a quarta, primeiros 30 min)
+
+| Dia | Checkpoint 1 (semana 5) | Checkpoint 2 (semana 9) |
+| --- | --- | --- |
+| Seg | Refaça do zero 2 problemas que você marcou como "refazer" nas semanas 1 a 4, sem dicas. | Refaça do zero 2 problemas que você marcou como "refazer" nas semanas 6 a 8, sem dicas. |
+| Ter | Simulado de entrevista de coding (30 min, gravado): sorteie um problema das semanas 1 a 4 e resolva explicando em voz alta, como numa entrevista. | Simulado de entrevista de coding (30 min, gravado): sorteie um problema das semanas 6 a 8 e resolva explicando em voz alta, como numa entrevista. |
+| Qua | Revisão de complexidade: escreva de memória a complexidade de tempo e espaço de cada problema até aqui, confira e transforme os erros em flashcards. | Revisão de complexidade: escreva de memória a complexidade de tempo e espaço de cada problema até aqui, confira e transforme os erros em flashcards. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
+
 ## Checklist de code review
 
 Leia em voz alta antes de cada revisão:

@@ -14,6 +14,16 @@ Checkpoint weeks bring no new content: a timed mock interview, a review of what 
 
 **Pass if** every recording covers failures and idempotency without being asked. Whatever was missing becomes a flashcard.
 
+## DSA (Monday to Wednesday, first 30 min)
+
+| Day | Checkpoint 1 (week 5) | Checkpoint 2 (week 9) |
+| --- | --- | --- |
+| Mon | Re-solve 2 problems you marked "redo" in weeks 1 to 4, from scratch, no hints. | Re-solve 2 problems you marked "redo" in weeks 6 to 8, from scratch, no hints. |
+| Tue | Mock coding interview (30 min, recorded): pick a random problem from weeks 1 to 4 and solve it explaining out loud, as in an interview. | Mock coding interview (30 min, recorded): pick a random problem from weeks 6 to 8 and solve it explaining out loud, as in an interview. |
+| Wed | Complexity review: write the time and space complexity of every problem so far from memory, check, and turn mistakes into flashcards. | Complexity review: write the time and space complexity of every problem so far from memory, check, and turn mistakes into flashcards. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
+
 ## Code review checklist
 
 Read it out loud before every review:

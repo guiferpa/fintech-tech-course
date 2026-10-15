@@ -6,13 +6,15 @@
 
 Close idempotency end to end: API (Idempotency-Key), message consumers (processed messages) and third-party integrations (forwarding the key).
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | Stripe, "Designing robust and predictable APIs with idempotency". Brandur Leach, "Implementing Stripe-like Idempotency Keys in Postgres", first half (atomic phases, recovery points). | Hands-on practice of what you read. |
-| Tue | Brandur Leach, second half. Idempotent message consumers: at-least-once + processed-messages table keyed by message_id in the same transaction as the effect. | Hands-on practice of what you read. |
-| Wed | Natural key vs. client key (Pix end_to_end_id), naturally idempotent operations (SET status ... WHERE status = 'PENDING') vs. non-idempotent ones (balance = balance - 100), forwarding the key to the provider. Draw API -> queue -> worker -> provider with every idempotency point. | Capstone prep: list the test cases (same key + same body, same key + different body, request still in flight, 50 concurrent) and create empty migrations. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) (min-heap of size k) | Stripe, "Designing robust and predictable APIs with idempotency". Brandur Leach, "Implementing Stripe-like Idempotency Keys in Postgres", first half (atomic phases, recovery points). | Hands-on practice of what you read. |
+| Tue | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) (Kadane)<br>[Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) (Kadane variation (track min and max)) | Brandur Leach, second half. Idempotent message consumers: at-least-once + processed-messages table keyed by message_id in the same transaction as the effect. | Hands-on practice of what you read. |
+| Wed | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (sliding window) | Natural key vs. client key (Pix end_to_end_id), naturally idempotent operations (SET status ... WHERE status = 'PENDING') vs. non-idempotent ones (balance = balance - 100), forwarding the key to the provider. Draw API -> queue -> worker -> provider with every idempotency point. | Capstone prep: list the test cases (same key + same body, same key + different body, request still in flight, 50 concurrent) and create empty migrations. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

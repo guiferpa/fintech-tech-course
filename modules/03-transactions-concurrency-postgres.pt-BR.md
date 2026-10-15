@@ -6,13 +6,15 @@
 
 Saber qual anomalia cada nível de isolamento permite e impedir saldo negativo sob concorrência de mais de uma forma.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | DDIA cap. 7 até "Weak Isolation Levels": ACID e o que cada letra protege em dinheiro; read committed; snapshot isolation.<br>DDIA cap. 7: lost update, write skew e phantoms. Monte um exemplo de write skew com saldo. | Duas sessões psql: reproduza lost update em READ COMMITTED. Anote a sequência exata de comandos. |
-| Ter | Documentação do Postgres, "Concurrency Control" 13.1 e 13.2: níveis de isolamento no Postgres, erro de serialização (40001) e retry.<br>Postgres 13.3, "Explicit Locking": SELECT ... FOR UPDATE, SKIP LOCKED, advisory locks, deadlocks e ordem de aquisição. | Write skew em REPEATABLE READ com as contas de um casal (regra: soma dos saldos ≥ 0). Repita em SERIALIZABLE e observe o erro 40001. Anote tudo. |
-| Qua | Kleppmann, "How to do distributed locking": Redis SET NX PX, fencing tokens, por que a garantia final fica no banco.<br>Postgres: "Indexes" (multicoluna e parcial), "Using EXPLAIN" e a introdução de "Routine Vacuuming" (MVCC e vacuum). | Preparação do dia de conclusão: seed de 1.000 contas, esqueleto do script de carga paralela e lista de testes. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) (prefix sum + hash map) | DDIA cap. 7 até "Weak Isolation Levels": ACID e o que cada letra protege em dinheiro; read committed; snapshot isolation.<br>DDIA cap. 7: lost update, write skew e phantoms. Monte um exemplo de write skew com saldo. | Duas sessões psql: reproduza lost update em READ COMMITTED. Anote a sequência exata de comandos. |
+| Ter | [Merge Intervals](https://leetcode.com/problems/merge-intervals/) (intervalos: ordenar pelo início) | Documentação do Postgres, "Concurrency Control" 13.1 e 13.2: níveis de isolamento no Postgres, erro de serialização (40001) e retry.<br>Postgres 13.3, "Explicit Locking": SELECT ... FOR UPDATE, SKIP LOCKED, advisory locks, deadlocks e ordem de aquisição. | Write skew em REPEATABLE READ com as contas de um casal (regra: soma dos saldos ≥ 0). Repita em SERIALIZABLE e observe o erro 40001. Anote tudo. |
+| Qua | [Koko Eating Bananas](https://leetcode.com/problems/koko-eating-bananas/) (busca binária na resposta) | Kleppmann, "How to do distributed locking": Redis SET NX PX, fencing tokens, por que a garantia final fica no banco.<br>Postgres: "Indexes" (multicoluna e parcial), "Using EXPLAIN" e a introdução de "Routine Vacuuming" (MVCC e vacuum). | Preparação do dia de conclusão: seed de 1.000 contas, esqueleto do script de carga paralela e lista de testes. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

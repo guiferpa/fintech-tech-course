@@ -6,13 +6,15 @@
 
 Apply security where money flows: key management and rotation, envelope encryption, PCI/LGPD scope, and limits/fraud checks.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | Hashing vs. encryption vs. HMAC; TLS and mTLS between services and with partners.<br>KMS and HSM, envelope encryption (AWS KMS docs), key rotation. | Vault in dev mode (or LocalStack KMS) in Compose; encrypt and decrypt from the CLI. |
-| Tue | OWASP API Security Top 10 (2023).<br>PCI DSS Quick Reference Guide and tokenization; LGPD articles 7, 16 and 18 (deletion vs. duty to keep financial records). | STRIDE threat model: data flow diagram and list of threats (draft of docs/m08.md). |
-| Wed | RFC 9700 (OAuth 2.0 Security BCP), JWT pitfalls, per-resource authorization (BOLA).<br>Fraud and limits (velocity checks), KYC/AML and Brazilian Central Bank regulation at a high level. | Capstone prep: test webhook client and task list. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [LRU Cache](https://leetcode.com/problems/lru-cache/) (hash map + doubly linked list) | Hashing vs. encryption vs. HMAC; TLS and mTLS between services and with partners.<br>KMS and HSM, envelope encryption (AWS KMS docs), key rotation. | Vault in dev mode (or LocalStack KMS) in Compose; encrypt and decrypt from the CLI. |
+| Tue | [LFU Cache (1/2)](https://leetcode.com/problems/lfu-cache/) (hash map + frequency buckets)<br>Design the structures and get get/put working. | OWASP API Security Top 10 (2023).<br>PCI DSS Quick Reference Guide and tokenization; LGPD articles 7, 16 and 18 (deletion vs. duty to keep financial records). | STRIDE threat model: data flow diagram and list of threats (draft of docs/m08.md). |
+| Wed | [LFU Cache (2/2)](https://leetcode.com/problems/lfu-cache/) (hash map + frequency buckets)<br>Finish, then test eviction ties (same frequency, least recently used goes first). | RFC 9700 (OAuth 2.0 Security BCP), JWT pitfalls, per-resource authorization (BOLA).<br>Fraud and limits (velocity checks), KYC/AML and Brazilian Central Bank regulation at a high level. | Capstone prep: test webhook client and task list. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

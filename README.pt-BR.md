@@ -4,7 +4,7 @@
 
 Um curso de 13 semanas, no seu ritmo, para virar especialista em sistemas distribuídos para fintech: pagamentos, banco digital, adquirência, carteiras e crédito. O objetivo é chegar nas entrevistas conseguindo **explicar, desenhar e revisar código** sobre esses temas, sempre ligando cada conceito ao risco de dinheiro: cobrar duas vezes, perder um lançamento, saldo negativo.
 
-Foi pensado para **3 horas por dia, de segunda a sexta, sem fim de semana** (15 h por semana, cerca de 195 h no total). Todas as sessões existem em inglês e em português.
+Foi pensado para **dias úteis, sem fim de semana**: 3 h 30 de segunda a quarta (incluindo 30 min de DSA) e 3 h na quinta e na sexta, 16 h 30 por semana, cerca de 215 h no total. Todas as sessões existem em inglês e em português.
 
 ## Adicione o curso à sua agenda
 
@@ -47,10 +47,12 @@ Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua a
 
 | Dia | O que você faz |
 | --- | --- |
-| Seg a qua | 2 h de leitura + 1 h de laboratório. Nos laboratórios, IA só para tirar dúvida de conceito. |
+| Seg a qua | 30 min de DSA + 2 h de leitura + 1 h de laboratório (por exemplo, das 19:00 às 22:30). Nos laboratórios, IA só para tirar dúvida de conceito; DSA é resolvido sem IA. |
 | Qui e sex | **Dias de conclusão (TCM): só implementação, sem IA.** Nada de ChatGPT, Claude, Copilot ou autocomplete com IA; documentação, livros e suas anotações valem. A última meia hora de sexta é a entrega: commit final, teste de domínio gravado e flashcards. |
 
 Os flashcards (Anki) impedem que o que você aprendeu se perca: 10 min de revisão toda segunda e cards novos em toda entrega de sexta. O [guia de flashcards](FLASHCARDS.pt-BR.md) mostra a configuração e como escrever bons cards.
+
+A [trilha de DSA](DSA.pt-BR.md) traz o problema de entrevista de coding de cada dia, do Two Sum ao LFU Cache.
 
 Se algo não couber, corte escopo, nunca o deadline. O escopo cortado vai para a próxima semana de checkpoint.
 

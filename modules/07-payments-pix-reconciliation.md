@@ -6,13 +6,15 @@
 
 Understand the payment lifecycle, Pix in Brazil, reconciliation against settlement files and safe provider fallback.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | Card payment lifecycle (authorization, capture, settlement, refund, chargeback) and actors (issuer, acquirer, card network, sub-acquirer, gateway, PSP). Stripe docs on PaymentIntents.<br>System Design Interview vol. 2, payment system chapter. | Two fake acquirers that authorize, capture and produce a daily settlement CSV. |
-| Tue | Pix regulation (Banco Central do Brasil): SPI, DICT, end_to_end_id, returns.<br>MED (Special Return Mechanism), Pix 24/7 and what it demands from availability. Open Finance at a high level. | Payment state machine with a table of valid transitions and tests. |
-| Wed | Reconciliation: matching, tolerances, handling discrepancies (Modern Treasury articles on reconciliation).<br>Provider orchestration: routing and safe fallback. Draw timeout -> status query -> only then another provider. | Capstone prep: CSV files with planted discrepancies and the task list. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | Rate limiter: token bucket (design + code: allow(userId, now))<br>No LeetCode link: write a class with allow(userId, now) and unit tests for bursts and refill. | Card payment lifecycle (authorization, capture, settlement, refund, chargeback) and actors (issuer, acquirer, card network, sub-acquirer, gateway, PSP). Stripe docs on PaymentIntents.<br>System Design Interview vol. 2, payment system chapter. | Two fake acquirers that authorize, capture and produce a daily settlement CSV. |
+| Tue | Rate limiter: sliding window (sliding window log, then sliding window counter)<br>Same interface as yesterday; compare memory use and accuracy at window boundaries. | Pix regulation (Banco Central do Brasil): SPI, DICT, end_to_end_id, returns.<br>MED (Special Return Mechanism), Pix 24/7 and what it demands from availability. Open Finance at a high level. | Payment state machine with a table of valid transitions and tests. |
+| Wed | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) (two pointers, then monotonic stack) | Reconciliation: matching, tolerances, handling discrepancies (Modern Treasury articles on reconciliation).<br>Provider orchestration: routing and safe fallback. Draw timeout -> status query -> only then another provider. | Capstone prep: CSV files with planted discrepancies and the task list. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

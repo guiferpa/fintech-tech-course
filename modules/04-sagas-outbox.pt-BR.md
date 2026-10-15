@@ -6,13 +6,15 @@
 
 Mover dinheiro entre serviços sem 2PC: saga orquestrada com estado persistido, compensações e transactional outbox.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | DDIA cap. 9, "Atomic Commit and Two-Phase Commit": como o 2PC funciona, por que trava recursos e por que APIs externas não o suportam.<br>Microservices Patterns (Richardson), cap. 4: saga orquestrada x coreografada, compensação, pivot transaction e ordem dos passos. | Separe accounts e payments, cada um com seu banco no Compose, falando por HTTP. |
-| Ter | Microservices Patterns, cap. 4, falta de isolamento e contramedidas (semantic lock, commutative updates, reordenar passos). TCC (Try-Confirm-Cancel) e a relação com hold de saldo.<br>Microservices Patterns, cap. 3: mensageria transacional, Transactional Outbox, polling x log tailing. microservices.io/patterns/data/transactional-outbox. Introdução do Debezium. | Outbox experimental: tabela outbox e publicador por polling com SKIP LOCKED enviando para um log (Kafka só no M5). |
-| Qua | Documentação do Temporal (workflows, activities, retries, timers) e visão geral do AWS Step Functions. Quando um workflow durável vale o custo.<br>No papel: máquina de estados da saga de transferência entre serviços, com estados, transições, compensações e timeout de cada passo. | Preparação do dia de conclusão: esqueleto de chaos/kill-orchestrator.sh, lista de tarefas e casos de falha. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) (busca binária na resposta (capacidade, dias, pesos)) | DDIA cap. 9, "Atomic Commit and Two-Phase Commit": como o 2PC funciona, por que trava recursos e por que APIs externas não o suportam.<br>Microservices Patterns (Richardson), cap. 4: saga orquestrada x coreografada, compensação, pivot transaction e ordem dos passos. | Separe accounts e payments, cada um com seu banco no Compose, falando por HTTP. |
+| Ter | [Clone Graph](https://leetcode.com/problems/clone-graph/) (DFS/BFS em grafo + hash map de cópias) | Microservices Patterns, cap. 4, falta de isolamento e contramedidas (semantic lock, commutative updates, reordenar passos). TCC (Try-Confirm-Cancel) e a relação com hold de saldo.<br>Microservices Patterns, cap. 3: mensageria transacional, Transactional Outbox, polling x log tailing. microservices.io/patterns/data/transactional-outbox. Introdução do Debezium. | Outbox experimental: tabela outbox e publicador por polling com SKIP LOCKED enviando para um log (Kafka só no M5). |
+| Qua | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (hash map, depois intercalação com espaço O(1)) | Documentação do Temporal (workflows, activities, retries, timers) e visão geral do AWS Step Functions. Quando um workflow durável vale o custo.<br>No papel: máquina de estados da saga de transferência entre serviços, com estados, transições, compensações e timeout de cada passo. | Preparação do dia de conclusão: esqueleto de chaos/kill-orchestrator.sh, lista de tarefas e casos de falha. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

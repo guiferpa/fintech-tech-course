@@ -6,13 +6,15 @@
 
 Passar eventos por um log com segurança: chave de partição, offsets, retries, DLQ, ordem e webhooks assinados.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | DDIA cap. 11, primeira parte: filas x logs, brokers, offsets, consumidores.<br>Kafka: The Definitive Guide, capítulo de producers: acks, producer idempotente, chave de partição e ordenação por chave. | Redpanda no Compose; criar tópicos com partições; produzir e consumir com kcat. |
-| Ter | Kafka: The Definitive Guide, capítulo de consumers: consumer groups, rebalance, commit de offset antes ou depois de processar.<br>Kafka: The Definitive Guide, capítulo de entrega confiável; documentação da Confluent sobre transações e exactly-once. | Trocar o publicador do outbox para publicar no Redpanda com chave account_id; consumidor simples. |
-| Qua | Retries, DLQ, mensagem venenosa e backpressure. Artigo da Uber, "Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka".<br>Event sourcing e CQRS (DDIA cap. 11, "Event Sourcing"; microservices.io). Webhooks: especificação Standard Webhooks (HMAC, id, timestamp). | Preparação do dia de conclusão: scripts de chaos esboçados (matar consumidor, mensagem venenosa, fora de ordem) e lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Course Schedule](https://leetcode.com/problems/course-schedule/) (detecção de ciclo em grafo dirigido (DFS com 3 cores))<br>Mesma ideia da detecção de deadlock num wait-for graph. | DDIA cap. 11, primeira parte: filas x logs, brokers, offsets, consumidores.<br>Kafka: The Definitive Guide, capítulo de producers: acks, producer idempotente, chave de partição e ordenação por chave. | Redpanda no Compose; criar tópicos com partições; produzir e consumir com kcat. |
+| Ter | [Course Schedule II](https://leetcode.com/problems/course-schedule-ii/) (ordenação topológica (Kahn)) | Kafka: The Definitive Guide, capítulo de consumers: consumer groups, rebalance, commit de offset antes ou depois de processar.<br>Kafka: The Definitive Guide, capítulo de entrega confiável; documentação da Confluent sobre transações e exactly-once. | Trocar o publicador do outbox para publicar no Redpanda com chave account_id; consumidor simples. |
+| Qua | [Accounts Merge](https://leetcode.com/problems/accounts-merge/) (union-find) | Retries, DLQ, mensagem venenosa e backpressure. Artigo da Uber, "Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka".<br>Event sourcing e CQRS (DDIA cap. 11, "Event Sourcing"; microservices.io). Webhooks: especificação Standard Webhooks (HMAC, id, timestamp). | Preparação do dia de conclusão: scripts de chaos esboçados (matar consumidor, mensagem venenosa, fora de ordem) e lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

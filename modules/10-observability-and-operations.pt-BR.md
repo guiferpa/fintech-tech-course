@@ -6,13 +6,15 @@
 
 Saber que o sistema está errado antes do cliente: traces atravessando filas, métricas de negócio, SLO com alerta de burn rate, runbooks e postmortems.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Site Reliability Engineering, cap. 6: monitoramento, sintoma x causa, four golden signals.<br>Site Reliability Engineering, cap. 4 (SLOs) e SRE Workbook, "Alerting on SLOs" (burn rate). | SDK do OpenTelemetry no NestJS + Jaeger no Compose; trace de uma requisição HTTP. |
-| Ter | OpenTelemetry: traces, spans e propagação de contexto, inclusive em mensageria.<br>Métricas de negócio como sinal principal; cardinalidade e custo. | Prometheus + Grafana no Compose; métricas técnicas básicas. |
-| Qua | Site Reliability Engineering, cap. 15 (postmortem sem culpa); como escrever um runbook.<br>No papel: detector de cobrança duplicada (consulta, janela, limiar) e o incidente que você vai injetar. | Preparação do dia de conclusão: Alertmanager no Compose e lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) (DP O(n²), depois patience sorting em O(n log n)) | Site Reliability Engineering, cap. 6: monitoramento, sintoma x causa, four golden signals.<br>Site Reliability Engineering, cap. 4 (SLOs) e SRE Workbook, "Alerting on SLOs" (burn rate). | SDK do OpenTelemetry no NestJS + Jaeger no Compose; trace de uma requisição HTTP. |
+| Ter | [Serialize and Deserialize Binary Tree](https://leetcode.com/problems/serialize-and-deserialize-binary-tree/) (DFS em pré-ordem com marcadores de nulo) | OpenTelemetry: traces, spans e propagação de contexto, inclusive em mensageria.<br>Métricas de negócio como sinal principal; cardinalidade e custo. | Prometheus + Grafana no Compose; métricas técnicas básicas. |
+| Qua | [Word Break](https://leetcode.com/problems/word-break/) (DP, depois trie para acelerar os prefixos) | Site Reliability Engineering, cap. 15 (postmortem sem culpa); como escrever um runbook.<br>No papel: detector de cobrança duplicada (consulta, janela, limiar) e o incidente que você vai injetar. | Preparação do dia de conclusão: Alertmanager no Compose e lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

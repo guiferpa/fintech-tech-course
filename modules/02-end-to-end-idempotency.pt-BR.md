@@ -6,13 +6,15 @@
 
 Fechar idempotência ponta a ponta: na API (Idempotency-Key), no consumidor de mensagens (mensagens processadas) e na integração com terceiros (repassar a chave).
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Stripe, "Designing robust and predictable APIs with idempotency". Brandur Leach, "Implementing Stripe-like Idempotency Keys in Postgres", primeira metade (fases atômicas e recovery points). | Prática do que você leu. |
-| Ter | Brandur Leach, segunda metade. Idempotência no consumidor de mensagens: at-least-once + tabela de mensagens processadas por message_id na mesma transação do efeito. | Prática do que você leu. |
-| Qua | Chave natural x chave do cliente (end_to_end_id do Pix), operações naturalmente idempotentes (SET status ... WHERE status = 'PENDING') x não idempotentes (balance = balance - 100), repassar a chave ao provedor. Desenhe no papel o fluxo API → fila → worker → provedor com os pontos de idempotência. | Preparação do dia de conclusão: liste os casos de teste (mesma chave e mesmo corpo, mesma chave e corpo diferente, requisição ainda em andamento, 50 simultâneas) e crie as migrations vazias. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | [Kth Largest Element in a Stream](https://leetcode.com/problems/kth-largest-element-in-a-stream/) (min-heap de tamanho k) | Stripe, "Designing robust and predictable APIs with idempotency". Brandur Leach, "Implementing Stripe-like Idempotency Keys in Postgres", primeira metade (fases atômicas e recovery points). | Prática do que você leu. |
+| Ter | [Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) (Kadane)<br>[Maximum Product Subarray](https://leetcode.com/problems/maximum-product-subarray/) (variação de Kadane (guarda mínimo e máximo)) | Brandur Leach, segunda metade. Idempotência no consumidor de mensagens: at-least-once + tabela de mensagens processadas por message_id na mesma transação do efeito. | Prática do que você leu. |
+| Qua | [Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) (sliding window) | Chave natural x chave do cliente (end_to_end_id do Pix), operações naturalmente idempotentes (SET status ... WHERE status = 'PENDING') x não idempotentes (balance = balance - 100), repassar a chave ao provedor. Desenhe no papel o fluxo API → fila → worker → provedor com os pontos de idempotência. | Preparação do dia de conclusão: liste os casos de teste (mesma chave e mesmo corpo, mesma chave e corpo diferente, requisição ainda em andamento, 50 simultâneas) e crie as migrations vazias. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

@@ -4,7 +4,7 @@
 
 A 13-week, self-paced course to become a distributed systems specialist for fintech: payments, digital banking, acquiring, wallets and lending. The goal is to walk into interviews able to **explain, design and review code** on these topics, always tying each concept to money risk: charging twice, losing an entry, a negative balance.
 
-It is designed for **3 hours a day, Monday to Friday, no weekends** (15 h a week, about 195 h in total). Every session exists in English and Portuguese.
+It is designed for **weekdays only, no weekends**: 3 h 30 Monday to Wednesday (including 30 min of DSA) and 3 h on Thursday and Friday, 16 h 30 a week, about 215 h in total. Every session exists in English and Portuguese.
 
 ## Add the course to your calendar
 
@@ -47,10 +47,12 @@ Times are "floating" local times: 19:00 means 19:00 in whatever time zone your c
 
 | Day | What you do |
 | --- | --- |
-| Mon to Wed | 2 h reading + 1 h lab. In labs, AI only to clarify concepts. |
+| Mon to Wed | 30 min DSA + 2 h reading + 1 h lab (e.g. 19:00 to 22:30). In labs, AI only to clarify concepts; DSA is solved without AI. |
 | Thu and Fri | **Capstone days (TCM): implementation only, without AI.** No ChatGPT, Claude, Copilot or AI autocomplete; docs, books and your notes are fine. The last 30 min on Friday are delivery: final commit, recorded mastery test, flashcards. |
 
 Flashcards (Anki) keep what you learn from fading: 10 min of review every Monday and new cards from every Friday delivery. The [flashcards guide](FLASHCARDS.md) shows the setup and how to write good cards.
+
+The [DSA track](DSA.md) lists the coding interview problem for each day, from Two Sum to LFU Cache.
 
 If something doesn't fit, cut scope, never the deadline. Cut scope goes to the next checkpoint week.
 

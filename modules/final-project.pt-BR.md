@@ -11,3 +11,13 @@
 | Sex | Banca: system design (45 min), code review (30 min), comportamental em inglês (30 min) |
 
 **Você conclui o curso quando** todos os TCMs estão entregues, os 10 testes de domínio foram respondidos sem consulta e a banca foi feita. Depois disso, mantenha 1 simulado por semana enquanto houver processos seletivos.
+
+## DSA (segunda a quarta, primeiros 30 min)
+
+| Dia | DSA (30 min) |
+| --- | --- |
+| Seg | Simulado de coding 1 (30 min, gravado): um problema medium sorteado da lista inteira. |
+| Ter | Simulado de coding 2 (30 min, gravado): um problema hard sorteado da lista inteira. |
+| Qua | Revisão final: refaça o que ainda estiver como "refazer" e atualize sua cola de padrões. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).

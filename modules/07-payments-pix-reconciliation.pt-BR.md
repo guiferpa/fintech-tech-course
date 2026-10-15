@@ -6,13 +6,15 @@
 
 Entender o ciclo de vida de pagamento, o Pix, a reconciliação contra arquivos de liquidação e o fallback seguro entre provedores.
 
-## Segunda a quarta: leitura + laboratório (3 h por dia)
+## Segunda a quarta: DSA + leitura + laboratório (3 h 30 por dia)
 
-| Dia | Leitura (2 h) | Laboratório (1 h) |
-| --- | --- | --- |
-| Seg | Ciclo de vida de pagamento com cartão (autorização, captura, liquidação, estorno, chargeback) e atores (emissor, adquirente, bandeira, subadquirente, gateway, PSP). Documentação da Stripe sobre PaymentIntents.<br>System Design Interview vol. 2, capítulo de sistema de pagamento. | Dois adquirentes falsos que autorizam, capturam e geram CSV de liquidação diário. |
-| Ter | Regulamento do Pix (Bacen): SPI, DICT, end_to_end_id, devoluções.<br>Carnaval: se for viajar, junte com a sessão de amanhã. MED (Mecanismo Especial de Devolução), Pix 24/7 e o que isso exige de disponibilidade. Open Finance em alto nível. | Máquina de estados de pagamento com tabela de transições válidas e testes. |
-| Qua | Carnaval: se for viajar, junte com a sessão de ontem. Reconciliação: matching, tolerâncias, tratamento de divergência (artigos da Modern Treasury sobre reconciliação).<br>Orquestração de provedores: roteamento e fallback seguro. Desenhe o fluxo timeout → consulta de status → só então outro provedor. | Preparação do dia de conclusão: arquivos CSV com divergências plantadas e lista de tarefas. Sem código do TCM. |
+| Dia | DSA (30 min) | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- | --- |
+| Seg | Rate limiter: token bucket (design + código: allow(userId, now))<br>Sem link do LeetCode: escreva uma classe com allow(userId, now) e testes unitários de rajada e reposição. | Ciclo de vida de pagamento com cartão (autorização, captura, liquidação, estorno, chargeback) e atores (emissor, adquirente, bandeira, subadquirente, gateway, PSP). Documentação da Stripe sobre PaymentIntents.<br>System Design Interview vol. 2, capítulo de sistema de pagamento. | Dois adquirentes falsos que autorizam, capturam e geram CSV de liquidação diário. |
+| Ter | Rate limiter: sliding window (sliding window log, depois sliding window counter)<br>Mesma interface de ontem; compare memória e precisão nas bordas da janela. | Regulamento do Pix (Bacen): SPI, DICT, end_to_end_id, devoluções.<br>Carnaval: se for viajar, junte com a sessão de amanhã. MED (Mecanismo Especial de Devolução), Pix 24/7 e o que isso exige de disponibilidade. Open Finance em alto nível. | Máquina de estados de pagamento com tabela de transições válidas e testes. |
+| Qua | [Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) (two pointers, depois pilha monotônica) | Carnaval: se for viajar, junte com a sessão de ontem. Reconciliação: matching, tolerâncias, tratamento de divergência (artigos da Modern Treasury sobre reconciliação).<br>Orquestração de provedores: roteamento e fallback seguro. Desenhe o fluxo timeout → consulta de status → só então outro provedor. | Preparação do dia de conclusão: arquivos CSV com divergências plantadas e lista de tarefas. Sem código do TCM. |
+
+Resolva sem IA, com limite de 30 minutos. Método e lista completa: [trilha de DSA](../DSA.pt-BR.md).
 
 Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
 

@@ -6,13 +6,15 @@
 
 Keep the system degrading gracefully: timeouts, retries with jitter, circuit breakers, bulkheads, rate limiting, safe migrations, DR, and consensus at a high level.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | Release It! (Nygard), stability patterns: timeouts, circuit breaker, bulkhead.<br>Amazon Builders' Library, "Timeouts, retries, and backoff with jitter". Retry storms and retry budgets. | k6 + Toxiproxy: provider answering in 30 s; measure with no protection (p99, errors, connections). |
-| Tue | Amazon Builders' Library, "Avoiding insurmountable queue backlogs". Load shedding and token-bucket rate limiting.<br>DDIA ch. 9, consensus; the Raft paper (section 5) with the visualization at raft.github.io. | Explicit timeouts and a circuit breaker (opossum) on the provider; measure again. |
-| Wed | Multi-AZ and multi-region, active-passive vs. active-active and why active-active with balances is hard. RPO, RTO and disaster recovery.<br>Safe deploys: canary, feature flags and expand/contract migrations (Martin Fowler, "Parallel Change"). | Capstone prep: backup script and chosen migration scenario; task list. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) (two heaps) | Release It! (Nygard), stability patterns: timeouts, circuit breaker, bulkhead.<br>Amazon Builders' Library, "Timeouts, retries, and backoff with jitter". Retry storms and retry budgets. | k6 + Toxiproxy: provider answering in 30 s; measure with no protection (p99, errors, connections). |
+| Tue | [Task Scheduler](https://leetcode.com/problems/task-scheduler/) (greedy + max-heap) | Amazon Builders' Library, "Avoiding insurmountable queue backlogs". Load shedding and token-bucket rate limiting.<br>DDIA ch. 9, consensus; the Raft paper (section 5) with the visualization at raft.github.io. | Explicit timeouts and a circuit breaker (opossum) on the provider; measure again. |
+| Wed | Priority scheduler (design + code: heap ordered by (runAt, priority))<br>No LeetCode link: schedule(task, priority, runAt) and next(now), plus retry with exponential backoff for failed tasks. | Multi-AZ and multi-region, active-passive vs. active-active and why active-active with balances is hard. RPO, RTO and disaster recovery.<br>Safe deploys: canary, feature flags and expand/contract migrations (Martin Fowler, "Parallel Change"). | Capstone prep: backup script and chosen migration scenario; task list. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 

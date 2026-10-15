@@ -54,7 +54,6 @@ export function buildIcs(data, { start, time = "19:00", lang = "en", skip = [], 
   if (!data.languages.includes(lang)) throw new Error(`Unknown language "${lang}", use one of: ${data.languages.join(", ")}`);
   const tm = /^(\d{1,2}):(\d{2})$/.exec(time);
   if (!tm || +tm[1] > 23 || +tm[2] > 59) throw new Error(`Invalid time "${time}", expected HH:MM`);
-  const minutes = data.sessionMinutes;
   const stamp = now.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
   const lines = [
     "BEGIN:VCALENDAR",
@@ -66,7 +65,7 @@ export function buildIcs(data, { start, time = "19:00", lang = "en", skip = [], 
   ];
   schedule(data.sessions, { start, skip }).forEach((s, i) => {
     const begin = new Date(parseDate(s.date).getTime() + (+tm[1] * 60 + +tm[2]) * 60000);
-    const end = new Date(begin.getTime() + minutes * 60000);
+    const end = new Date(begin.getTime() + (s.minutes ?? data.sessionMinutes) * 60000);
     lines.push(
       "BEGIN:VEVENT",
       `UID:${start}-${String(i + 1).padStart(2, "0")}@fintech-tech-course`,

@@ -6,13 +6,15 @@
 
 Move money across services without 2PC: orchestrated sagas with persisted state, compensations and the transactional outbox.
 
-## Monday to Wednesday: reading + lab (3 h a day)
+## Monday to Wednesday: DSA + reading + lab (3 h 30 a day)
 
-| Day | Reading (2 h) | Lab (1 h) |
-| --- | --- | --- |
-| Mon | DDIA ch. 9, "Atomic Commit and Two-Phase Commit": how 2PC works, why it holds locks and why external APIs don't support it.<br>Microservices Patterns (Richardson), ch. 4: orchestrated vs. choreographed sagas, compensation, pivot transaction, step ordering. | Split accounts and payments, each with its own database in Compose, talking over HTTP. |
-| Tue | Microservices Patterns, ch. 4: lack of isolation and countermeasures (semantic lock, commutative updates, reordering). TCC (Try-Confirm-Cancel) and balance holds.<br>Microservices Patterns, ch. 3: transactional messaging, Transactional Outbox, polling vs. log tailing. microservices.io outbox page. Debezium intro. | Experimental outbox: outbox table and a polling publisher with SKIP LOCKED writing to a log (Kafka comes in M5). |
-| Wed | Temporal docs (workflows, activities, retries, timers) and AWS Step Functions overview. When durable workflows are worth the cost.<br>On paper: the state machine of a cross-service transfer saga, with states, transitions, compensations and per-step timeouts. | Capstone prep: skeleton of chaos/kill-orchestrator.sh, task list and failure cases. No TCM code. |
+| Day | DSA (30 min) | Reading (2 h) | Lab (1 h) |
+| --- | --- | --- | --- |
+| Mon | [Capacity To Ship Packages Within D Days](https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/) (binary search on the answer (capacity, days, weights)) | DDIA ch. 9, "Atomic Commit and Two-Phase Commit": how 2PC works, why it holds locks and why external APIs don't support it.<br>Microservices Patterns (Richardson), ch. 4: orchestrated vs. choreographed sagas, compensation, pivot transaction, step ordering. | Split accounts and payments, each with its own database in Compose, talking over HTTP. |
+| Tue | [Clone Graph](https://leetcode.com/problems/clone-graph/) (graph DFS/BFS + hash map of copies) | Microservices Patterns, ch. 4: lack of isolation and countermeasures (semantic lock, commutative updates, reordering). TCC (Try-Confirm-Cancel) and balance holds.<br>Microservices Patterns, ch. 3: transactional messaging, Transactional Outbox, polling vs. log tailing. microservices.io outbox page. Debezium intro. | Experimental outbox: outbox table and a polling publisher with SKIP LOCKED writing to a log (Kafka comes in M5). |
+| Wed | [Copy List with Random Pointer](https://leetcode.com/problems/copy-list-with-random-pointer/) (hash map, then O(1) space interleaving) | Temporal docs (workflows, activities, retries, timers) and AWS Step Functions overview. When durable workflows are worth the cost.<br>On paper: the state machine of a cross-service transfer saga, with states, transitions, compensations and per-step timeouts. | Capstone prep: skeleton of chaos/kill-orchestrator.sh, task list and failure cases. No TCM code. |
+
+Solve without AI, 30-minute timebox. Method and full list: [DSA track](../DSA.md).
 
 In labs, AI is allowed only to clarify concepts, never to write capstone code.
 
