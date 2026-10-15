@@ -14,10 +14,31 @@ The schedule has no fixed dates. You pick when to start and get every session on
 2. Pick the language, a start Monday, a start time, and any days off (holidays, vacation). Sessions skip those days and shift forward.
 3. Download the `.ics` file and import it. In Google Calendar, create a dedicated calendar first (Settings > Add calendar > Create new calendar), then go to Settings > Import & export and pick that calendar.
 
-Prefer the terminal? Clone the repo and, with Node 18 or newer, run the [CLI generator](scripts/generate-ics.mjs):
+### Run it locally
+
+No install needed besides [Git](https://git-scm.com/) and [Node.js 18+](https://nodejs.org/) (check with `node --version`).
+
+1. Clone the repository and enter it:
+
+   ```bash
+   git clone https://github.com/guiferpa/fintech-tech-course.git
+   cd fintech-tech-course
+   ```
+
+2. Generate the file, choosing your start Monday, time, language (`en` or `pt-BR`) and days off:
+
+   ```bash
+   node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang en --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
+   ```
+
+   The terminal prints how many sessions were created and the first and last dates. Run `node scripts/generate-ics.mjs --help` to see every option (`--name` sets the calendar name, `--reminder` the reminder in minutes, `0` for none).
+
+3. Import `fintech-tech-course.ics` into your calendar as described in step 3 above.
+
+Prefer the visual page offline? Serve the `docs/` folder and open http://localhost:8000 (opening `index.html` straight from disk does not work, browsers block it):
 
 ```bash
-node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang en --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
+python3 -m http.server 8000 --directory docs   # or: npx serve docs -l 8000
 ```
 
 Times are "floating" local times: 19:00 means 19:00 in whatever time zone your calendar uses. The page source is in [`docs/`](docs/), and both generators read the same schedule from [`docs/sessions.json`](docs/sessions.json).

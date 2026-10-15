@@ -14,10 +14,31 @@ O cronograma não tem datas fixas. Você escolhe quando começar e recebe todas 
 2. Escolha o idioma, uma segunda-feira de início, o horário e os dias de folga (feriados, férias). As sessões pulam esses dias e andam para frente.
 3. Baixe o arquivo `.ics` e importe. No Google Calendar, crie antes uma agenda só para o curso (Configurações > Adicionar agenda > Criar nova agenda), depois vá em Configurações > Importar e exportar e escolha essa agenda.
 
-Prefere o terminal? Clone o repositório e, com Node 18 ou mais novo, rode o [gerador de linha de comando](scripts/generate-ics.mjs):
+### Rodando localmente
+
+Você só precisa de [Git](https://git-scm.com/) e [Node.js 18+](https://nodejs.org/) (confira com `node --version`).
+
+1. Clone o repositório e entre na pasta:
+
+   ```bash
+   git clone https://github.com/guiferpa/fintech-tech-course.git
+   cd fintech-tech-course
+   ```
+
+2. Gere o arquivo escolhendo a segunda-feira de início, o horário, o idioma (`en` ou `pt-BR`) e os dias de folga:
+
+   ```bash
+   node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang pt-BR --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
+   ```
+
+   O terminal mostra quantas sessões foram criadas e as datas da primeira e da última. Rode `node scripts/generate-ics.mjs --help` para ver todas as opções (`--name` define o nome do calendário, `--reminder` o lembrete em minutos, `0` para nenhum).
+
+3. Importe o `fintech-tech-course.ics` na sua agenda como no passo 3 acima.
+
+Prefere a página visual sem internet? Sirva a pasta `docs/` e abra http://localhost:8000 (abrir o `index.html` direto do disco não funciona, o navegador bloqueia):
 
 ```bash
-node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang pt-BR --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
+python3 -m http.server 8000 --directory docs   # ou: npx serve docs -l 8000
 ```
 
 Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua agenda usa. O código da página está em [`docs/`](docs/), e os dois geradores leem o mesmo cronograma de [`docs/sessions.json`](docs/sessions.json).
