@@ -84,7 +84,7 @@ Faça um fork deste repositório, marque as caixas no [PROGRESS.md](PROGRESS.md)
 
 ## Fontes principais
 
-1. *Designing Data-Intensive Applications*, Martin Kleppmann (1ª edição; capítulos 5 a 9 e 11).
+1. *Designing Data-Intensive Applications*, Martin Kleppmann, chamado de **DDIA** nas sessões (1ª edição, 2017; capítulos 5 a 9 e 11). Na 2ª edição a numeração dos capítulos mudou, então procure os capítulos pelo título.
 2. *Microservices Patterns*, Chris Richardson, e microservices.io.
 3. Blog de engenharia da Stripe: idempotência e o post sobre o Ledger.
 4. *Release It!*, Michael Nygard.

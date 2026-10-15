@@ -84,7 +84,7 @@ Fork this repository, tick the boxes in [PROGRESS.md](PROGRESS.md) as you delive
 
 ## Main sources
 
-1. *Designing Data-Intensive Applications*, Martin Kleppmann (1st edition; chapters 5 to 9 and 11).
+1. *Designing Data-Intensive Applications*, Martin Kleppmann, referred to as **DDIA** in the sessions (1st edition, 2017; chapters 5 to 9 and 11). In the 2nd edition the chapter numbers changed, so look chapters up by title.
 2. *Microservices Patterns*, Chris Richardson, and microservices.io.
 3. Stripe engineering blog: idempotency and the Ledger post.
 4. *Release It!*, Michael Nygard.
