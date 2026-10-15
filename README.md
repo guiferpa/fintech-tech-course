@@ -14,13 +14,13 @@ The schedule has no fixed dates. You pick when to start and get every session on
 2. Pick the language, a start Monday, a start time, and any days off (holidays, vacation). Sessions skip those days and shift forward.
 3. Download the `.ics` file and import it. In Google Calendar, create a dedicated calendar first (Settings > Add calendar > Create new calendar), then go to Settings > Import & export and pick that calendar.
 
-Prefer the terminal? With Node 18 or newer:
+Prefer the terminal? Clone the repo and, with Node 18 or newer, run the [CLI generator](scripts/generate-ics.mjs):
 
 ```bash
 node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang en --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
 ```
 
-Times are "floating" local times: 19:00 means 19:00 in whatever time zone your calendar uses.
+Times are "floating" local times: 19:00 means 19:00 in whatever time zone your calendar uses. The page source is in [`docs/`](docs/), and both generators read the same schedule from [`docs/sessions.json`](docs/sessions.json).
 
 ## How a week works
 

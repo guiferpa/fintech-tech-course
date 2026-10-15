@@ -14,13 +14,13 @@ O cronograma não tem datas fixas. Você escolhe quando começar e recebe todas 
 2. Escolha o idioma, uma segunda-feira de início, o horário e os dias de folga (feriados, férias). As sessões pulam esses dias e andam para frente.
 3. Baixe o arquivo `.ics` e importe. No Google Calendar, crie antes uma agenda só para o curso (Configurações > Adicionar agenda > Criar nova agenda), depois vá em Configurações > Importar e exportar e escolha essa agenda.
 
-Prefere o terminal? Com Node 18 ou mais novo:
+Prefere o terminal? Clone o repositório e, com Node 18 ou mais novo, rode o [gerador de linha de comando](scripts/generate-ics.mjs):
 
 ```bash
 node scripts/generate-ics.mjs --start 2027-03-01 --time 19:00 --lang pt-BR --skip 2027-04-02,2027-04-21 > fintech-tech-course.ics
 ```
 
-Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua agenda usa.
+Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua agenda usa. O código da página está em [`docs/`](docs/), e os dois geradores leem o mesmo cronograma de [`docs/sessions.json`](docs/sessions.json).
 
 ## Como funciona uma semana
 
