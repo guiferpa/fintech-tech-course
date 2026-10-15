@@ -1,0 +1,40 @@
+# Módulo 6: Ledger e contabilidade
+
+**Semana 7** · [Voltar para a ementa](../README.pt-BR.md) · [Read in English](06-ledgers-and-accounting.md)
+
+## Objetivo
+
+Modelar dinheiro como um contador: dupla entrada, saldos por estado, holds, taxas, estornos e invariantes garantidas pelo banco.
+
+## Segunda a quarta: leitura + laboratório (3 h por dia)
+
+| Dia | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- |
+| Seg | Modern Treasury, "Accounting for Developers" partes 1 e 2: dupla entrada, débito e crédito, saldo normal de cada tipo de conta.<br>Modern Treasury, "Accounting for Developers" parte 3 e a série sobre ledgers: saldos pending, posted e available. | Modelagem e migrations: accounts, transactions, postings. |
+| Ter | Documentação do TigerBeetle: modelo de dados (accounts, transfers), pending transfers em duas fases e flags como debits_must_not_exceed_credits.<br>Stripe, "Ledger: Stripe's system for tracking and validating money movement". | Tipo Money (bigint de centavos + moeda), split determinístico de 100 em 3 e banker's rounding, com testes unitários. |
+| Qua | Hot accounts (sub-contas, agregação em lote), auditabilidade append-only, moeda e taxa de câmbio no lançamento.<br>No papel: lançamentos de depósito, transferência com taxa, estorno parcial, hold e captura. | Preparação do dia de conclusão: fast-check instalado, geradores de operação esboçados, lista de tarefas. Sem código do TCM. |
+
+Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
+
+## Quinta e sexta: trabalho de conclusão (TCM), sem IA
+
+Tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.
+
+1. (45 min) Invariante soma zero garantida no banco (constraint trigger deferrable).
+2. (1 h) Lançamentos: depósito, transferência com taxa, estorno parcial.
+3. (1 h) Holds: criar, capturar e liberar; saldos pending, available e held.
+4. (45 min) Migrar as transferências dos módulos 3 e 4 para o ledger.
+5. (1 h) Teste baseado em propriedades: 10 mil operações aleatórias sem quebrar a soma zero nem deixar available negativo.
+6. (30 min) docs/m06.md.
+
+A quinta cobre os itens 1 a 3; a sexta cobre o resto e termina com 30 minutos de entrega.
+
+## Critério de aprovação
+
+Um teste baseado em propriedades roda 10 mil operações aleatórias e nunca quebra a soma zero nem deixa o saldo disponível negativo.
+
+## Teste de domínio
+
+Responda em voz alta, em até 2 minutos, sem consultar, e grave:
+
+> Modele as tabelas de um ledger de carteira digital e mostre os lançamentos de: depósito, transferência entre usuários com taxa, e estorno parcial.

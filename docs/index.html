@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fintech Tech Course calendar</title>
+<link rel="icon" href="data:,">
+<style>
+  :root { --bg:#fafaf9; --fg:#1c1917; --muted:#57534e; --card:#fff; --line:#e7e5e4; --accent:#0f766e; --accent-fg:#fff; --cap:#fef3c7; --cp:#e0f2fe; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0c0a09; --fg:#f5f5f4; --muted:#a8a29e; --card:#1c1917; --line:#292524; --accent:#2dd4bf; --accent-fg:#042f2e; --cap:#422006; --cp:#082f49; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:820px; margin:0 auto; padding:32px 16px 64px; }
+  header { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  h1 { font-size:1.6rem; margin:0; }
+  p.lead { color:var(--muted); margin:8px 0 24px; }
+  .lang button { border:1px solid var(--line); background:var(--card); color:var(--fg); padding:6px 12px; cursor:pointer; font:inherit; }
+  .lang button:first-child { border-radius:8px 0 0 8px; } .lang button:last-child { border-radius:0 8px 8px 0; }
+  .lang button[aria-pressed="true"] { background:var(--accent); color:var(--accent-fg); border-color:var(--accent); }
+  form { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  label { display:flex; flex-direction:column; gap:4px; font-weight:600; font-size:.9rem; }
+  label small { font-weight:400; color:var(--muted); }
+  input, textarea { font:inherit; padding:8px 10px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--fg); }
+  .full { grid-column:1 / -1; }
+  .actions { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .primary { background:var(--accent); color:var(--accent-fg); border:0; border-radius:8px; padding:10px 18px; font:inherit; font-weight:600; cursor:pointer; }
+  #summary { color:var(--muted); }
+  #error { color:#dc2626; }
+  h2 { font-size:1.15rem; margin:32px 0 8px; }
+  ol.steps li { margin-bottom:6px; }
+  .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--card); }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; }
+  th, td { text-align:left; padding:8px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { position:sticky; top:0; background:var(--card); }
+  td.date { white-space:nowrap; font-variant-numeric:tabular-nums; }
+  tr.capstone td { background:var(--cap); }
+  tr.checkpoint td { background:var(--cp); }
+  footer { margin-top:32px; color:var(--muted); font-size:.85rem; }
+  a { color:var(--accent); }
+  @media (max-width:600px) { form { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 data-i18n="title"></h1>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">English</button><button type="button" data-lang="pt-BR">Português</button>
+    </div>
+  </header>
+  <p class="lead" data-i18n="lead"></p>
+
+  <form id="form">
+    <label><span data-i18n="start"></span><input type="date" id="start" required><small data-i18n="startHint"></small></label>
+    <label><span data-i18n="time"></span><input type="time" id="time" value="19:00" required><small data-i18n="timeHint"></small></label>
+    <label class="full"><span data-i18n="skip"></span><textarea id="skip" rows="2" placeholder="2027-04-02, 2027-04-21"></textarea><small data-i18n="skipHint"></small></label>
+    <label class="full"><span data-i18n="name"></span><input type="text" id="name" value="Fintech Tech Course"></label>
+    <div class="full actions">
+      <button class="primary" type="submit" data-i18n="download"></button>
+      <span id="summary"></span><span id="error"></span>
+    </div>
+  </form>
+
+  <h2 data-i18n="howTitle"></h2>
+  <ol class="steps">
+    <li data-i18n="how1"></li><li data-i18n="how2"></li><li data-i18n="how3"></li>
+  </ol>
+
+  <h2 data-i18n="previewTitle"></h2>
+  <div class="table-wrap"><table><thead><tr><th data-i18n="colDate"></th><th data-i18n="colWeek"></th><th data-i18n="colSession"></th></tr></thead><tbody id="preview"></tbody></table></div>
+
+  <footer data-i18n="footer"></footer>
+</main>
+
+<script type="module">
+import { buildIcs, schedule } from "./ics.js";
+
+const STR = {
+  en: {
+    title: "Fintech Tech Course: your calendar",
+    lead: "13 weeks, weekdays only, 3 hours a day. Pick when you start and download every session as a calendar file.",
+    start: "Start date", startHint: "Use a Monday so capstone days fall on Thursday and Friday.",
+    time: "Start time", timeHint: "Each session lasts 3 hours, in your calendar's time zone.",
+    skip: "Days off", skipHint: "Holidays or vacation, as YYYY-MM-DD separated by commas or new lines. Sessions on those days move to the next weekday.",
+    name: "Calendar name",
+    download: "Download .ics",
+    summary: (n, a, b) => `${n} sessions, from ${a} to ${b}.`,
+    howTitle: "How to import",
+    how1: "Google Calendar: create a dedicated calendar first (Settings, Add calendar, Create new calendar), so you can hide or delete the course in one click.",
+    how2: "Then open Settings, Import & export, choose the downloaded file and select that calendar.",
+    how3: "Apple Calendar and Outlook: open the .ics file and pick or create a calendar when asked.",
+    previewTitle: "Preview", colDate: "Date", colWeek: "Week", colSession: "Session",
+    footer: 'Syllabus, modules and the "no AI on capstone days" rule: <a href="https://github.com/guiferpa/fintech-tech-course">github.com/guiferpa/fintech-tech-course</a>. Everything runs in your browser; nothing is sent anywhere.',
+    locale: "en-US",
+  },
+  "pt-BR": {
+    title: "Fintech Tech Course: sua agenda",
+    lead: "13 semanas, só dias úteis, 3 horas por dia. Escolha quando começar e baixe todas as sessões como arquivo de calendário.",
+    start: "Data de início", startHint: "Use uma segunda-feira para os dias de conclusão caírem na quinta e na sexta.",
+    time: "Horário de início", timeHint: "Cada sessão dura 3 horas, no fuso do seu calendário.",
+    skip: "Dias de folga", skipHint: "Feriados ou férias, no formato AAAA-MM-DD separados por vírgula ou linha. As sessões desses dias passam para o próximo dia útil.",
+    name: "Nome do calendário",
+    download: "Baixar .ics",
+    summary: (n, a, b) => `${n} sessões, de ${a} a ${b}.`,
+    howTitle: "Como importar",
+    how1: "Google Agenda: crie antes um calendário dedicado (Configurações, Adicionar agenda, Criar nova agenda), assim você oculta ou apaga o curso com um clique.",
+    how2: "Depois abra Configurações, Importar e exportar, escolha o arquivo baixado e selecione esse calendário.",
+    how3: "Apple Calendário e Outlook: abra o arquivo .ics e escolha ou crie um calendário quando pedir.",
+    previewTitle: "Prévia", colDate: "Data", colWeek: "Semana", colSession: "Sessão",
+    footer: 'Ementa, módulos e a regra "sem IA nos dias de conclusão": <a href="https://github.com/guiferpa/fintech-tech-course">github.com/guiferpa/fintech-tech-course</a>. Tudo roda no seu navegador; nada é enviado.',
+    locale: "pt-BR",
+  },
+};
+
+const $ = (id) => document.getElementById(id);
+let data, lang = "en";
+try { const saved = localStorage.getItem("ftc-lang"); if (saved in STR) lang = saved; else if (navigator.language?.startsWith("pt")) lang = "pt-BR"; } catch {}
+
+function nextMonday() {
+  const d = new Date(); d.setHours(12);
+  d.setDate(d.getDate() + ((8 - d.getDay()) % 7 || 7));
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+const skipList = () => $("skip").value.split(/[\s,;]+/).map((s) => s.trim()).filter(Boolean);
+const fmt = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(STR[lang].locale, { weekday: "short", day: "2-digit", month: "short", year: "numeric" });
+
+function render() {
+  const t = STR[lang];
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach((el) => { const v = t[el.dataset.i18n]; if (typeof v === "string") el.innerHTML = v; });
+  document.querySelectorAll("[data-lang]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+  if (!data) return;
+  $("error").textContent = "";
+  try {
+    const rows = schedule(data.sessions, { start: $("start").value, skip: skipList() });
+    $("summary").textContent = t.summary(rows.length, fmt(rows[0].date), fmt(rows.at(-1).date));
+    $("preview").innerHTML = rows.map((s) => {
+      const cls = s.module === "C1" || s.module === "C2" ? "checkpoint" : s.day >= 4 && s.module !== "F" ? "capstone" : "";
+      const title = s.title[lang].replace(/&/g, "&amp;").replace(/</g, "&lt;");
+      return `<tr class="${cls}"><td class="date">${fmt(s.date)}</td><td>${s.week}</td><td>${title}</td></tr>`;
+    }).join("");
+  } catch (e) { $("summary").textContent = ""; $("error").textContent = e.message; }
+}
+
+document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => {
+  lang = b.dataset.lang; try { localStorage.setItem("ftc-lang", lang); } catch {} render();
+}));
+["start", "skip"].forEach((id) => $(id).addEventListener("input", render));
+
+$("form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  try {
+    const ics = buildIcs(data, { start: $("start").value, time: $("time").value, lang, skip: skipList(), calendarName: $("name").value.trim() });
+    const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(new Blob([ics], { type: "text/calendar" })), download: `fintech-tech-course-${$("start").value}.ics` });
+    a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  } catch (err) { $("error").textContent = err.message; }
+});
+
+$("start").value = nextMonday();
+render();
+fetch("./sessions.json").then((r) => r.json()).then((d) => { data = d; render(); }).catch((e) => { $("error").textContent = e.message; });
+</script>
+</body>
+</html>

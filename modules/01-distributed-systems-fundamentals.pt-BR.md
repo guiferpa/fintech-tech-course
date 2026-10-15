@@ -1,0 +1,39 @@
+# Módulo 1: Fundamentos de sistemas distribuídos
+
+**Semana 1** · [Voltar para a ementa](../README.pt-BR.md) · [Read in English](01-distributed-systems-fundamentals.md)
+
+## Objetivo
+
+Construir o vocabulário que sustenta todo o resto: falhas parciais, semânticas de entrega, replicação, particionamento, modelos de consistência e relógios. Consenso e Raft ficam para o Módulo 9.
+
+## Segunda a quarta: leitura + laboratório (3 h por dia)
+
+| Dia | Leitura (2 h) | Laboratório (1 h) |
+| --- | --- | --- |
+| Seg | DDIA cap. 8, primeira metade: falhas parciais, redes não confiáveis, timeouts. Anote os 3 desfechos possíveis de um timeout (aconteceu, não aconteceu, desconhecido).<br>DDIA cap. 8, segunda metade: relógios não confiáveis, pausas de processo, verdade definida pela maioria. Anote por que não ordenar eventos pelo relógio da máquina e o que é um Lamport clock. | Crie o repositório público (services/, docs/, chaos/) com o esqueleto NestJS e o Docker Compose com Postgres primário + réplica assíncrona (streaming replication). |
+| Ter | DDIA cap. 5 até "Problems with Replication Lag": líder e seguidor, replicação síncrona x assíncrona, failover e perda de escrita, read-your-writes, monotonic reads.<br>DDIA cap. 5, resto: multi-líder, leaderless, quorum (R + W > N). | Experimento de leitura velha: script que escreve no primário e lê na réplica em loop, medindo o lag. Coloque o Toxiproxy entre as duas para tornar o lag visível. Anote os números. |
+| Qua | DDIA cap. 6: particionamento por chave e por hash, hot partitions, rebalanceamento. Pense: qual a chave de partição de uma carteira digital?<br>DDIA cap. 9 até "Ordering Guarantees": linearizabilidade e CAP. Complemento: PACELC (artigo de Daniel Abadi, 2012). Rascunhe a tabela de 8 operações da carteira x modelo de consistência. | Preparação do dia de conclusão (sem escrever o código do TCM): suba o banco parceiro falso (endpoint com atraso configurável) atrás do Toxiproxy e escreva no papel a lista de tarefas e os casos de teste de sábado. |
+
+Nos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.
+
+## Quinta e sexta: trabalho de conclusão (TCM), sem IA
+
+Tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.
+
+1. (1 h) Serviço payments: POST /transfers grava a transferência como PENDING e chama o banco parceiro falso com timeout de 2 s.
+2. (1 h) Tratar os 3 desfechos: sucesso vira COMPLETED, erro definitivo vira FAILED, timeout vira UNKNOWN (nunca FAILED). Job que consulta o parceiro e resolve os UNKNOWN.
+3. (1 h) Testes de integração com Testcontainers + Toxiproxy cobrindo os 3 desfechos.
+4. (1 h) chaos/replica-lag.sh reproduzindo a leitura velha de forma automática.
+5. (1 h) docs/m01.md: o experimento, os 3 desfechos de um timeout e a tabela das 8 operações x consistência.
+
+A quinta cobre os itens 1 a 3; a sexta cobre o resto e termina com 30 minutos de entrega.
+
+## Critério de aprovação
+
+A leitura velha é reproduzível por script, e a tabela de consistência justifica cada escolha em uma linha.
+
+## Teste de domínio
+
+Responda em voz alta, em até 2 minutos, sem consultar, e grave:
+
+> Seu serviço chama o banco parceiro, dá timeout e o cliente tenta de novo. O que pode ter acontecido e como seu sistema garante que não cobrou duas vezes?

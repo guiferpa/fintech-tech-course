@@ -1,0 +1,857 @@
+{
+  "course": "Fintech Tech Course",
+  "repo": "https://github.com/guiferpa/fintech-tech-course",
+  "languages": [
+    "en",
+    "pt-BR"
+  ],
+  "sessionMinutes": 180,
+  "weeks": 13,
+  "sessions": [
+    {
+      "week": 1,
+      "day": 1,
+      "module": "M1",
+      "title": {
+        "en": "[M1] Reading + lab: Distributed systems fundamentals",
+        "pt-BR": "[M1] Leitura + laboratório: Fundamentos de sistemas distribuídos"
+      },
+      "description": {
+        "en": "Module 1: Distributed systems fundamentals.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- DDIA ch. 8, first half: partial failures, unreliable networks, timeouts. Write down the 3 possible outcomes of a timeout (happened, didn't happen, unknown).\n- DDIA ch. 8, second half: unreliable clocks, process pauses, truth defined by the majority. Write down why you can't order events by wall clock and what a Lamport clock is.\n\nLab (1 h):\nCreate the public repo (services/, docs/, chaos/) with the NestJS skeleton and Docker Compose with a Postgres primary + async replica (streaming replication).\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.md",
+        "pt-BR": "Módulo 1: Fundamentos de sistemas distribuídos.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- DDIA cap. 8, primeira metade: falhas parciais, redes não confiáveis, timeouts. Anote os 3 desfechos possíveis de um timeout (aconteceu, não aconteceu, desconhecido).\n- DDIA cap. 8, segunda metade: relógios não confiáveis, pausas de processo, verdade definida pela maioria. Anote por que não ordenar eventos pelo relógio da máquina e o que é um Lamport clock.\n\nLaboratório (1 h):\nCrie o repositório público (services/, docs/, chaos/) com o esqueleto NestJS e o Docker Compose com Postgres primário + réplica assíncrona (streaming replication).\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.pt-BR.md"
+      }
+    },
+    {
+      "week": 1,
+      "day": 2,
+      "module": "M1",
+      "title": {
+        "en": "[M1] Reading + lab: Distributed systems fundamentals",
+        "pt-BR": "[M1] Leitura + laboratório: Fundamentos de sistemas distribuídos"
+      },
+      "description": {
+        "en": "Module 1: Distributed systems fundamentals.\n\nReading (2 h):\n- DDIA ch. 5 up to \"Problems with Replication Lag\": leader/follower, sync vs. async replication, failover and lost writes, read-your-writes, monotonic reads.\n- DDIA ch. 5, rest: multi-leader, leaderless, quorums (R + W > N).\n\nLab (1 h):\nStale-read experiment (short version): a script writes to the primary and reads from the replica in a loop, measuring lag; put Toxiproxy between them to make lag visible.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.md",
+        "pt-BR": "Módulo 1: Fundamentos de sistemas distribuídos.\n\nLeitura (2 h):\n- DDIA cap. 5 até \"Problems with Replication Lag\": líder e seguidor, replicação síncrona x assíncrona, failover e perda de escrita, read-your-writes, monotonic reads.\n- DDIA cap. 5, resto: multi-líder, leaderless, quorum (R + W > N).\n\nLaboratório (1 h):\nExperimento de leitura velha: script que escreve no primário e lê na réplica em loop, medindo o lag. Coloque o Toxiproxy entre as duas para tornar o lag visível. Anote os números.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.pt-BR.md"
+      }
+    },
+    {
+      "week": 1,
+      "day": 3,
+      "module": "M1",
+      "title": {
+        "en": "[M1] Reading + lab: Distributed systems fundamentals",
+        "pt-BR": "[M1] Leitura + laboratório: Fundamentos de sistemas distribuídos"
+      },
+      "description": {
+        "en": "Module 1: Distributed systems fundamentals.\n\nReading (2 h):\n- DDIA ch. 6: partitioning by key range and by hash, hot partitions, rebalancing. Think: what is the partition key of a digital wallet?\n- DDIA ch. 9 up to \"Ordering Guarantees\": linearizability and CAP. Extra: PACELC (Daniel Abadi, 2012). Draft the table of 8 wallet operations vs. required consistency model.\n\nLab (1 h):\nCapstone prep (no TCM code yet): spin up the fake partner bank (endpoint with configurable delay) behind Toxiproxy and write on paper the task list and test cases for Thu/Fri.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.md",
+        "pt-BR": "Módulo 1: Fundamentos de sistemas distribuídos.\n\nLeitura (2 h):\n- DDIA cap. 6: particionamento por chave e por hash, hot partitions, rebalanceamento. Pense: qual a chave de partição de uma carteira digital?\n- DDIA cap. 9 até \"Ordering Guarantees\": linearizabilidade e CAP. Complemento: PACELC (artigo de Daniel Abadi, 2012). Rascunhe a tabela de 8 operações da carteira x modelo de consistência.\n\nLaboratório (1 h):\nPreparação do dia de conclusão (sem escrever o código do TCM): suba o banco parceiro falso (endpoint com atraso configurável) atrás do Toxiproxy e escreva no papel a lista de tarefas e os casos de teste de sábado.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.pt-BR.md"
+      }
+    },
+    {
+      "week": 1,
+      "day": 4,
+      "module": "M1",
+      "title": {
+        "en": "[M1] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M1] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 1: Distributed systems fundamentals.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (1 h) payments service: POST /transfers stores the transfer as PENDING and calls the fake partner bank with a 2 s timeout.\n2. (1 h) Handle the 3 outcomes: success -> COMPLETED, definitive error -> FAILED, timeout -> UNKNOWN (never FAILED). Job that queries the partner and resolves UNKNOWNs.\n3. (1 h) Integration tests with Testcontainers + Toxiproxy covering the 3 outcomes.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.md",
+        "pt-BR": "Módulo 1: Fundamentos de sistemas distribuídos.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (1 h) Serviço payments: POST /transfers grava a transferência como PENDING e chama o banco parceiro falso com timeout de 2 s.\n2. (1 h) Tratar os 3 desfechos: sucesso vira COMPLETED, erro definitivo vira FAILED, timeout vira UNKNOWN (nunca FAILED). Job que consulta o parceiro e resolve os UNKNOWN.\n3. (1 h) Testes de integração com Testcontainers + Toxiproxy cobrindo os 3 desfechos.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.pt-BR.md"
+      }
+    },
+    {
+      "week": 1,
+      "day": 5,
+      "module": "M1",
+      "title": {
+        "en": "[M1] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M1] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 1: Distributed systems fundamentals.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (1 h) chaos/replica-lag.sh reproducing the stale read automatically.\n5. (1 h) docs/m01.md: the experiment, the 3 outcomes of a timeout and the 8-operation consistency table.\n\nDelivery (last 30 min):\n- Final commit tagged m1.\n- Record the mastery test (2 min, no notes): \"Your service calls the partner bank, it times out and the client retries. What may have happened, and how does your system guarantee it didn't charge twice?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.md",
+        "pt-BR": "Módulo 1: Fundamentos de sistemas distribuídos.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (1 h) chaos/replica-lag.sh reproduzindo a leitura velha de forma automática.\n5. (1 h) docs/m01.md: o experimento, os 3 desfechos de um timeout e a tabela das 8 operações x consistência.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m1.\n- Grave o teste de domínio (2 min, sem consulta): \"Seu serviço chama o banco parceiro, dá timeout e o cliente tenta de novo. O que pode ter acontecido e como seu sistema garante que não cobrou duas vezes?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/01-distributed-systems-fundamentals.pt-BR.md"
+      }
+    },
+    {
+      "week": 2,
+      "day": 1,
+      "module": "M2",
+      "title": {
+        "en": "[M2] Reading + lab: End-to-end idempotency",
+        "pt-BR": "[M2] Leitura + laboratório: Idempotência ponta a ponta"
+      },
+      "description": {
+        "en": "Module 2: End-to-end idempotency.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Stripe, \"Designing robust and predictable APIs with idempotency\". Brandur Leach, \"Implementing Stripe-like Idempotency Keys in Postgres\", first half (atomic phases, recovery points).\n\nLab (1 h):\nTry out in your local Postgres what you read today and write down questions for the capstone days.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.md",
+        "pt-BR": "Módulo 2: Idempotência ponta a ponta.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Stripe, \"Designing robust and predictable APIs with idempotency\". Brandur Leach, \"Implementing Stripe-like Idempotency Keys in Postgres\", primeira metade (fases atômicas e recovery points).\n\nLaboratório (1 h):\nPratique no Postgres local o que você leu hoje e anote dúvidas para os dias de conclusão.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.pt-BR.md"
+      }
+    },
+    {
+      "week": 2,
+      "day": 2,
+      "module": "M2",
+      "title": {
+        "en": "[M2] Reading + lab: End-to-end idempotency",
+        "pt-BR": "[M2] Leitura + laboratório: Idempotência ponta a ponta"
+      },
+      "description": {
+        "en": "Module 2: End-to-end idempotency.\n\nReading (2 h):\n- Brandur Leach, second half. Idempotent message consumers: at-least-once + processed-messages table keyed by message_id in the same transaction as the effect.\n\nLab (1 h):\nTry out in your local Postgres what you read today and write down questions for the capstone days.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.md",
+        "pt-BR": "Módulo 2: Idempotência ponta a ponta.\n\nLeitura (2 h):\n- Brandur Leach, segunda metade. Idempotência no consumidor de mensagens: at-least-once + tabela de mensagens processadas por message_id na mesma transação do efeito.\n\nLaboratório (1 h):\nPratique no Postgres local o que você leu hoje e anote dúvidas para os dias de conclusão.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.pt-BR.md"
+      }
+    },
+    {
+      "week": 2,
+      "day": 3,
+      "module": "M2",
+      "title": {
+        "en": "[M2] Reading + lab: End-to-end idempotency",
+        "pt-BR": "[M2] Leitura + laboratório: Idempotência ponta a ponta"
+      },
+      "description": {
+        "en": "Module 2: End-to-end idempotency.\n\nReading (2 h):\n- Natural key vs. client key (Pix end_to_end_id), naturally idempotent operations (SET status ... WHERE status = 'PENDING') vs. non-idempotent ones (balance = balance - 100), forwarding the key to the provider. Draw API -> queue -> worker -> provider with every idempotency point.\n\nLab (1 h):\nCapstone prep: list the test cases (same key + same body, same key + different body, request still in flight, 50 concurrent) and create empty migrations. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.md",
+        "pt-BR": "Módulo 2: Idempotência ponta a ponta.\n\nLeitura (2 h):\n- Chave natural x chave do cliente (end_to_end_id do Pix), operações naturalmente idempotentes (SET status ... WHERE status = 'PENDING') x não idempotentes (balance = balance - 100), repassar a chave ao provedor. Desenhe no papel o fluxo API → fila → worker → provedor com os pontos de idempotência.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: liste os casos de teste (mesma chave e mesmo corpo, mesma chave e corpo diferente, requisição ainda em andamento, 50 simultâneas) e crie as migrations vazias. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.pt-BR.md"
+      }
+    },
+    {
+      "week": 2,
+      "day": 4,
+      "module": "M2",
+      "title": {
+        "en": "[M2] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M2] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 2: End-to-end idempotency.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (45 min) idempotency_keys table (key, user, body hash, status, response code and body, locked_at) and migration.\n2. (1 h 30) NestJS interceptor: insert key with ON CONFLICT; completed with same hash returns stored response; in flight returns 409; different hash returns 422.\n3. (30 min) Forward the key as a header to the fake partner bank, which also dedupes.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.md",
+        "pt-BR": "Módulo 2: Idempotência ponta a ponta.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (45 min) Tabela idempotency_keys (chave, usuário, hash do corpo, status, código e corpo da resposta, locked_at) e migration.\n2. (1 h 30) Interceptor no NestJS: insere a chave com ON CONFLICT; concluída com mesmo hash devolve a resposta salva; em andamento devolve 409; hash diferente devolve 422.\n3. (30 min) Repassar a chave em header ao banco parceiro falso, que também deduplica.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.pt-BR.md"
+      }
+    },
+    {
+      "week": 2,
+      "day": 5,
+      "module": "M2",
+      "title": {
+        "en": "[M2] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M2] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 2: End-to-end idempotency.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (45 min) processed_messages table and a consumer that ignores repeated message_id in the same transaction as the effect.\n5. (45 min) Test: 50 concurrent requests with the same key end in exactly 1 transfer.\n6. (45 min) docs/m02.md with your decisions.\n\nDelivery (last 30 min):\n- Final commit tagged m2.\n- Record the mastery test (2 min, no notes): \"In an API -> queue -> worker -> provider flow, where do you put idempotency, and why at each point?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.md",
+        "pt-BR": "Módulo 2: Idempotência ponta a ponta.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (45 min) Tabela processed_messages e consumidor que ignora message_id repetido, na mesma transação do efeito.\n5. (45 min) Teste: 50 requisições simultâneas com a mesma chave terminam em exatamente 1 transferência.\n6. (45 min) docs/m02.md com as decisões.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m2.\n- Grave o teste de domínio (2 min, sem consulta): \"Onde, num fluxo API → fila → worker → provedor, você coloca idempotência, e por que em cada ponto?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/02-end-to-end-idempotency.pt-BR.md"
+      }
+    },
+    {
+      "week": 3,
+      "day": 1,
+      "module": "M3",
+      "title": {
+        "en": "[M3] Reading + lab: Transactions, concurrency and Postgres",
+        "pt-BR": "[M3] Leitura + laboratório: Transações, concorrência e Postgres"
+      },
+      "description": {
+        "en": "Module 3: Transactions, concurrency and Postgres.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- DDIA ch. 7 up to \"Weak Isolation Levels\": ACID and what each letter protects for money; read committed; snapshot isolation.\n- DDIA ch. 7: lost update, write skew, phantoms. Build a write-skew example with balances.\n\nLab (1 h):\nTwo psql sessions: reproduce a lost update under READ COMMITTED. Write down the exact command sequence.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.md",
+        "pt-BR": "Módulo 3: Transações, concorrência e Postgres.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- DDIA cap. 7 até \"Weak Isolation Levels\": ACID e o que cada letra protege em dinheiro; read committed; snapshot isolation.\n- DDIA cap. 7: lost update, write skew e phantoms. Monte um exemplo de write skew com saldo.\n\nLaboratório (1 h):\nDuas sessões psql: reproduza lost update em READ COMMITTED. Anote a sequência exata de comandos.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.pt-BR.md"
+      }
+    },
+    {
+      "week": 3,
+      "day": 2,
+      "module": "M3",
+      "title": {
+        "en": "[M3] Reading + lab: Transactions, concurrency and Postgres",
+        "pt-BR": "[M3] Leitura + laboratório: Transações, concorrência e Postgres"
+      },
+      "description": {
+        "en": "Module 3: Transactions, concurrency and Postgres.\n\nReading (2 h):\n- Postgres docs, \"Concurrency Control\" 13.1 and 13.2: isolation levels in Postgres, serialization failure (40001) and retries.\n- Postgres 13.3, \"Explicit Locking\": SELECT ... FOR UPDATE, SKIP LOCKED, advisory locks, deadlocks and lock ordering.\n\nLab (1 h):\nWrite skew under REPEATABLE READ with a couple's two accounts (rule: sum of balances >= 0). Repeat under SERIALIZABLE and see error 40001.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.md",
+        "pt-BR": "Módulo 3: Transações, concorrência e Postgres.\n\nLeitura (2 h):\n- Documentação do Postgres, \"Concurrency Control\" 13.1 e 13.2: níveis de isolamento no Postgres, erro de serialização (40001) e retry.\n- Postgres 13.3, \"Explicit Locking\": SELECT ... FOR UPDATE, SKIP LOCKED, advisory locks, deadlocks e ordem de aquisição.\n\nLaboratório (1 h):\nWrite skew em REPEATABLE READ com as contas de um casal (regra: soma dos saldos ≥ 0). Repita em SERIALIZABLE e observe o erro 40001. Anote tudo.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.pt-BR.md"
+      }
+    },
+    {
+      "week": 3,
+      "day": 3,
+      "module": "M3",
+      "title": {
+        "en": "[M3] Reading + lab: Transactions, concurrency and Postgres",
+        "pt-BR": "[M3] Leitura + laboratório: Transações, concorrência e Postgres"
+      },
+      "description": {
+        "en": "Module 3: Transactions, concurrency and Postgres.\n\nReading (2 h):\n- Kleppmann, \"How to do distributed locking\": Redis SET NX PX, fencing tokens, why the final guarantee lives in the database.\n- Postgres: \"Indexes\" (multicolumn and partial), \"Using EXPLAIN\", and the intro of \"Routine Vacuuming\" (MVCC and vacuum).\n\nLab (1 h):\nCapstone prep: seed 1,000 accounts, skeleton of the parallel load script, test list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.md",
+        "pt-BR": "Módulo 3: Transações, concorrência e Postgres.\n\nLeitura (2 h):\n- Kleppmann, \"How to do distributed locking\": Redis SET NX PX, fencing tokens, por que a garantia final fica no banco.\n- Postgres: \"Indexes\" (multicoluna e parcial), \"Using EXPLAIN\" e a introdução de \"Routine Vacuuming\" (MVCC e vacuum).\n\nLaboratório (1 h):\nPreparação do dia de conclusão: seed de 1.000 contas, esqueleto do script de carga paralela e lista de testes. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.pt-BR.md"
+      }
+    },
+    {
+      "week": 3,
+      "day": 4,
+      "module": "M3",
+      "title": {
+        "en": "[M3] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M3] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 3: Transactions, concurrency and Postgres.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (45 min) Transfer v1: SELECT ... FOR UPDATE locking both accounts in id order.\n2. (45 min) v2 optimistic: version column and bounded retries.\n3. (30 min) v3: conditional UPDATE ... WHERE balance >= :amount, checking affected rows.\n4. (1 h) Test with 100 parallel transfers per version: no negative balance, constant total.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.md",
+        "pt-BR": "Módulo 3: Transações, concorrência e Postgres.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (45 min) Transferência v1: SELECT ... FOR UPDATE travando as duas contas em ordem de id.\n2. (45 min) v2 otimista: coluna version e retry limitado.\n3. (30 min) v3: UPDATE condicional WHERE balance >= :valor, conferindo as linhas afetadas.\n4. (1 h) Teste com 100 transferências paralelas em cada versão: nenhum saldo negativo e soma total constante.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.pt-BR.md"
+      }
+    },
+    {
+      "week": 3,
+      "day": 5,
+      "module": "M3",
+      "title": {
+        "en": "[M3] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M3] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 3: Transactions, concurrency and Postgres.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n5. (45 min) Measure throughput, conflicts and retries; build the comparison table.\n6. (30 min) EXPLAIN ANALYZE of the statement query before and after an (account_id, created_at) index.\n7. (45 min) docs/m03.md stating which version you'd ship to production and why.\n\nDelivery (last 30 min):\n- Final commit tagged m3.\n- Record the mastery test (2 min, no notes): \"Two concurrent transfers leave the same account, with balance for only one. Show three ways to prevent a negative balance and the trade-off of each.\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.md",
+        "pt-BR": "Módulo 3: Transações, concorrência e Postgres.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n5. (45 min) Medir vazão, conflitos e retries; montar a tabela comparativa.\n6. (30 min) EXPLAIN ANALYZE do extrato antes e depois do índice (account_id, created_at).\n7. (45 min) docs/m03.md dizendo qual versão você usaria em produção e por quê.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m3.\n- Grave o teste de domínio (2 min, sem consulta): \"Duas transferências simultâneas saem da mesma conta com saldo para só uma. Mostre três formas de impedir saldo negativo e o trade-off de cada.\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/03-transactions-concurrency-postgres.pt-BR.md"
+      }
+    },
+    {
+      "week": 4,
+      "day": 1,
+      "module": "M4",
+      "title": {
+        "en": "[M4] Reading + lab: Sagas, Outbox and distributed transactions",
+        "pt-BR": "[M4] Leitura + laboratório: Saga, Outbox e transações distribuídas"
+      },
+      "description": {
+        "en": "Module 4: Sagas, Outbox and distributed transactions.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- DDIA ch. 9, \"Atomic Commit and Two-Phase Commit\": how 2PC works, why it holds locks and why external APIs don't support it.\n- Microservices Patterns (Richardson), ch. 4: orchestrated vs. choreographed sagas, compensation, pivot transaction, step ordering.\n\nLab (1 h):\nSplit accounts and payments, each with its own database in Compose, talking over HTTP.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.md",
+        "pt-BR": "Módulo 4: Saga, Outbox e transações distribuídas.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- DDIA cap. 9, \"Atomic Commit and Two-Phase Commit\": como o 2PC funciona, por que trava recursos e por que APIs externas não o suportam.\n- Microservices Patterns (Richardson), cap. 4: saga orquestrada x coreografada, compensação, pivot transaction e ordem dos passos.\n\nLaboratório (1 h):\nSepare accounts e payments, cada um com seu banco no Compose, falando por HTTP.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.pt-BR.md"
+      }
+    },
+    {
+      "week": 4,
+      "day": 2,
+      "module": "M4",
+      "title": {
+        "en": "[M4] Reading + lab: Sagas, Outbox and distributed transactions",
+        "pt-BR": "[M4] Leitura + laboratório: Saga, Outbox e transações distribuídas"
+      },
+      "description": {
+        "en": "Module 4: Sagas, Outbox and distributed transactions.\n\nReading (2 h):\n- Microservices Patterns, ch. 4: lack of isolation and countermeasures (semantic lock, commutative updates, reordering). TCC (Try-Confirm-Cancel) and balance holds.\n- Microservices Patterns, ch. 3: transactional messaging, Transactional Outbox, polling vs. log tailing. microservices.io outbox page. Debezium intro.\n\nLab (1 h):\nExperimental outbox: outbox table and a polling publisher with SKIP LOCKED writing to a log (Kafka comes in M5).\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.md",
+        "pt-BR": "Módulo 4: Saga, Outbox e transações distribuídas.\n\nLeitura (2 h):\n- Microservices Patterns, cap. 4, falta de isolamento e contramedidas (semantic lock, commutative updates, reordenar passos). TCC (Try-Confirm-Cancel) e a relação com hold de saldo.\n- Microservices Patterns, cap. 3: mensageria transacional, Transactional Outbox, polling x log tailing. microservices.io/patterns/data/transactional-outbox. Introdução do Debezium.\n\nLaboratório (1 h):\nOutbox experimental: tabela outbox e publicador por polling com SKIP LOCKED enviando para um log (Kafka só no M5).\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.pt-BR.md"
+      }
+    },
+    {
+      "week": 4,
+      "day": 3,
+      "module": "M4",
+      "title": {
+        "en": "[M4] Reading + lab: Sagas, Outbox and distributed transactions",
+        "pt-BR": "[M4] Leitura + laboratório: Saga, Outbox e transações distribuídas"
+      },
+      "description": {
+        "en": "Module 4: Sagas, Outbox and distributed transactions.\n\nReading (2 h):\n- Temporal docs (workflows, activities, retries, timers) and AWS Step Functions overview. When durable workflows are worth the cost.\n- On paper: the state machine of a cross-service transfer saga, with states, transitions, compensations and per-step timeouts.\n\nLab (1 h):\nCapstone prep: skeleton of chaos/kill-orchestrator.sh, task list and failure cases. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.md",
+        "pt-BR": "Módulo 4: Saga, Outbox e transações distribuídas.\n\nLeitura (2 h):\n- Documentação do Temporal (workflows, activities, retries, timers) e visão geral do AWS Step Functions. Quando um workflow durável vale o custo.\n- No papel: máquina de estados da saga de transferência entre serviços, com estados, transições, compensações e timeout de cada passo.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: esqueleto de chaos/kill-orchestrator.sh, lista de tarefas e casos de falha. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.pt-BR.md"
+      }
+    },
+    {
+      "week": 4,
+      "day": 4,
+      "module": "M4",
+      "title": {
+        "en": "[M4] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M4] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 4: Sagas, Outbox and distributed transactions.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (45 min) sagas table (id, state, step, attempts, deadline, payload) and the state machine in the orchestrator (payments).\n2. (1 h) Steps: debit A in accounts, credit B, complete. Each step idempotent with saga_id + step as key.\n3. (45 min) Compensation: a failed credit creates a reversal of the debit as a new entry, never a delete.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.md",
+        "pt-BR": "Módulo 4: Saga, Outbox e transações distribuídas.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (45 min) Tabela sagas (id, estado, passo, tentativas, deadline, payload) e máquina de estados no orquestrador (payments).\n2. (1 h) Passos: debitar A em accounts, creditar B, concluir. Cada passo idempotente com chave saga_id + passo.\n3. (45 min) Compensação: falha no crédito gera estorno do débito como novo lançamento, nunca apaga.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.pt-BR.md"
+      }
+    },
+    {
+      "week": 4,
+      "day": 5,
+      "module": "M4",
+      "title": {
+        "en": "[M4] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M4] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 4: Sagas, Outbox and distributed transactions.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (45 min) Recovery worker: picks non-terminal sagas with SKIP LOCKED and resumes; per-step timeout.\n5. (30 min) Outbox written in the same transaction as the data in each service.\n6. (45 min) chaos/kill-orchestrator.sh: 20 kills at random points; check total balance and no stuck saga.\n7. (30 min) docs/m04.md with the state diagram.\n\nDelivery (last 30 min):\n- Final commit tagged m4.\n- Record the mastery test (2 min, no notes): \"Design a transfer between accounts in two different services using a saga. What happens if the credit to B fails after the debit from A?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.md",
+        "pt-BR": "Módulo 4: Saga, Outbox e transações distribuídas.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (45 min) Worker de retomada: pega sagas não terminais com SKIP LOCKED e continua; timeout por passo.\n5. (30 min) Outbox gravado na mesma transação do dado em cada serviço.\n6. (45 min) chaos/kill-orchestrator.sh: 20 kills em pontos aleatórios; verificar soma dos saldos e ausência de saga parada.\n7. (30 min) docs/m04.md com o diagrama de estados.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m4.\n- Grave o teste de domínio (2 min, sem consulta): \"Desenhe uma transferência entre contas de dois serviços diferentes usando saga. O que acontece se o crédito em B falhar depois do débito em A?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/04-sagas-outbox.pt-BR.md"
+      }
+    },
+    {
+      "week": 5,
+      "day": 1,
+      "module": "C1",
+      "title": {
+        "en": "[C1] Review",
+        "pt-BR": "[C1] Revisão"
+      },
+      "description": {
+        "en": "Checkpoint 1 (M1 to M4), no new content this week.\n1) Review all flashcards (1 h).\n2) Reread the code and docs/mXX.md of this block and list the cut scope (2 h).\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Checkpoint 1 (M1 a M4), semana sem conteúdo novo.\n1) Revise todos os flashcards (1 h).\n2) Releia o código e os docs/mXX.md do bloco e liste o escopo cortado (2 h).\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 5,
+      "day": 2,
+      "module": "C1",
+      "title": {
+        "en": "[C1] Catch up on cut scope",
+        "pt-BR": "[C1] Reposição de escopo"
+      },
+      "description": {
+        "en": "Implement the most important cut scope from this block's TCMs, still without AI. If nothing was cut, study the topic where you struggled most.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Implemente o escopo cortado mais importante dos TCMs do bloco, ainda sem IA. Se nada ficou de fora, estude o tema em que você mais travou.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 5,
+      "day": 3,
+      "module": "C1",
+      "title": {
+        "en": "[C1] Mock system design",
+        "pt-BR": "[C1] Simulado de system design"
+      },
+      "description": {
+        "en": "1) 45-min system design, timed and recorded: digital wallet. Outline: requirements and numbers, API, data model, happy path, failures, scale, observability.\n2) Listen back and note what was missing (45 min).\n3) Redo only the weak parts (1 h).\nPass if you covered failures and idempotency without being asked.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "1) System design de 45 min, cronometrado e gravado: carteira digital. Roteiro: requisitos e números, API, modelo de dados, fluxo feliz, falhas, escala, observabilidade.\n2) Ouça a gravação e anote o que faltou (45 min).\n3) Refaça só as partes fracas (1 h).\nAprovado se você cobriu falhas e idempotência sem ser perguntado.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 5,
+      "day": 4,
+      "module": "C1",
+      "title": {
+        "en": "[C1] Mastery tests and code review",
+        "pt-BR": "[C1] Testes de domínio e code review"
+      },
+      "description": {
+        "en": "1) 5 random mastery tests from modules M1 to M4, 2 min each, recorded, no notes.\n2) Timed code review (30 min): read the checklist out loud first (money as float? non-idempotent op with retry? read+write without transaction/lock? external call inside a DB transaction? swallowed error or unknown status treated as failure? secret or PII in logs? missing timeout?), then review a payments snippet and write down findings.\n3) Turn whatever was missing into flashcards.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "1) 5 testes de domínio sorteados dos módulos M1 a M4, 2 min cada, gravados, sem consulta.\n2) Code review cronometrado (30 min): leia o checklist em voz alta antes de começar (dinheiro em float? operação não idempotente com retry? leitura e escrita sem transação ou lock? chamada externa dentro de transação? erro engolido ou status desconhecido tratado como falha? segredo ou dado pessoal em log? falta de timeout?), revise um trecho de código de pagamento e anote os achados.\n3) Transforme o que faltou em flashcards.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 5,
+      "day": 5,
+      "module": "C1",
+      "title": {
+        "en": "[C1] English and stories",
+        "pt-BR": "[C1] Inglês e histórias"
+      },
+      "description": {
+        "en": "Record 3 technical answers in English about the recent modules and write 1 new STAR story.\nAlso practice one question outside your experience, steering it to unknown state, idempotency, reconciliation or finality.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Grave 3 respostas técnicas em inglês sobre os módulos recentes e escreva 1 história nova no formato STAR.\nTreine também uma pergunta fora da sua experiência, levando para estado desconhecido, idempotência, reconciliação ou finalidade.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 6,
+      "day": 1,
+      "module": "M5",
+      "title": {
+        "en": "[M5] Reading + lab: Messaging and events",
+        "pt-BR": "[M5] Leitura + laboratório: Mensageria e eventos"
+      },
+      "description": {
+        "en": "Module 5: Messaging and events.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- DDIA ch. 11, first part: queues vs. logs, brokers, offsets, consumers.\n- Kafka: The Definitive Guide, producers chapter: acks, idempotent producer, partition key and per-key ordering.\n\nLab (1 h):\nRedpanda in Compose; create partitioned topics; produce and consume with kcat.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.md",
+        "pt-BR": "Módulo 5: Mensageria e eventos.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- DDIA cap. 11, primeira parte: filas x logs, brokers, offsets, consumidores.\n- Kafka: The Definitive Guide, capítulo de producers: acks, producer idempotente, chave de partição e ordenação por chave.\n\nLaboratório (1 h):\nRedpanda no Compose; criar tópicos com partições; produzir e consumir com kcat.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.pt-BR.md"
+      }
+    },
+    {
+      "week": 6,
+      "day": 2,
+      "module": "M5",
+      "title": {
+        "en": "[M5] Reading + lab: Messaging and events",
+        "pt-BR": "[M5] Leitura + laboratório: Mensageria e eventos"
+      },
+      "description": {
+        "en": "Module 5: Messaging and events.\n\nReading (2 h):\n- Kafka: The Definitive Guide, consumers chapter: consumer groups, rebalancing, committing offsets before or after processing.\n- Kafka: The Definitive Guide, reliable delivery chapter; Confluent docs on transactions and exactly-once.\n\nLab (1 h):\nSwitch the outbox publisher to Redpanda with account_id as key; simple consumer.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.md",
+        "pt-BR": "Módulo 5: Mensageria e eventos.\n\nLeitura (2 h):\n- Kafka: The Definitive Guide, capítulo de consumers: consumer groups, rebalance, commit de offset antes ou depois de processar.\n- Kafka: The Definitive Guide, capítulo de entrega confiável; documentação da Confluent sobre transações e exactly-once.\n\nLaboratório (1 h):\nTrocar o publicador do outbox para publicar no Redpanda com chave account_id; consumidor simples.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.pt-BR.md"
+      }
+    },
+    {
+      "week": 6,
+      "day": 3,
+      "module": "M5",
+      "title": {
+        "en": "[M5] Reading + lab: Messaging and events",
+        "pt-BR": "[M5] Leitura + laboratório: Mensageria e eventos"
+      },
+      "description": {
+        "en": "Module 5: Messaging and events.\n\nReading (2 h):\n- Retries, DLQ, poison messages and backpressure. Uber Engineering, \"Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka\".\n- Event sourcing and CQRS (DDIA ch. 11, \"Event Sourcing\"; microservices.io). Webhooks: the Standard Webhooks spec (HMAC, id, timestamp).\n\nLab (1 h):\nCapstone prep: sketch chaos scripts (kill consumer, poison message, out-of-order) and the task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.md",
+        "pt-BR": "Módulo 5: Mensageria e eventos.\n\nLeitura (2 h):\n- Retries, DLQ, mensagem venenosa e backpressure. Artigo da Uber, \"Building Reliable Reprocessing and Dead Letter Queues with Apache Kafka\".\n- Event sourcing e CQRS (DDIA cap. 11, \"Event Sourcing\"; microservices.io). Webhooks: especificação Standard Webhooks (HMAC, id, timestamp).\n\nLaboratório (1 h):\nPreparação do dia de conclusão: scripts de chaos esboçados (matar consumidor, mensagem venenosa, fora de ordem) e lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.pt-BR.md"
+      }
+    },
+    {
+      "week": 6,
+      "day": 4,
+      "module": "M5",
+      "title": {
+        "en": "[M5] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M5] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 5: Messaging and events.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (1 h) Consumer with inbox (processed_messages), committing the offset only after writing.\n2. (1 h) Retry topic with backoff, DLQ after N attempts and a command to replay the DLQ.\n3. (30 min) Version in the event; consumer ignores versions lower than or equal to the current one.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.md",
+        "pt-BR": "Módulo 5: Mensageria e eventos.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (1 h) Consumidor com inbox (processed_messages), commit de offset só depois de gravar.\n2. (1 h) Tópico de retry com backoff, DLQ após N tentativas e comando para reprocessar a DLQ.\n3. (30 min) Versão no evento; consumidor ignora versão menor ou igual à atual.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.pt-BR.md"
+      }
+    },
+    {
+      "week": 6,
+      "day": 5,
+      "module": "M5",
+      "title": {
+        "en": "[M5] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M5] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 5: Messaging and events.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (1 h) Webhook sender: HMAC-SHA256, event_id, timestamp and redelivery with backoff.\n5. (1 h) Run the 3 chaos scenarios and record results.\n6. (30 min) docs/m05.md.\n\nDelivery (last 30 min):\n- Final commit tagged m5.\n- Record the mastery test (2 min, no notes): \"Your Kafka consumer processed the event, wrote to the database and died before committing the offset. What happens, and why is it not a problem in your design?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.md",
+        "pt-BR": "Módulo 5: Mensageria e eventos.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (1 h) Emissor de webhook: HMAC-SHA256, event_id, timestamp e reenvio com backoff.\n5. (1 h) Rodar os 3 cenários de chaos e registrar resultados.\n6. (30 min) docs/m05.md.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m5.\n- Grave o teste de domínio (2 min, sem consulta): \"Seu consumidor Kafka processou o evento, gravou no banco e morreu antes de commitar o offset. O que acontece e por que isso não gera problema no seu desenho?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/05-messaging-and-events.pt-BR.md"
+      }
+    },
+    {
+      "week": 7,
+      "day": 1,
+      "module": "M6",
+      "title": {
+        "en": "[M6] Reading + lab: Ledgers and accounting",
+        "pt-BR": "[M6] Leitura + laboratório: Ledger e contabilidade"
+      },
+      "description": {
+        "en": "Module 6: Ledgers and accounting.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Modern Treasury, \"Accounting for Developers\" parts 1 and 2: double entry, debits and credits, normal balance of each account type.\n- Modern Treasury, \"Accounting for Developers\" part 3 and the ledger series: pending, posted and available balances.\n\nLab (1 h):\nModel and migrate: accounts, transactions, postings.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.md",
+        "pt-BR": "Módulo 6: Ledger e contabilidade.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Modern Treasury, \"Accounting for Developers\" partes 1 e 2: dupla entrada, débito e crédito, saldo normal de cada tipo de conta.\n- Modern Treasury, \"Accounting for Developers\" parte 3 e a série sobre ledgers: saldos pending, posted e available.\n\nLaboratório (1 h):\nModelagem e migrations: accounts, transactions, postings.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.pt-BR.md"
+      }
+    },
+    {
+      "week": 7,
+      "day": 2,
+      "module": "M6",
+      "title": {
+        "en": "[M6] Reading + lab: Ledgers and accounting",
+        "pt-BR": "[M6] Leitura + laboratório: Ledger e contabilidade"
+      },
+      "description": {
+        "en": "Module 6: Ledgers and accounting.\n\nReading (2 h):\n- TigerBeetle docs: data model (accounts, transfers), two-phase pending transfers, flags like debits_must_not_exceed_credits.\n- Stripe, \"Ledger: Stripe's system for tracking and validating money movement\".\n\nLab (1 h):\nMoney type (bigint cents + currency), deterministic split of 100 into 3 and banker's rounding, with unit tests.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.md",
+        "pt-BR": "Módulo 6: Ledger e contabilidade.\n\nLeitura (2 h):\n- Documentação do TigerBeetle: modelo de dados (accounts, transfers), pending transfers em duas fases e flags como debits_must_not_exceed_credits.\n- Stripe, \"Ledger: Stripe's system for tracking and validating money movement\".\n\nLaboratório (1 h):\nTipo Money (bigint de centavos + moeda), split determinístico de 100 em 3 e banker's rounding, com testes unitários.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.pt-BR.md"
+      }
+    },
+    {
+      "week": 7,
+      "day": 3,
+      "module": "M6",
+      "title": {
+        "en": "[M6] Reading + lab: Ledgers and accounting",
+        "pt-BR": "[M6] Leitura + laboratório: Ledger e contabilidade"
+      },
+      "description": {
+        "en": "Module 6: Ledgers and accounting.\n\nReading (2 h):\n- Hot accounts (sub-accounts, batching), append-only auditability, currency and FX rate on the entry.\n- On paper: entries for deposit, transfer with fee, partial refund, hold and capture.\n\nLab (1 h):\nCapstone prep: install fast-check, sketch operation generators, task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.md",
+        "pt-BR": "Módulo 6: Ledger e contabilidade.\n\nLeitura (2 h):\n- Hot accounts (sub-contas, agregação em lote), auditabilidade append-only, moeda e taxa de câmbio no lançamento.\n- No papel: lançamentos de depósito, transferência com taxa, estorno parcial, hold e captura.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: fast-check instalado, geradores de operação esboçados, lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.pt-BR.md"
+      }
+    },
+    {
+      "week": 7,
+      "day": 4,
+      "module": "M6",
+      "title": {
+        "en": "[M6] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M6] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 6: Ledgers and accounting.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (45 min) Zero-sum invariant enforced in the database (deferrable constraint trigger).\n2. (1 h) Entries: deposit, transfer with fee, partial refund.\n3. (1 h) Holds: create, capture, release; pending, available and held balances.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.md",
+        "pt-BR": "Módulo 6: Ledger e contabilidade.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (45 min) Invariante soma zero garantida no banco (constraint trigger deferrable).\n2. (1 h) Lançamentos: depósito, transferência com taxa, estorno parcial.\n3. (1 h) Holds: criar, capturar e liberar; saldos pending, available e held.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.pt-BR.md"
+      }
+    },
+    {
+      "week": 7,
+      "day": 5,
+      "module": "M6",
+      "title": {
+        "en": "[M6] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M6] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 6: Ledgers and accounting.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (45 min) Move the transfers from modules 3 and 4 onto the ledger.\n5. (1 h) Property-based test: 10,000 random operations never break zero-sum nor make available negative.\n6. (30 min) docs/m06.md.\n\nDelivery (last 30 min):\n- Final commit tagged m6.\n- Record the mastery test (2 min, no notes): \"Model the tables of a digital wallet ledger and show the entries for: a deposit, a transfer between users with a fee, and a partial refund.\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.md",
+        "pt-BR": "Módulo 6: Ledger e contabilidade.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (45 min) Migrar as transferências dos módulos 3 e 4 para o ledger.\n5. (1 h) Teste baseado em propriedades: 10 mil operações aleatórias sem quebrar a soma zero nem deixar available negativo.\n6. (30 min) docs/m06.md.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m6.\n- Grave o teste de domínio (2 min, sem consulta): \"Modele as tabelas de um ledger de carteira digital e mostre os lançamentos de: depósito, transferência entre usuários com taxa, e estorno parcial.\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/06-ledgers-and-accounting.pt-BR.md"
+      }
+    },
+    {
+      "week": 8,
+      "day": 1,
+      "module": "M7",
+      "title": {
+        "en": "[M7] Reading + lab: Payments, Pix and reconciliation",
+        "pt-BR": "[M7] Leitura + laboratório: Pagamentos, Pix e reconciliação"
+      },
+      "description": {
+        "en": "Module 7: Payments, Pix and reconciliation.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Card payment lifecycle (authorization, capture, settlement, refund, chargeback) and actors (issuer, acquirer, card network, sub-acquirer, gateway, PSP). Stripe docs on PaymentIntents.\n- System Design Interview vol. 2, payment system chapter.\n\nLab (1 h):\nTwo fake acquirers that authorize, capture and produce a daily settlement CSV.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.md",
+        "pt-BR": "Módulo 7: Pagamentos, Pix e reconciliação.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Ciclo de vida de pagamento com cartão (autorização, captura, liquidação, estorno, chargeback) e atores (emissor, adquirente, bandeira, subadquirente, gateway, PSP). Documentação da Stripe sobre PaymentIntents.\n- System Design Interview vol. 2, capítulo de sistema de pagamento.\n\nLaboratório (1 h):\nDois adquirentes falsos que autorizam, capturam e geram CSV de liquidação diário.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.pt-BR.md"
+      }
+    },
+    {
+      "week": 8,
+      "day": 2,
+      "module": "M7",
+      "title": {
+        "en": "[M7] Reading + lab: Payments, Pix and reconciliation",
+        "pt-BR": "[M7] Leitura + laboratório: Pagamentos, Pix e reconciliação"
+      },
+      "description": {
+        "en": "Module 7: Payments, Pix and reconciliation.\n\nReading (2 h):\n- Pix regulation (Banco Central do Brasil): SPI, DICT, end_to_end_id, returns.\n- MED (Special Return Mechanism), Pix 24/7 and what it demands from availability. Open Finance at a high level.\n\nLab (1 h):\nPayment state machine with a table of valid transitions and tests.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.md",
+        "pt-BR": "Módulo 7: Pagamentos, Pix e reconciliação.\n\nLeitura (2 h):\n- Regulamento do Pix (Bacen): SPI, DICT, end_to_end_id, devoluções.\n- Carnaval: se for viajar, junte com a sessão de amanhã. MED (Mecanismo Especial de Devolução), Pix 24/7 e o que isso exige de disponibilidade. Open Finance em alto nível.\n\nLaboratório (1 h):\nMáquina de estados de pagamento com tabela de transições válidas e testes.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.pt-BR.md"
+      }
+    },
+    {
+      "week": 8,
+      "day": 3,
+      "module": "M7",
+      "title": {
+        "en": "[M7] Reading + lab: Payments, Pix and reconciliation",
+        "pt-BR": "[M7] Leitura + laboratório: Pagamentos, Pix e reconciliação"
+      },
+      "description": {
+        "en": "Module 7: Payments, Pix and reconciliation.\n\nReading (2 h):\n- Reconciliation: matching, tolerances, handling discrepancies (Modern Treasury articles on reconciliation).\n- Provider orchestration: routing and safe fallback. Draw timeout -> status query -> only then another provider.\n\nLab (1 h):\nCapstone prep: CSV files with planted discrepancies and the task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.md",
+        "pt-BR": "Módulo 7: Pagamentos, Pix e reconciliação.\n\nLeitura (2 h):\n- Carnaval: se for viajar, junte com a sessão de ontem. Reconciliação: matching, tolerâncias, tratamento de divergência (artigos da Modern Treasury sobre reconciliação).\n- Orquestração de provedores: roteamento e fallback seguro. Desenhe o fluxo timeout → consulta de status → só então outro provedor.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: arquivos CSV com divergências plantadas e lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.pt-BR.md"
+      }
+    },
+    {
+      "week": 8,
+      "day": 4,
+      "module": "M7",
+      "title": {
+        "en": "[M7] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M7] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 7: Payments, Pix and reconciliation.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (1 h) Wire the state machine to the ledger: authorization = hold, capture = entry, refund = reverse entry.\n2. (1 h 15) Reconciliation job ledger vs. CSV: match by id, tolerance and discrepancy report.\n3. (30 min) Run against the planted discrepancies: missing, duplicate, different amount, wrong date.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.md",
+        "pt-BR": "Módulo 7: Pagamentos, Pix e reconciliação.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (1 h) Integrar a máquina de estados ao ledger: autorização vira hold, captura vira lançamento, estorno vira lançamento inverso.\n2. (1 h 15) Job de reconciliação ledger x CSV: matching por id, tolerância e relatório de divergências.\n3. (30 min) Rodar contra as divergências plantadas: faltando, duplicado, valor diferente, data trocada.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.pt-BR.md"
+      }
+    },
+    {
+      "week": 8,
+      "day": 5,
+      "module": "M7",
+      "title": {
+        "en": "[M7] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M7] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 7: Payments, Pix and reconciliation.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (1 h) Provider orchestrator with safe fallback.\n5. (45 min) Tests: 100% of discrepancies detected; never charges on both providers.\n6. (30 min) docs/m07.md.\n\nDelivery (last 30 min):\n- Final commit tagged m7.\n- Record the mastery test (2 min, no notes): \"A payment showed as 'approved' to the customer but is missing from the acquirer's settlement file the next day. How does your system detect it and what does it do?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.md",
+        "pt-BR": "Módulo 7: Pagamentos, Pix e reconciliação.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (1 h) Orquestrador de provedores com fallback seguro.\n5. (45 min) Testes: 100% das divergências detectadas; nunca cobra nos dois provedores.\n6. (30 min) docs/m07.md.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m7.\n- Grave o teste de domínio (2 min, sem consulta): \"Um pagamento ficou 'aprovado' para o cliente, mas não aparece no arquivo de liquidação do adquirente no dia seguinte. Como seu sistema detecta e o que faz?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/07-payments-pix-reconciliation.pt-BR.md"
+      }
+    },
+    {
+      "week": 9,
+      "day": 1,
+      "module": "C2",
+      "title": {
+        "en": "[C2] Review",
+        "pt-BR": "[C2] Revisão"
+      },
+      "description": {
+        "en": "Checkpoint 2 (M5 to M7), no new content this week.\n1) Review all flashcards (1 h).\n2) Reread the code and docs/mXX.md of this block and list the cut scope (2 h).\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Checkpoint 2 (M5 a M7), semana sem conteúdo novo.\n1) Revise todos os flashcards (1 h).\n2) Releia o código e os docs/mXX.md do bloco e liste o escopo cortado (2 h).\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 9,
+      "day": 2,
+      "module": "C2",
+      "title": {
+        "en": "[C2] Catch up on cut scope",
+        "pt-BR": "[C2] Reposição de escopo"
+      },
+      "description": {
+        "en": "Implement the most important cut scope from this block's TCMs, still without AI. If nothing was cut, study the topic where you struggled most.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Implemente o escopo cortado mais importante dos TCMs do bloco, ainda sem IA. Se nada ficou de fora, estude o tema em que você mais travou.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 9,
+      "day": 3,
+      "module": "C2",
+      "title": {
+        "en": "[C2] Mock system design",
+        "pt-BR": "[C2] Simulado de system design"
+      },
+      "description": {
+        "en": "1) 45-min system design, timed and recorded: payment gateway or Pix system. Outline: requirements and numbers, API, data model, happy path, failures, scale, observability.\n2) Listen back and note what was missing (45 min).\n3) Redo only the weak parts (1 h).\nPass if you covered failures and idempotency without being asked.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "1) System design de 45 min, cronometrado e gravado: gateway de pagamento ou sistema de Pix. Roteiro: requisitos e números, API, modelo de dados, fluxo feliz, falhas, escala, observabilidade.\n2) Ouça a gravação e anote o que faltou (45 min).\n3) Refaça só as partes fracas (1 h).\nAprovado se você cobriu falhas e idempotência sem ser perguntado.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 9,
+      "day": 4,
+      "module": "C2",
+      "title": {
+        "en": "[C2] Mastery tests and code review",
+        "pt-BR": "[C2] Testes de domínio e code review"
+      },
+      "description": {
+        "en": "1) 5 random mastery tests from modules M5 to M7, 2 min each, recorded, no notes.\n2) Timed code review (30 min): read the checklist out loud first (money as float? non-idempotent op with retry? read+write without transaction/lock? external call inside a DB transaction? swallowed error or unknown status treated as failure? secret or PII in logs? missing timeout?), then review a payments snippet and write down findings.\n3) Turn whatever was missing into flashcards.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "1) 5 testes de domínio sorteados dos módulos M5 a M7, 2 min cada, gravados, sem consulta.\n2) Code review cronometrado (30 min): leia o checklist em voz alta antes de começar (dinheiro em float? operação não idempotente com retry? leitura e escrita sem transação ou lock? chamada externa dentro de transação? erro engolido ou status desconhecido tratado como falha? segredo ou dado pessoal em log? falta de timeout?), revise um trecho de código de pagamento e anote os achados.\n3) Transforme o que faltou em flashcards.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 9,
+      "day": 5,
+      "module": "C2",
+      "title": {
+        "en": "[C2] English and stories",
+        "pt-BR": "[C2] Inglês e histórias"
+      },
+      "description": {
+        "en": "Record 3 technical answers in English about the recent modules and write 1 new STAR story.\nAlso practice one question outside your experience, steering it to unknown state, idempotency, reconciliation or finality.\nAlso update your CV and LinkedIn with the project (saga, ledger, reconciliation).\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.md",
+        "pt-BR": "Grave 3 respostas técnicas em inglês sobre os módulos recentes e escreva 1 história nova no formato STAR.\nTreine também uma pergunta fora da sua experiência, levando para estado desconhecido, idempotência, reconciliação ou finalidade.\nAtualize também CV e LinkedIn com o projeto (saga, ledger, reconciliação).\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/checkpoints.pt-BR.md"
+      }
+    },
+    {
+      "week": 10,
+      "day": 1,
+      "module": "M8",
+      "title": {
+        "en": "[M8] Reading + lab: Security, compliance and risk",
+        "pt-BR": "[M8] Leitura + laboratório: Segurança, compliance e risco"
+      },
+      "description": {
+        "en": "Module 8: Security, compliance and risk.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Hashing vs. encryption vs. HMAC; TLS and mTLS between services and with partners.\n- KMS and HSM, envelope encryption (AWS KMS docs), key rotation.\n\nLab (1 h):\nVault in dev mode (or LocalStack KMS) in Compose; encrypt and decrypt from the CLI.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.md",
+        "pt-BR": "Módulo 8: Segurança, compliance e risco.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Hashing x criptografia x HMAC; TLS e mTLS entre serviços e com parceiros.\n- KMS e HSM, envelope encryption (documentação da AWS KMS), rotação de chaves.\n\nLaboratório (1 h):\nVault em modo dev (ou LocalStack KMS) no Compose; criptografar e descriptografar pela CLI.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.pt-BR.md"
+      }
+    },
+    {
+      "week": 10,
+      "day": 2,
+      "module": "M8",
+      "title": {
+        "en": "[M8] Reading + lab: Security, compliance and risk",
+        "pt-BR": "[M8] Leitura + laboratório: Segurança, compliance e risco"
+      },
+      "description": {
+        "en": "Module 8: Security, compliance and risk.\n\nReading (2 h):\n- OWASP API Security Top 10 (2023).\n- PCI DSS Quick Reference Guide and tokenization; LGPD articles 7, 16 and 18 (deletion vs. duty to keep financial records).\n\nLab (1 h):\nSTRIDE threat model: data flow diagram and list of threats (draft of docs/m08.md).\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.md",
+        "pt-BR": "Módulo 8: Segurança, compliance e risco.\n\nLeitura (2 h):\n- OWASP API Security Top 10 (2023).\n- PCI DSS Quick Reference Guide e tokenização; LGPD art. 7, 16 e 18 (exclusão x obrigação de guardar registro financeiro).\n\nLaboratório (1 h):\nThreat model STRIDE: diagrama de fluxo de dados do sistema e lista de ameaças (rascunho do docs/m08.md).\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.pt-BR.md"
+      }
+    },
+    {
+      "week": 10,
+      "day": 3,
+      "module": "M8",
+      "title": {
+        "en": "[M8] Reading + lab: Security, compliance and risk",
+        "pt-BR": "[M8] Leitura + laboratório: Segurança, compliance e risco"
+      },
+      "description": {
+        "en": "Module 8: Security, compliance and risk.\n\nReading (2 h):\n- RFC 9700 (OAuth 2.0 Security BCP), JWT pitfalls, per-resource authorization (BOLA).\n- Fraud and limits (velocity checks), KYC/AML and Brazilian Central Bank regulation at a high level.\n\nLab (1 h):\nCapstone prep: test webhook client and task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.md",
+        "pt-BR": "Módulo 8: Segurança, compliance e risco.\n\nLeitura (2 h):\n- RFC 9700 (OAuth 2.0 Security BCP), riscos de JWT, autorização por recurso (BOLA).\n- Antifraude e limites (velocity checks), KYC/AML e regulação do Bacen em alto nível.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: cliente de webhook de teste e lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.pt-BR.md"
+      }
+    },
+    {
+      "week": 10,
+      "day": 4,
+      "module": "M8",
+      "title": {
+        "en": "[M8] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M8] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 8: Security, compliance and risk.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (1 h) Webhook signing with kid and two active keys; public endpoint with verification keys.\n2. (1 h) Rotation: new key, overlap, retire the old one; test with an active client and no failed verification.\n3. (1 h) Envelope encryption of the CPF: data key per record, master key in Vault/KMS.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.md",
+        "pt-BR": "Módulo 8: Segurança, compliance e risco.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (1 h) Assinatura de webhook com kid e duas chaves ativas; endpoint público com as chaves de verificação.\n2. (1 h) Rotação: nova chave, sobreposição, aposentar a antiga; teste com cliente ativo sem falha de verificação.\n3. (1 h) Envelope encryption do CPF: chave de dados por registro, chave mestra no Vault/KMS.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.pt-BR.md"
+      }
+    },
+    {
+      "week": 10,
+      "day": 5,
+      "module": "M8",
+      "title": {
+        "en": "[M8] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M8] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 8: Security, compliance and risk.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (30 min) Redact CPF, card data and tokens from logs.\n5. (1 h) Limits and velocity check service with timeout and a defined fallback.\n6. (30 min) Final docs/m08.md.\n\nDelivery (last 30 min):\n- Final commit tagged m8.\n- Record the mastery test (2 min, no notes): \"Where do the keys that sign the webhooks you send live, and how do you rotate them without breaking clients?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.md",
+        "pt-BR": "Módulo 8: Segurança, compliance e risco.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (30 min) Redação de CPF, cartão e tokens nos logs.\n5. (1 h) Serviço de limites e velocity check com timeout e fallback definido.\n6. (30 min) docs/m08.md final.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m8.\n- Grave o teste de domínio (2 min, sem consulta): \"Onde ficam as chaves que assinam os webhooks que você envia, e como você as rotaciona sem derrubar os clientes?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/08-security-compliance-risk.pt-BR.md"
+      }
+    },
+    {
+      "week": 11,
+      "day": 1,
+      "module": "M9",
+      "title": {
+        "en": "[M9] Reading + lab: Resilience, high availability and consensus",
+        "pt-BR": "[M9] Leitura + laboratório: Resiliência, alta disponibilidade e consenso"
+      },
+      "description": {
+        "en": "Module 9: Resilience, high availability and consensus.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Release It! (Nygard), stability patterns: timeouts, circuit breaker, bulkhead.\n- Amazon Builders' Library, \"Timeouts, retries, and backoff with jitter\". Retry storms and retry budgets.\n\nLab (1 h):\nk6 + Toxiproxy: provider answering in 30 s; measure with no protection (p99, errors, connections).\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.md",
+        "pt-BR": "Módulo 9: Resiliência, alta disponibilidade e consenso.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Release It! (Nygard), padrões de estabilidade: timeouts, circuit breaker, bulkhead.\n- Amazon Builders' Library, \"Timeouts, retries, and backoff with jitter\". Retry storms e orçamento de retry.\n\nLaboratório (1 h):\nk6 + Toxiproxy: cenário com provedor respondendo em 30 s; medir sem proteção (p99, erros, conexões).\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.pt-BR.md"
+      }
+    },
+    {
+      "week": 11,
+      "day": 2,
+      "module": "M9",
+      "title": {
+        "en": "[M9] Reading + lab: Resilience, high availability and consensus",
+        "pt-BR": "[M9] Leitura + laboratório: Resiliência, alta disponibilidade e consenso"
+      },
+      "description": {
+        "en": "Module 9: Resilience, high availability and consensus.\n\nReading (2 h):\n- Amazon Builders' Library, \"Avoiding insurmountable queue backlogs\". Load shedding and token-bucket rate limiting.\n- DDIA ch. 9, consensus; the Raft paper (section 5) with the visualization at raft.github.io.\n\nLab (1 h):\nExplicit timeouts and a circuit breaker (opossum) on the provider; measure again.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.md",
+        "pt-BR": "Módulo 9: Resiliência, alta disponibilidade e consenso.\n\nLeitura (2 h):\n- Amazon Builders' Library, \"Avoiding insurmountable queue backlogs\". Load shedding e rate limiting por token bucket.\n- DDIA cap. 9, consenso; artigo do Raft (seção 5) com a visualização de raft.github.io.\n\nLaboratório (1 h):\nTimeouts explícitos e circuit breaker (opossum) no provedor; medir de novo.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.pt-BR.md"
+      }
+    },
+    {
+      "week": 11,
+      "day": 3,
+      "module": "M9",
+      "title": {
+        "en": "[M9] Reading + lab: Resilience, high availability and consensus",
+        "pt-BR": "[M9] Leitura + laboratório: Resiliência, alta disponibilidade e consenso"
+      },
+      "description": {
+        "en": "Module 9: Resilience, high availability and consensus.\n\nReading (2 h):\n- Multi-AZ and multi-region, active-passive vs. active-active and why active-active with balances is hard. RPO, RTO and disaster recovery.\n- Safe deploys: canary, feature flags and expand/contract migrations (Martin Fowler, \"Parallel Change\").\n\nLab (1 h):\nCapstone prep: backup script and chosen migration scenario; task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.md",
+        "pt-BR": "Módulo 9: Resiliência, alta disponibilidade e consenso.\n\nLeitura (2 h):\n- Multi-AZ e multi-região, ativo-passivo x ativo-ativo e por que ativo-ativo com saldo é difícil. RPO, RTO e disaster recovery.\n- Deploy seguro: canary, feature flags e migração expand/contract (Martin Fowler, \"Parallel Change\").\n\nLaboratório (1 h):\nPreparação do dia de conclusão: script de backup e cenário de migração escolhido; lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.pt-BR.md"
+      }
+    },
+    {
+      "week": 11,
+      "day": 4,
+      "module": "M9",
+      "title": {
+        "en": "[M9] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M9] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 9: Resilience, high availability and consensus.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (45 min) Retry with jitter and a retry budget.\n2. (45 min) Bulkhead: separate pools per provider.\n3. (45 min) Token-bucket rate limit in Redis.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.md",
+        "pt-BR": "Módulo 9: Resiliência, alta disponibilidade e consenso.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (45 min) Retry com jitter e orçamento de retry.\n2. (45 min) Bulkhead: pools separados por provedor.\n3. (45 min) Rate limit por token bucket no Redis.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.pt-BR.md"
+      }
+    },
+    {
+      "week": 11,
+      "day": 5,
+      "module": "M9",
+      "title": {
+        "en": "[M9] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M9] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 9: Resilience, high availability and consensus.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (1 h) Run k6 before and after and plot p99 and error rate.\n5. (1 h) A real expand/contract migration: rename a column with no downtime.\n6. (45 min) Backup and restore by script; docs/m09.md with RPO and RTO.\n\nDelivery (last 30 min):\n- Final commit tagged m9.\n- Record the mastery test (2 min, no notes): \"The main provider started answering in 30 s instead of 300 ms. Describe what happens in your system with no protection and with each pattern on. Bonus: why is active-active with balances hard, and where does Raft come in?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.md",
+        "pt-BR": "Módulo 9: Resiliência, alta disponibilidade e consenso.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (1 h) Rodar k6 antes e depois e gerar os gráficos de p99 e taxa de erro.\n5. (1 h) Migração expand/contract real: renomear uma coluna sem downtime.\n6. (45 min) Backup e restore por script; docs/m09.md com RPO e RTO.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m9.\n- Grave o teste de domínio (2 min, sem consulta): \"O provedor principal começou a responder em 30 s em vez de 300 ms. Descreva o que acontece no seu sistema sem proteção e com cada padrão ligado. Extra: por que ativo-ativo com saldo é difícil, e onde o Raft entra?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/09-resilience-and-consensus.pt-BR.md"
+      }
+    },
+    {
+      "week": 12,
+      "day": 1,
+      "module": "M10",
+      "title": {
+        "en": "[M10] Reading + lab: Observability and operations",
+        "pt-BR": "[M10] Leitura + laboratório: Observabilidade e operação"
+      },
+      "description": {
+        "en": "Module 10: Observability and operations.\nStart with 10 min of flashcards.\n\nReading (2 h):\n- Site Reliability Engineering, ch. 6: monitoring, symptoms vs. causes, the four golden signals.\n- Site Reliability Engineering, ch. 4 (SLOs) and SRE Workbook, \"Alerting on SLOs\" (burn rate).\n\nLab (1 h):\nOpenTelemetry SDK in NestJS + Jaeger in Compose; trace one HTTP request.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.md",
+        "pt-BR": "Módulo 10: Observabilidade e operação.\nComece com 10 min de flashcards.\n\nLeitura (2 h):\n- Site Reliability Engineering, cap. 6: monitoramento, sintoma x causa, four golden signals.\n- Site Reliability Engineering, cap. 4 (SLOs) e SRE Workbook, \"Alerting on SLOs\" (burn rate).\n\nLaboratório (1 h):\nSDK do OpenTelemetry no NestJS + Jaeger no Compose; trace de uma requisição HTTP.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.pt-BR.md"
+      }
+    },
+    {
+      "week": 12,
+      "day": 2,
+      "module": "M10",
+      "title": {
+        "en": "[M10] Reading + lab: Observability and operations",
+        "pt-BR": "[M10] Leitura + laboratório: Observabilidade e operação"
+      },
+      "description": {
+        "en": "Module 10: Observability and operations.\n\nReading (2 h):\n- OpenTelemetry: traces, spans and context propagation, including through messaging.\n- Business metrics as the main signal; cardinality and cost.\n\nLab (1 h):\nPrometheus + Grafana in Compose; basic technical metrics.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.md",
+        "pt-BR": "Módulo 10: Observabilidade e operação.\n\nLeitura (2 h):\n- OpenTelemetry: traces, spans e propagação de contexto, inclusive em mensageria.\n- Métricas de negócio como sinal principal; cardinalidade e custo.\n\nLaboratório (1 h):\nPrometheus + Grafana no Compose; métricas técnicas básicas.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.pt-BR.md"
+      }
+    },
+    {
+      "week": 12,
+      "day": 3,
+      "module": "M10",
+      "title": {
+        "en": "[M10] Reading + lab: Observability and operations",
+        "pt-BR": "[M10] Leitura + laboratório: Observabilidade e operação"
+      },
+      "description": {
+        "en": "Module 10: Observability and operations.\n\nReading (2 h):\n- Site Reliability Engineering, ch. 15 (blameless postmortems); how to write a runbook.\n- On paper: the double-charge detector (query, window, threshold) and the incident you'll inject.\n\nLab (1 h):\nCapstone prep: Alertmanager in Compose and task list. No TCM code.\nIn labs, use AI only to clarify concepts, never to write TCM code.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.md",
+        "pt-BR": "Módulo 10: Observabilidade e operação.\n\nLeitura (2 h):\n- Site Reliability Engineering, cap. 15 (postmortem sem culpa); como escrever um runbook.\n- No papel: detector de cobrança duplicada (consulta, janela, limiar) e o incidente que você vai injetar.\n\nLaboratório (1 h):\nPreparação do dia de conclusão: Alertmanager no Compose e lista de tarefas. Sem código do TCM.\nNos laboratórios, IA só para tirar dúvida de conceito, nunca para escrever código do TCM.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.pt-BR.md"
+      }
+    },
+    {
+      "week": 12,
+      "day": 4,
+      "module": "M10",
+      "title": {
+        "en": "[M10] CAPSTONE DAY 1/2 (no AI)",
+        "pt-BR": "[M10] DIA DE CONCLUSÃO 1/2 (sem IA)"
+      },
+      "description": {
+        "en": "Module 10: Observability and operations.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n1. (1 h) Propagate the trace through Kafka (headers) to the worker; correlation id in logs.\n2. (1 h) Business metrics: approval rate per provider, old PENDING payments, reconciliation discrepancies.\n3. (45 min) An SLO with a burn-rate alert.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.md",
+        "pt-BR": "Módulo 10: Observabilidade e operação.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n1. (1 h) Propagar o trace pelo Kafka (headers) até o worker; correlation id nos logs.\n2. (1 h) Métricas de negócio: aprovação por provedor, PENDING antigos, divergência de reconciliação.\n3. (45 min) SLO com alerta de burn rate.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.pt-BR.md"
+      }
+    },
+    {
+      "week": 12,
+      "day": 5,
+      "module": "M10",
+      "title": {
+        "en": "[M10] CAPSTONE DAY 2/2 (no AI) + delivery",
+        "pt-BR": "[M10] DIA DE CONCLUSÃO 2/2 (sem IA) + entrega"
+      },
+      "description": {
+        "en": "Module 10: Observability and operations.\nCAPSTONE DAY RULE: everything is done WITHOUT AI. No ChatGPT, Claude, Copilot or AI autocomplete in the editor. Allowed: official docs, books, your own notes and previous labs. Whatever doesn't fit today becomes cut scope for the next checkpoint; the deadline does not move.\n\nToday, in order:\n4. (45 min) Double-charge detector with an alert.\n5. (30 min) Inject a double charge and confirm the alert fires.\n6. (1 h) Runbook and postmortem; docs/m10.md.\n\nDelivery (last 30 min):\n- Final commit tagged m10.\n- Record the mastery test (2 min, no notes): \"Without any customer complaining, how would you know that 2% of payments are being charged twice?\"\n- Create flashcards for what was missing and tick the module in your PROGRESS.md.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.md",
+        "pt-BR": "Módulo 10: Observabilidade e operação.\nREGRA DO DIA DE CONCLUSÃO: tudo feito SEM IA. Nada de ChatGPT, Claude, Copilot ou autocomplete com IA no editor. Vale: documentação oficial, livros, suas anotações e os laboratórios das semanas anteriores. O que não couber hoje vira escopo cortado para o próximo checkpoint; o deadline não muda.\n\nHoje, em ordem:\n4. (45 min) Detector de cobrança duplicada com alerta.\n5. (30 min) Injetar uma cobrança duplicada e confirmar o alerta.\n6. (1 h) Runbook e postmortem; docs/m10.md.\n\nEntrega (últimos 30 min):\n- Commit final com a tag m10.\n- Grave o teste de domínio (2 min, sem consulta): \"Como você saberia, sem nenhum cliente reclamar, que 2% dos pagamentos estão sendo cobrados duas vezes?\"\n- Crie flashcards com o que faltou e marque o módulo no seu PROGRESS.md.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/10-observability-and-operations.pt-BR.md"
+      }
+    },
+    {
+      "week": 13,
+      "day": 1,
+      "module": "F",
+      "title": {
+        "en": "[F] README and ADRs",
+        "pt-BR": "[F] README e ADRs"
+      },
+      "description": {
+        "en": "Final project week.\nPortfolio README (problem, architecture, key decisions, failure scenarios covered, how to run) and review the ADRs in docs/adr/.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.md",
+        "pt-BR": "Semana do projeto final.\nREADME de portfólio (problema, arquitetura, decisões principais, cenários de falha cobertos, como rodar) e revisão das ADRs em docs/adr/.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.pt-BR.md"
+      }
+    },
+    {
+      "week": 13,
+      "day": 2,
+      "module": "F",
+      "title": {
+        "en": "[F] Diagram and one-command setup",
+        "pt-BR": "[F] Diagrama e rodar em um comando"
+      },
+      "description": {
+        "en": "Final project week.\nArchitecture diagram for the README. Clone the repo from scratch into a new folder and make sure one command brings everything up and runs the tests.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.md",
+        "pt-BR": "Semana do projeto final.\nDiagrama de arquitetura para o README. Clone o repositório do zero numa pasta nova e garanta que um único comando sobe tudo e roda os testes.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.pt-BR.md"
+      }
+    },
+    {
+      "week": 13,
+      "day": 3,
+      "module": "F",
+      "title": {
+        "en": "[F] Demo video",
+        "pt-BR": "[F] Vídeo de demonstração"
+      },
+      "description": {
+        "en": "Final project week.\nRecord a 5-minute video showing a failure scenario being absorbed (e.g. killing the orchestrator mid-saga).\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.md",
+        "pt-BR": "Semana do projeto final.\nGrave um vídeo de 5 minutos mostrando um cenário de falha sendo absorvido (ex.: kill do orquestrador no meio da saga).\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.pt-BR.md"
+      }
+    },
+    {
+      "week": 13,
+      "day": 4,
+      "module": "F",
+      "title": {
+        "en": "[F] Final review and English rehearsal",
+        "pt-BR": "[F] Revisão final e ensaio em inglês"
+      },
+      "description": {
+        "en": "Final project week.\n1) All 10 mastery tests out loud, 2 min each, no notes.\n2) Rehearse your STAR stories and a 2-minute project pitch in English.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.md",
+        "pt-BR": "Semana do projeto final.\n1) Os 10 testes de domínio em voz alta, 2 min cada, sem consulta.\n2) Ensaie em inglês suas histórias STAR e a apresentação do projeto em 2 minutos.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.pt-BR.md"
+      }
+    },
+    {
+      "week": 13,
+      "day": 5,
+      "module": "F",
+      "title": {
+        "en": "[F] Mock panel: interview loop",
+        "pt-BR": "[F] Banca: loop de entrevista simulado"
+      },
+      "description": {
+        "en": "Final project week.\nThree rounds, ideally with a real person (a senior colleague, or an AI as the interviewer):\n1) System design, 45 min.\n2) Code review, 30 min.\n3) Behavioral in English, 30 min.\nThen a course retrospective. From here on, maintenance: 1 mock interview per week while you are interviewing.\n\nModule page: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.md",
+        "pt-BR": "Semana do projeto final.\nTrês rodadas, de preferência com uma pessoa real (colega sênior ou uma IA no papel de entrevistador):\n1) System design, 45 min.\n2) Code review, 30 min.\n3) Comportamental em inglês, 30 min.\nDepois: retrospectiva do curso. Daqui em diante, manutenção com 1 simulado por semana enquanto houver processos seletivos.\n\nPágina do módulo: https://github.com/guiferpa/fintech-tech-course/blob/main/modules/final-project.pt-BR.md"
+      }
+    }
+  ]
+}
