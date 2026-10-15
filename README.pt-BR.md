@@ -50,6 +50,8 @@ Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua a
 | Seg a qua | 2 h de leitura + 1 h de laboratório. Nos laboratórios, IA só para tirar dúvida de conceito. |
 | Qui e sex | **Dias de conclusão (TCM): só implementação, sem IA.** Nada de ChatGPT, Claude, Copilot ou autocomplete com IA; documentação, livros e suas anotações valem. A última meia hora de sexta é a entrega: commit final, teste de domínio gravado e flashcards. |
 
+Os flashcards (Anki) impedem que o que você aprendeu se perca: 10 min de revisão toda segunda e cards novos em toda entrega de sexta. O [guia de flashcards](FLASHCARDS.pt-BR.md) mostra a configuração e como escrever bons cards.
+
 Se algo não couber, corte escopo, nunca o deadline. O escopo cortado vai para a próxima semana de checkpoint.
 
 ## Ementa

@@ -50,6 +50,8 @@ Times are "floating" local times: 19:00 means 19:00 in whatever time zone your c
 | Mon to Wed | 2 h reading + 1 h lab. In labs, AI only to clarify concepts. |
 | Thu and Fri | **Capstone days (TCM): implementation only, without AI.** No ChatGPT, Claude, Copilot or AI autocomplete; docs, books and your notes are fine. The last 30 min on Friday are delivery: final commit, recorded mastery test, flashcards. |
 
+Flashcards (Anki) keep what you learn from fading: 10 min of review every Monday and new cards from every Friday delivery. The [flashcards guide](FLASHCARDS.md) shows the setup and how to write good cards.
+
 If something doesn't fit, cut scope, never the deadline. Cut scope goes to the next checkpoint week.
 
 ## Syllabus

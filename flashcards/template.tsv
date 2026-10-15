@@ -1,0 +1,10 @@
+#separator:tab
+#html:true
+#columns:Front	Back	Tags
+#tags column:3
+A call to the partner bank times out. Why can't you mark the transfer as FAILED?	The request may have been processed. The outcome is unknown: store it as UNKNOWN and reconcile by querying the partner. Marking FAILED and retrying can charge twice.	m01 en
+What does a client-supplied idempotency key protect against, and what does it not?	It makes retries of the same request return the same result. It does not deduplicate two different requests with different keys, and the key must be stored in the same transaction as the effect.	m02 en
+Two sessions run this at the same time under READ COMMITTED. What can go wrong?<pre>SELECT balance FROM accounts WHERE id = 1;<br>-- app computes balance - 100<br>UPDATE accounts SET balance = 900 WHERE id = 1;</pre>	Lost update: both read 1000 and both write 900, so one debit disappears. Fix with <code>SELECT ... FOR UPDATE</code>, a version column, or a conditional <code>UPDATE ... SET balance = balance - 100 WHERE balance &gt;= 100</code>.	m03 en
+A chamada ao banco parceiro dá timeout. Por que você não pode marcar a transferência como FAILED?	A requisição pode ter sido processada. O desfecho é desconhecido: grave como UNKNOWN e reconcilie consultando o parceiro. Marcar FAILED e tentar de novo pode cobrar duas vezes.	m01 pt-BR
+Contra o que uma chave de idempotência enviada pelo cliente protege, e contra o que não protege?	Faz retries da mesma requisição devolverem o mesmo resultado. Não deduplica duas requisições diferentes com chaves diferentes, e a chave precisa ser gravada na mesma transação do efeito.	m02 pt-BR
+Duas sessões rodam isto ao mesmo tempo em READ COMMITTED. O que pode dar errado?<pre>SELECT balance FROM accounts WHERE id = 1;<br>-- a aplicação calcula balance - 100<br>UPDATE accounts SET balance = 900 WHERE id = 1;</pre>	Lost update: as duas leem 1000 e as duas gravam 900, então um débito some. Corrija com <code>SELECT ... FOR UPDATE</code>, coluna de versão ou um <code>UPDATE ... SET balance = balance - 100 WHERE balance &gt;= 100</code> condicional.	m03 pt-BR
