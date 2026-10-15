@@ -45,6 +45,15 @@
   .legend { display:flex; flex-wrap:wrap; gap:8px 16px; margin:0 0 12px; padding:0; list-style:none; font-size:.85rem; color:var(--muted); }
   .legend li { display:flex; align-items:center; gap:6px; }
   .legend i { width:14px; height:14px; border-radius:4px; border:1px solid var(--line); display:inline-block; }
+  td.check { width:36px; text-align:center; }
+  td.check input { width:18px; height:18px; accent-color:var(--accent); cursor:pointer; margin:0; }
+  tr.session.done td:not(.check):not(.toggle) { color:var(--muted); text-decoration:line-through; }
+  .progress { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:0 0 12px; }
+  .progress-top { display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap; font-size:.9rem; }
+  .progress-top strong { font-size:1rem; }
+  .bar { height:10px; border-radius:999px; background:var(--line); overflow:hidden; margin-top:8px; }
+  .bar > div { height:100%; width:0; background:var(--accent); transition:width .25s; }
+  .linklike { background:none; border:0; padding:0; color:var(--muted); font:inherit; font-size:.8rem; text-decoration:underline; cursor:pointer; }
   .hint { font-size:.85rem; color:var(--muted); margin:0 0 8px; }
   footer { margin-top:32px; color:var(--muted); font-size:.85rem; }
   a { color:var(--accent); }
@@ -84,8 +93,12 @@
     <li><i style="background:var(--cp)"></i><span data-i18n="lgCp"></span></li>
     <li><i style="background:var(--fin)"></i><span data-i18n="lgFin"></span></li>
   </ul>
+  <div class="progress">
+    <div class="progress-top"><strong id="progressText"></strong><button type="button" class="linklike" id="reset" data-i18n="reset"></button></div>
+    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="bar"><div id="barFill"></div></div>
+  </div>
   <p class="hint" data-i18n="hint"></p>
-  <div class="table-wrap"><table><thead><tr><th aria-hidden="true"></th><th data-i18n="colDate"></th><th data-i18n="colWeek"></th><th data-i18n="colSession"></th></tr></thead><tbody id="preview"></tbody></table></div>
+  <div class="table-wrap"><table><thead><tr><th aria-hidden="true"></th><th data-i18n="colDone"></th><th data-i18n="colDate"></th><th data-i18n="colWeek"></th><th data-i18n="colSession"></th></tr></thead><tbody id="preview"></tbody></table></div>
 
   <footer data-i18n="footer"></footer>
 </main>
@@ -109,7 +122,9 @@ const STR = {
     how3: "Apple Calendar and Outlook: open the .ics file and pick or create a calendar when asked.",
     previewTitle: "Preview", colDate: "Date", colWeek: "Week", colSession: "Session",
     lgStudy: "Study day: reading + lab", lgCap: "Capstone day: implementation, no AI", lgCp: "Checkpoint: review and catch-up", lgFin: "Final project",
-    hint: "Click a day to see what to do in that session.",
+    hint: "Click a day to see what to do in that session. Tick the box when you finish it; progress is saved in this browser.",
+    colDone: "Done", reset: "Clear progress", resetConfirm: "Clear all completed sessions in this browser?",
+    progress: (d, n, p) => `${d} of ${n} sessions done (${p}%)`,
     footer: 'Syllabus, modules and the "no AI on capstone days" rule: <a href="https://github.com/guiferpa/fintech-tech-course">github.com/guiferpa/fintech-tech-course</a>. Everything runs in your browser; nothing is sent anywhere.',
     locale: "en-US",
   },
@@ -128,7 +143,9 @@ const STR = {
     how3: "Apple Calendário e Outlook: abra o arquivo .ics e escolha ou crie um calendário quando pedir.",
     previewTitle: "Prévia", colDate: "Data", colWeek: "Semana", colSession: "Sessão",
     lgStudy: "Dia de estudo: leitura + laboratório", lgCap: "Dia de conclusão: implementação, sem IA", lgCp: "Checkpoint: revisão e recuperação", lgFin: "Projeto final",
-    hint: "Clique em um dia para ver o que fazer naquela sessão.",
+    hint: "Clique em um dia para ver o que fazer naquela sessão. Marque a caixa quando terminar; o progresso fica salvo neste navegador.",
+    colDone: "Feito", reset: "Limpar progresso", resetConfirm: "Limpar todas as sessões concluídas neste navegador?",
+    progress: (d, n, p) => `${d} de ${n} sessões concluídas (${p}%)`,
     footer: 'Ementa, módulos e a regra "sem IA nos dias de conclusão": <a href="https://github.com/guiferpa/fintech-tech-course">github.com/guiferpa/fintech-tech-course</a>. Tudo roda no seu navegador; nada é enviado.',
     locale: "pt-BR",
   },
@@ -148,6 +165,19 @@ const fmt = (iso) => new Date(iso + "T12:00:00").toLocaleDateString(STR[lang].lo
 
 const esc = (t) => String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
+// Progress is keyed by session position (1-65), so it survives changes to the start date or days off.
+const DONE_KEY = "ftc-done";
+let done = new Set();
+try { done = new Set(JSON.parse(localStorage.getItem(DONE_KEY) || "[]")); } catch {}
+function saveDone() { try { localStorage.setItem(DONE_KEY, JSON.stringify([...done])); } catch {} }
+function renderProgress() {
+  if (!data) return;
+  const n = data.sessions.length, d = [...done].filter((i) => i >= 1 && i <= n).length, pct = Math.round((d / n) * 100);
+  $("progressText").textContent = STR[lang].progress(d, n, pct);
+  $("barFill").style.width = pct + "%";
+  $("bar").setAttribute("aria-valuenow", String(pct));
+}
+
 function toggleRow(tr) {
   const open = tr.getAttribute("aria-expanded") !== "true";
   tr.setAttribute("aria-expanded", String(open));
@@ -164,20 +194,33 @@ function render() {
   try {
     const rows = schedule(data.sessions, { start: $("start").value, skip: skipList() });
     $("summary").textContent = t.summary(rows.length, fmt(rows[0].date), fmt(rows.at(-1).date));
-    $("preview").innerHTML = rows.map((s) => {
+    $("preview").innerHTML = rows.map((s, i) => {
       const cls = s.module === "C1" || s.module === "C2" ? "checkpoint" : s.module === "F" ? "final" : s.day >= 4 ? "capstone" : "";
       const desc = esc(s.description[lang]).replace(/https?:\/\/[^\s<]+/g, (u) => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
-      return `<tr class="session ${cls}" tabindex="0" aria-expanded="false"><td class="toggle"><span>&#9656;</span></td><td class="date">${fmt(s.date)}</td><td>${s.week}</td><td>${esc(s.title[lang])}</td></tr>`
-        + `<tr class="detail" hidden><td colspan="4">${desc}</td></tr>`;
+      const n = i + 1, isDone = done.has(n);
+      return `<tr class="session ${cls}${isDone ? " done" : ""}" tabindex="0" aria-expanded="false" data-n="${n}"><td class="toggle"><span>&#9656;</span></td><td class="check"><input type="checkbox" aria-label="${esc(s.title[lang])}"${isDone ? " checked" : ""}></td><td class="date">${fmt(s.date)}</td><td>${s.week}</td><td>${esc(s.title[lang])}</td></tr>`
+        + `<tr class="detail" hidden><td colspan="5">${desc}</td></tr>`;
     }).join("");
+    renderProgress();
   } catch (e) { $("summary").textContent = ""; $("error").textContent = e.message; }
 }
 
 document.querySelectorAll("[data-lang]").forEach((b) => b.addEventListener("click", () => {
   lang = b.dataset.lang; try { localStorage.setItem("ftc-lang", lang); } catch {} render();
 }));
-$("preview").addEventListener("click", (e) => { const tr = e.target.closest("tr.session"); if (tr && !e.target.closest("a")) toggleRow(tr); });
-$("preview").addEventListener("keydown", (e) => { const tr = e.target.closest("tr.session"); if (tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleRow(tr); } });
+$("preview").addEventListener("click", (e) => { const tr = e.target.closest("tr.session"); if (tr && !e.target.closest("a, td.check")) toggleRow(tr); });
+$("preview").addEventListener("change", (e) => {
+  if (!e.target.matches("td.check input")) return;
+  const tr = e.target.closest("tr.session"), n = Number(tr.dataset.n);
+  e.target.checked ? done.add(n) : done.delete(n);
+  tr.classList.toggle("done", e.target.checked);
+  saveDone(); renderProgress();
+});
+$("reset").addEventListener("click", () => {
+  if (!confirm(STR[lang].resetConfirm)) return;
+  done.clear(); saveDone(); render();
+});
+$("preview").addEventListener("keydown", (e) => { const tr = e.target.closest("tr.session"); if (tr && e.target === tr && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); toggleRow(tr); } });
 ["start", "skip"].forEach((id) => $(id).addEventListener("input", render));
 
 $("form").addEventListener("submit", (e) => {
