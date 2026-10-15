@@ -187,11 +187,12 @@ function renderProgress() {
 }
 
 // Minimal Markdown for session details: #### headings, > quotes, - and 1. lists,
-// ``` fenced code, `code`, **bold** and [links](url). Input is escaped first.
+// ``` fenced code, `code`, **bold**, *(italic note)* and [links](url). Input is escaped first.
 function mdInline(t) {
   const codes = [];
   t = esc(t).replace(/`([^`]+)`/g, (_, c) => `\u0000${codes.push(c) - 1}\u0000`);
   t = t.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*\(([^)]+)\)\*/g, "<em>($1)</em>")
     .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
   return t.replace(/\u0000(\d+)\u0000/g, (_, i) => `<code>${codes[i]}</code>`);
 }

@@ -84,11 +84,22 @@ Faça um fork deste repositório, marque as caixas no [PROGRESS.md](PROGRESS.md)
 
 ## Fontes principais
 
-1. *Designing Data-Intensive Applications*, Martin Kleppmann, chamado de **DDIA** nas sessões (1ª edição, 2017; capítulos 5 a 9 e 11). Na 2ª edição a numeração dos capítulos mudou, então procure os capítulos pelo título.
-2. *Microservices Patterns*, Chris Richardson, e microservices.io.
-3. Blog de engenharia da Stripe: idempotência e o post sobre o Ledger.
-4. *Release It!*, Michael Nygard.
-5. *Site Reliability Engineering* e *The Site Reliability Workbook* (Google, gratuitos online).
-6. Série sobre ledgers da Modern Treasury e a documentação do TigerBeetle.
-7. Banco Central do Brasil: regulamento do Pix e MED.
-8. *System Design Interview vol. 2*, Alex Xu (capítulos de sistema de pagamento e carteira digital).
+Toda leitura nas sessões e nas páginas dos módulos tem o nome completo e o link. Material gratuito vem primeiro; livro pago só aparece onde nada gratuito cobre o assunto tão bem.
+
+Gratuitas (as mais usadas):
+
+1. [Martin Kleppmann, notas de aula "Distributed Systems" (Universidade de Cambridge)](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-notes.pdf): falhas, relógios, replicação, quorums, consenso e consistência (módulos 1 e 9).
+2. [Documentação do PostgreSQL](https://www.postgresql.org/docs/current/) e [modelos de consistência do Jepsen](https://jepsen.io/consistency): replicação, níveis de isolamento e locks (módulos 1 e 3).
+3. [microservices.io](https://microservices.io/patterns/), de Chris Richardson: saga, transactional outbox e idempotent consumer (módulos 2 e 4).
+4. [Blog da Stripe sobre idempotência](https://stripe.com/blog/idempotency) e o [post da Stripe sobre o Ledger](https://stripe.dev/blog/ledger-stripe-system-for-tracking-and-validating-money-movement) (módulos 2 e 6).
+5. [Journal e ebooks da Modern Treasury](https://www.moderntreasury.com/journal/accounting-for-developers-part-i) e a [documentação do TigerBeetle](https://docs.tigerbeetle.com/) (módulo 6).
+6. [Banco Central do Brasil, Pix](https://www.bcb.gov.br/estabilidadefinanceira/pix): regulamento, manuais e MED (módulo 7).
+7. [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) e [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x11-t10/) (módulo 8).
+8. [Amazon Builders' Library](https://aws.amazon.com/builders-library/): timeouts, retries, filas acumuladas e load shedding (módulo 9).
+9. [Google, "Site Reliability Engineering"](https://sre.google/sre-book/table-of-contents/) e ["The Site Reliability Workbook"](https://sre.google/workbook/table-of-contents/) (módulo 10).
+10. [Gwen Shapira et al., "Kafka: The Definitive Guide", 2ª edição](https://www.confluent.io/resources/kafka-the-definitive-guide-v2/): gratuito no site da Confluent, com cadastro (módulo 5).
+
+Livros pagos:
+
+1. [Chris Richardson, "Microservices Patterns" (Manning)](https://www.manning.com/books/microservices-patterns): o capítulo 4 é a única leitura paga obrigatória (módulo 4, terça), porque nenhuma fonte gratuita cobre as contramedidas de saga tão bem.
+2. Opcionais, para aprofundar: [Martin Kleppmann, "Designing Data-Intensive Applications" (O'Reilly)](https://dataintensive.net/), [Michael Nygard, "Release It!", 2ª edição (Pragmatic Bookshelf)](https://pragprog.com/titles/mnee2/release-it-second-edition/) e Alex Xu e Sahn Lam, "System Design Interview, Volume 2" (capítulos de sistema de pagamento e carteira digital).
