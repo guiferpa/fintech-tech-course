@@ -52,6 +52,8 @@ Os horários são locais "flutuantes": 19:00 significa 19:00 no fuso que a sua a
 
 Os flashcards (Anki) impedem que o que você aprendeu se perca: 10 min de revisão toda segunda e cards novos em toda entrega de sexta. O [guia de flashcards](FLASHCARDS.pt-BR.md) mostra a configuração e como escrever bons cards.
 
+Cada dia de leitura começa com um texto escrito para este curso, baseado nas referências do dia e citando todas elas. Veja os [textos do curso](lessons/README.pt-BR.md); o Módulo 1 está pronto e os outros estão sendo escritos.
+
 A [trilha de DSA](DSA.pt-BR.md) traz o problema de entrevista de coding de cada dia, do Two Sum ao LFU Cache.
 
 Se algo não couber, corte escopo, nunca o deadline. O escopo cortado vai para a próxima semana de checkpoint.
