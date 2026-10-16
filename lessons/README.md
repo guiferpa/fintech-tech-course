@@ -11,6 +11,10 @@ Every text is based on the references listed at its end, and each section names 
 | 1. Distributed systems fundamentals | [Failures, timeouts and time](01-distributed-systems-fundamentals/day-1.md) | [Replication and replication lag](01-distributed-systems-fundamentals/day-2.md) | [Partitioning, consistency models and trade-offs](01-distributed-systems-fundamentals/day-3.md) |
 | 2. End-to-end idempotency | [Idempotency keys and atomic phases](02-end-to-end-idempotency/day-1.md) | [Recovering interrupted requests and idempotent consumers](02-end-to-end-idempotency/day-2.md) | [Idempotency at every hop](02-end-to-end-idempotency/day-3.md) |
 | 5. Messaging and events | [The log, partitions and producers](05-messaging-and-events/day-1.md) | [Consumers, offsets and exactly-once](05-messaging-and-events/day-2.md) | [Retries, DLQ, event sourcing and signed webhooks](05-messaging-and-events/day-3.md) |
+| 6. Ledgers and accounting | [Double entry, account types and balances](06-ledgers-and-accounting/day-1.md) | [Holds, account invariants and missing money](06-ledgers-and-accounting/day-2.md) | [Concurrency, immutability and entries on paper](06-ledgers-and-accounting/day-3.md) |
+
+Still being written: modules 3, 4, 7, 8, 9, 10.
+
 
 Still being written: modules 3, 4, 6, 7, 8, 9, 10.
 
