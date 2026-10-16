@@ -14,7 +14,11 @@ Todo texto é baseado nas referências listadas no final dele, e cada seção di
 | 4. Saga, Outbox e transações distribuídas | [Two-phase commit e por que sagas existem](04-sagas-outbox/day-1.pt-BR.md) | [Isolamento em sagas, reserva de saldo e transactional outbox](04-sagas-outbox/day-2.pt-BR.md) | [Workflows duráveis e a máquina de estados da saga de transferência](04-sagas-outbox/day-3.pt-BR.md) |
 | 5. Mensageria e eventos | [O log, partições e producers](05-messaging-and-events/day-1.pt-BR.md) | [Consumidores, offsets e exactly-once](05-messaging-and-events/day-2.pt-BR.md) | [Retries, DLQ, event sourcing e webhooks assinados](05-messaging-and-events/day-3.pt-BR.md) |
 | 6. Ledger e contabilidade | [Partidas dobradas, tipos de conta e saldos](06-ledgers-and-accounting/day-1.pt-BR.md) | [Holds, invariantes de conta e dinheiro sumido](06-ledgers-and-accounting/day-2.pt-BR.md) | [Concorrência, imutabilidade e lançamentos no papel](06-ledgers-and-accounting/day-3.pt-BR.md) |
+| 8. Segurança, compliance e risco | [Hash, criptografia, chaves e mTLS](08-security-compliance-risk/day-1.pt-BR.md) | [Riscos de API, modelagem de ameaças, escopo PCI e LGPD](08-security-compliance-risk/day-2.pt-BR.md) | [Tokens, autorização, limites antifraude e KYC](08-security-compliance-risk/day-3.pt-BR.md) |
 | 10. Observabilidade e operação | [Sintomas, sinais de ouro, SLOs e alertas por burn rate](10-observability-and-operations/day-1.pt-BR.md) | [Traces, propagação de contexto e métricas de negócio](10-observability-and-operations/day-2.pt-BR.md) | [Incidentes, runbooks, postmortems e o detector de cobrança dupla](10-observability-and-operations/day-3.pt-BR.md) |
+
+Ainda em escrita: módulos 7, 9.
+
 
 Ainda em escrita: módulos 7, 8, 9.
 
