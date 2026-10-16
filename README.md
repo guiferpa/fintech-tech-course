@@ -52,7 +52,7 @@ Times are "floating" local times: 19:00 means 19:00 in whatever time zone your c
 
 Flashcards (Anki) keep what you learn from fading: 10 min of review every Monday and new cards from every Friday delivery. The [flashcards guide](FLASHCARDS.md) shows the setup and how to write good cards.
 
-Each reading day starts with a text written for this course, based on the day's references and citing them. See the [course texts](lessons/README.md); Module 1 is ready and the others are being written.
+Each reading day starts with a text written for this course, based on the day's references and citing them. See the [course texts](lessons/README.md); the list there shows which modules are ready.
 
 The [DSA track](DSA.md) lists the coding interview problem for each day, from Two Sum to LFU Cache.
 
