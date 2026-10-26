@@ -97,7 +97,7 @@ Gratuitas (as mais usadas):
 5. [Journal e ebooks da Modern Treasury](https://www.moderntreasury.com/journal/accounting-for-developers-part-i) e a [documentação do TigerBeetle](https://docs.tigerbeetle.com/) (módulo 6).
 6. [Banco Central do Brasil, Pix](https://www.bcb.gov.br/estabilidadefinanceira/pix): regulamento, manuais e MED (módulo 7).
 7. [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) e [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x11-t10/) (módulo 8).
-8. [Amazon Builders' Library](https://aws.amazon.com/builders-library/): falhas, timeouts, retries, filas acumuladas e load shedding (módulos 1 e 9).
+8. [Amazon Builders' Library](https://aws.amazon.com/builders-library/): falhas, timeouts, retries, filas acumuladas e load shedding (módulos 1 e 9), além da [documentação do etcd](https://etcd.io/docs/v3.6/faq/) para consenso (módulo 9).
 9. [Google, "Site Reliability Engineering"](https://sre.google/sre-book/table-of-contents/) e ["The Site Reliability Workbook"](https://sre.google/workbook/table-of-contents/) (módulo 10).
 10. [Gwen Shapira et al., "Kafka: The Definitive Guide", 2ª edição](https://www.confluent.io/resources/kafka-the-definitive-guide-v2/): gratuito no site da Confluent, com cadastro (módulo 5).
 

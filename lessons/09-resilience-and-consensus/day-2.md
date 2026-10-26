@@ -2,7 +2,7 @@
 
 [Module 9](../../modules/09-resilience-and-consensus.md) · [Leia em português](day-2.pt-BR.md)
 
-**Reading time:** about 45 minutes. Use the rest of the 2-hour block on the references at the end. Keep the [Raft visualization](https://raft.github.io/) open while you read sections 5 to 7.
+**Reading time:** about 45 minutes. Use the rest of the 2-hour block on the references at the end. Keep the [Raft visualization](https://raft.github.io/) open while you read sections 6 and 7.
 
 This is an original text written for this course. It is based on the references listed at the end, and each section names the source it follows. Where an idea comes from a specific author, the text says so.
 
@@ -108,86 +108,81 @@ For monitoring, Yanacek recommends **the age of the oldest message** (or the age
 
 ## 5. Why consensus is needed
 
-*Main source: Martin Kleppmann, "Distributed Systems" lecture notes (University of Cambridge), section 6.1, as presented in the course's printable slides.*
+*Main sources: Marc Brooker, Amazon Builders' Library, "Leader election in distributed systems"; etcd documentation, "FAQ".*
 
-In Module 1 you saw that a single leader gives you a total order: all writes go through one node, which decides their order, and replicas apply them in that order. That's how a Postgres primary works. But the leader is a single point of failure. When it dies, someone must pick a new one.
+In Module 1 you saw that a single leader gives you a total order: all writes go through one node, which decides their order, and replicas apply them in that order. That's how a Postgres primary works. Brooker's article lists why teams like leaders: they make systems easier to reason about and can give clients strong consistency. It is just as direct about the cost: "A single leader is a single point of failure." When the primary dies, someone must pick a new one.
 
-Kleppmann describes the two options:
+A human can pick the new primary, but then an unplanned outage lasts until someone wakes up. The alternative is automatic election. Brooker describes the usual Amazon approach, **leases**: "a single database that stores the current leader", and a leader that must heartbeat periodically to keep the role. He notes that DynamoDB and ZooKeeper offer lease-based locking clients for this. The store holding the lease must itself survive failures, and stores like etcd and Consul get that from Raft.
 
-- **Manual failover**: an operator picks a new leader and reconfigures every node. Common in databases and fine for planned maintenance, but unplanned outages last as long as it takes a human to wake up and act.
-- **Automatic failover**: the nodes elect a new leader themselves. This is where consensus comes in.
+The danger is **split brain**: two nodes acting as leader at once, each accepting writes. For a ledger, that means two divergent histories of postings. Brooker warns that a garbage collection pause between checking a lease and doing the work can make an old leader act after losing the role, so check the lease right before side effects and let the database reject a second leader (Module 3's fencing idea).
 
-Traditionally, **consensus** means several nodes agreeing on one value. Kleppmann shows that agreeing on "the next message to deliver", over and over, gives you total order broadcast, and that the two problems are formally equivalent. The well-known algorithms are Paxos (with Multi-Paxos for a sequence of values), Raft, Viewstamped Replication and Zab.
+The etcd FAQ explains the defense: a cluster works only while a majority of members (a quorum) can talk to each other, a model that "totally avoids any possibility of split brain inconsistency". Any two majorities share at least one member, so two groups can never both have a quorum.
 
-Two limits frame what these algorithms can do:
+Two practical consequences, both in the FAQ:
 
-- **FLP result.** The slides state: "There is no deterministic consensus algorithm that is guaranteed to terminate in an asynchronous crash-stop system model." So Paxos and Raft assume a **partially synchronous, crash-recovery** model (Module 1, section 4).
-- **Clocks for liveness only.** They use timeouts to detect a failed leader and make progress, but their **safety** never depends on timing. A wrong timeout can cause an unnecessary election; it can't cause two different committed histories.
-
-The danger to avoid is **split brain**: two nodes acting as leader at the same time, each accepting writes. For a ledger, that means two divergent histories of postings and, after the partition heals, no correct balance.
-
-## 6. Raft leader election
-
-*Main source: Diego Ongaro and John Ousterhout, "In Search of an Understandable Consensus Algorithm" (the Raft paper), sections 5.1, 5.2 and 5.6. Kleppmann's notes, section 6.2, cover the same algorithm.*
-
-A Raft cluster typically has five servers, which tolerates two failures. Each server is in one of three states:
-
-| State | Role | Becomes |
+| Members | Quorum | Failures tolerated |
 | --- | --- | --- |
-| **Follower** | Passive; answers requests from leaders and candidates | Candidate, if it hears nothing from a leader for an election timeout |
-| **Candidate** | Asks for votes | Leader with a majority of votes; follower if it sees a valid leader or a newer term |
-| **Leader** | Handles all client requests, replicates the log, sends heartbeats | Follower, if it sees a higher term |
+| 1 | 1 | 0 |
+| 3 | 2 | 1 |
+| 4 | 3 | 1 |
+| 5 | 3 | 2 |
+| 7 | 4 | 3 |
 
-Time is divided into numbered **terms**. Each term starts with an election. Servers include their term in every message; a server that sees a higher term updates its own and, if it was a leader or candidate, steps down to follower. Raft needs only two RPCs: `RequestVote` (sent by candidates) and `AppendEntries` (sent by the leader to replicate entries, and empty as a heartbeat).
+- **Use an odd number of members.** A 4-member cluster tolerates the same single failure as a 3-member one, with one more machine to pay for. During a network partition, an odd number guarantees there is always a majority side.
+- **Do not grow too big.** The FAQ says a cluster "probably should have no more than seven nodes", because every write must be replicated to more machines. Consul's documentation gives the same advice in its own words: 3 or 5 servers for production.
 
-An election goes like this:
+## 6. Raft leader election, as etcd and CockroachDB run it
 
-1. A follower's election timeout expires without a heartbeat.
-2. It increments its term, becomes a candidate, votes for itself and sends `RequestVote` to everyone.
-3. Each server votes for at most one candidate per term, first come, first served, and only if the candidate's log is at least as up to date as its own (section 5.4).
-4. A candidate with votes from a majority of the full cluster becomes leader and starts sending heartbeats.
-5. If the vote splits, the term ends with no leader, and a new election starts after another timeout.
+*Main sources: HashiCorp Consul documentation, "Consensus"; Cockroach Labs documentation, "Replication Layer"; etcd documentation, "Tuning", "Failure modes" and "etcd API".*
 
-The paper's key guarantee: "Raft ensures that there is at most one leader in a given term." It follows from majorities: two candidates can't both get votes from a majority in the same term, because any two majorities share at least one server, and that server votes only once.
+The Consul documentation describes Raft in a few sentences that are enough to follow an election. Every node starts as a **follower**. If a follower receives nothing from a leader for some time, it promotes itself to **candidate** and asks the other members for votes. A candidate that gets a quorum of votes becomes the **leader**. The leader accepts new log entries and replicates them to the followers.
 
-To make split votes rare, Raft **randomizes election timeouts**, for example between 150 and 300 ms, so usually one server times out first and wins before the others wake up. Section 5.6 gives the timing requirement: broadcast time much smaller than the election timeout, which is much smaller than the mean time between failures. The paper's numbers: broadcast time of 0.5 to 20 ms, election timeout somewhere between 10 and 500 ms, and server MTBF of several months or more.
+Two timers drive this, and etcd's "Tuning" page gives real numbers:
 
-What Raft can't prevent, as Kleppmann's slides note, is two leaders from *different* terms existing at once: an old leader cut off by a partition may not know it has been replaced. That's why a leader must hear from a majority before a write counts. The old leader can't reach a majority, so nothing it accepts is ever committed. Module 3's fencing tokens apply the same idea (a higher term wins) to locks.
+- **Heartbeat interval.** How often the leader tells followers it is alive. The etcd default is 100 ms, and the page recommends setting it around the round-trip time between members.
+- **Election timeout.** How long a follower waits without hearing from the leader before it starts an election. The etcd default is 1,000 ms, and the page says it must be at least 10 times the round-trip time to absorb network variance. A higher value takes longer to detect a dead leader; a lower heartbeat sends unnecessary messages.
 
-## 7. Raft log replication
+```sh
+etcd --heartbeat-interval=100 --election-timeout=500   # values in milliseconds
+```
 
-*Main source: Ongaro and Ousterhout, the Raft paper, sections 5.3 and 5.4.*
+If every follower used exactly the same timeout, they would all start elections at the same moment and split the vote. CockroachDB's "Replication Layer" page shows the standard fix: followers become candidates "after randomized election timeouts", with the timeout multiplied by a random factor between 1 and 2 "to avoid election ties". Usually one follower times out first and wins before the others wake up. The visualization on the Raft website lets you watch elections like this one.
 
-Once elected, the leader turns client commands into log entries:
+Each election starts a new **term**, a number that identifies one period of leadership. etcd shows it to clients: every response header carries a `raft_term` field, and the etcd API page says applications can use it to tell when the cluster has finished electing a new leader. A message from an older term is a message from a leader that has already been replaced.
 
-1. The leader appends the command to its log, tagged with the current term and index.
-2. It sends `AppendEntries` to all followers in parallel.
-3. When a majority has stored the entry, it is **committed**. The leader applies it to its state machine and answers the client. Committing an entry also commits every entry before it.
-4. Followers learn the commit index from later `AppendEntries` and apply the entries in order.
+What does a failover cost your application? etcd's "Failure modes" page answers concretely:
 
-Each `AppendEntries` carries the index and term of the entry just before the new ones. A follower that doesn't have that entry rejects the request, and the leader steps back (decrementing its `nextIndex` for that follower) until it finds the point where both logs agree. Then it overwrites the follower's conflicting entries. This consistency check keeps the **Log Matching** property.
+- When the leader fails, "it takes about an election timeout to elect a new leader". With the defaults, that is about a second.
+- Write requests sent during the election are queued until a new leader exists.
+- Writes already sent to the old leader but not yet committed may be lost, but "no committed writes are ever lost".
 
-Section 5.4 adds two safety rules. First, the **election restriction**: a candidate can't win unless its log is at least as up to date as a majority (compared by the term of the last entry, then by length), so a new leader always holds every committed entry. Second, a leader never decides that an entry from an *earlier* term is committed just by counting replicas; it commits an entry from its own term, which commits the older ones with it. The paper's Figure 8 shows the scenario that makes this rule necessary.
+That is the contract to remember: timeouts affect how fast the cluster recovers, never whether a committed write survives. The Raft website says the same: when too many servers fail, the cluster stops making progress, "but will never return an incorrect result".
 
-Figure 3 of the paper lists the properties Raft guarantees:
+## 7. Log replication, partitions and where you meet Raft
 
-| Property | Meaning |
-| --- | --- |
-| Election Safety | At most one leader per term |
-| Leader Append-Only | A leader never overwrites or deletes its own entries |
-| Log Matching | Same index and term means the same entry and the same history before it |
-| Leader Completeness | A committed entry is present in every later leader's log |
-| State Machine Safety | No two servers apply different entries at the same index |
+*Main sources: HashiCorp Consul documentation, "Consensus"; etcd documentation, "Failure modes" and "etcd API"; Cockroach Labs documentation, "Replication Layer"; Patroni documentation.*
 
-Where does this meet your wallet? You will not implement Raft. You use it: etcd is built on Raft, and tools like Patroni use a store such as etcd to decide which Postgres node is primary; Kafka's KRaft mode uses a Raft-based controller quorum. When an interviewer asks how failover avoids two primaries, the answer is a majority vote with terms, and a write that only counts after a majority has it. The cost is latency: every committed write waits for a majority round trip, which is cheap inside one region and expensive across continents. Tomorrow's active-active discussion depends on that.
+Once elected, the leader turns each client command into a **log entry**. Consul's documentation gives the commit rule: "An entry is considered committed when it is durably stored on a quorum of nodes." Only then is it applied to the state machine (the key-value store, in etcd's case). Snapshots compact the log, and CockroachDB's documentation adds that a lagging node loads a snapshot and replays the Raft log to catch up.
+
+Now partition a 5-member cluster into a group of 3 and a group of 2, with the old leader on the small side. etcd's "Failure modes" page describes what happens:
+
+1. The majority side elects a new leader and becomes the available cluster.
+2. The minority side is unavailable. Its leader steps down.
+3. When the partition heals, the minority side recognizes the new leader and recovers its state.
+
+The old leader cannot commit anything during the partition, because it cannot reach a quorum. Consul says the same: if a quorum is unavailable, no new logs can be committed. That is why the cut-off leader is harmless.
+
+Reads have a choice too. The etcd API page says reads are linearizable by default, while a serializable read is served locally by any member: faster, but possibly stale. A balance check before a debit needs the first; a dashboard can live with the second.
+
+Where does this meet your wallet? You will not implement Raft; you use it. etcd runs on it (and Kubernetes stores its state in etcd), and Patroni, a high-availability tool for Postgres, relies on a store such as etcd, Consul, ZooKeeper or Kubernetes to decide which Postgres node is primary. When an interviewer asks how failover avoids two primaries, the answer is a majority vote with terms, and a write that only counts after a majority has it. The cost is latency: every committed write waits for a quorum round trip, which is cheap inside one region and expensive across continents. The etcd FAQ notes this trade-off for clusters spread across regions, and tomorrow's active-active discussion depends on it.
 
 ## Notes to write today
 
 1. What a queue backlog does to recovery time (the one-hour outage example), and which wallet messages you may delay, sideline or drop, and which you must never drop.
 2. Load shedding vs. rate limiting: what each protects, what you shed first, and the token bucket in five lines.
-3. Why consensus is needed: manual vs. automatic failover, split brain, and the FLP result in one sentence.
-4. How Raft elects a leader: states, terms, the voting rules, and why randomized timeouts matter.
-5. How Raft replicates and commits a log entry, and why a cut-off old leader can't commit anything.
+3. Why consensus is needed: single leader as single point of failure, leases, split brain, and the quorum table with why clusters use odd sizes.
+4. How a Raft election works in etcd: follower, candidate, leader, terms, the two timers with their default values, and why timeouts are randomized.
+5. When a log entry is committed, what each side of a partition does, and what a failover costs your writes (queued, uncommitted ones may be lost, committed ones never).
 
 ## Check yourself
 
@@ -197,14 +192,19 @@ These make good flashcards (see the [flashcards guide](../../FLASHCARDS.md)).
 - Why should a server answer its health check even when it is shedding load?
 - Why is the age of the oldest message a better alarm than queue depth?
 - What does a token bucket store per client, and what makes it safe across many pods?
-- Why can't two Raft leaders be elected in the same term?
+- Why does a 4-member etcd cluster tolerate no more failures than a 3-member one?
 - When is a Raft log entry committed?
-- Why do consensus algorithms use clocks only for liveness, not safety?
+- What happens to writes sent to etcd during a leader election?
+- Why do Raft implementations randomize the election timeout?
 
 ## References
 
 - **Main source:** David Yanacek, ["Avoiding insurmountable queue backlogs"](https://aws.amazon.com/builders-library/avoiding-insurmountable-queue-backlogs/), Amazon Builders' Library, 2019. Read it all, especially the strategies for multitenant systems. Free.
 - **Main source:** David Yanacek, ["Using load shedding to avoid overload"](https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/), Amazon Builders' Library, 2019. Read it all. Free.
-- **Main source:** Martin Kleppmann, ["Distributed Systems" lecture notes](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-notes.pdf), University of Cambridge, 2021/22, chapter 6 (Consensus: 6.1 Introduction and 6.2 Raft). Free, Creative Commons BY-SA. The same material is in the [printable slides](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-handout.pdf), and the matching videos are linked from the [course materials page](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/materials.html).
-- **Main source:** Diego Ongaro and John Ousterhout, ["In Search of an Understandable Consensus Algorithm (Extended Version)"](https://raft.github.io/raft.pdf), the Raft paper. Read section 5 (5.1 to 5.6) and Figure 3; Figure 2 is a one-page summary of the whole algorithm. Free.
-- [The Raft Consensus Algorithm](https://raft.github.io/) site, with an interactive visualization. Stop a leader, watch an election, and partition the cluster. Free.
+- **Main source:** Marc Brooker, ["Leader election in distributed systems"](https://aws.amazon.com/builders-library/leader-election-in-distributed-systems/), Amazon Builders' Library, 2019. Read it all: why leaders, leases, and the stale-leader problem. Free.
+- **Main source:** etcd documentation, ["FAQ"](https://etcd.io/docs/v3.6/faq/) and ["Failure modes"](https://etcd.io/docs/v3.6/op-guide/failures/). In the FAQ, read the questions on cluster size, failure tolerance, odd numbers and disk latency. "Failure modes" is short; read it all. Free.
+- etcd documentation, ["Tuning"](https://etcd.io/docs/v3.6/tuning/). Read the time parameters: heartbeat interval and election timeout. Free.
+- HashiCorp Consul documentation, ["Consensus"](https://developer.hashicorp.com/consul/docs/concept/consensus). A one-page Raft overview from a product that runs it, with the deployment table. Free.
+- Cockroach Labs documentation, ["Replication Layer"](https://docs.cockroachlabs.com/docs/stable/architecture/replication-layer). Read the Raft section: Raft groups, randomized election timeouts, and snapshots. Free.
+- Patroni documentation, ["Introduction"](https://patroni.readthedocs.io/en/latest/). Optional: skim the first page to see which stores (etcd, Consul, ZooKeeper, Kubernetes) a real Postgres failover tool relies on. Free.
+- [The Raft Consensus Algorithm](https://raft.github.io/) site, with an interactive visualization of five servers and their logs: watch an election and log replication happen. The site also links to [The Secret Lives of Data](http://thesecretlivesofdata.com/raft/), a more guided, less interactive walkthrough of the same algorithm. Free.

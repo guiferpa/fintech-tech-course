@@ -2,7 +2,7 @@
 
 [Module 3](../../modules/03-transactions-concurrency-postgres.md) · [Leia em português](day-1.pt-BR.md)
 
-**Reading time:** about 45 minutes. Use the rest of the 2-hour block on the references at the end, starting with the Hermitage table.
+**Reading time:** about 45 minutes. Use the rest of the 2-hour block on the references at the end, starting with the Hermitage table and the PostgreSQL wiki examples.
 
 This is an original text written for this course. It is based on the references listed at the end, and each section names the source it follows. Where an idea comes from a specific author, the text says so.
 
@@ -10,11 +10,11 @@ This is an original text written for this course. It is based on the references 
 
 A wallet holds money in rows, and many requests touch the same rows at the same time. A customer double-taps "Pay". A Pix transfer arrives while a card purchase is being authorized. A batch job charges monthly fees while the customer moves money out. Each request is correct on its own. Run them together, and the balance can end up wrong.
 
-Databases promise "transactions", but the promise is weaker than most engineers think. Postgres runs at READ COMMITTED by default, and that level lets two correct transfers produce a negative balance. This week is about knowing exactly which anomaly each level allows, and then preventing negative balances in more than one way. Today is the theory: the vocabulary and the map.
+Databases promise "transactions", but the promise is weaker than most engineers think. Postgres runs at READ COMMITTED by default, and that level lets two correct transfers produce a negative balance. This week is about knowing exactly which anomaly each level allows, and then preventing negative balances in more than one way. Today is the vocabulary, told through what Postgres really does and through examples you can type into `psql`.
 
 ## 1. What ACID actually promises
 
-*Main source: Jepsen, "Consistency Models" map, and PostgreSQL documentation, section 13.2.*
+*Main source: PostgreSQL documentation, "Transaction Isolation" (section 13.2).*
 
 ACID is four letters, and each one promises something different. Read them with a transfer from Ana's wallet to Bruno's in mind: one debit, one credit, one transaction.
 
@@ -25,47 +25,43 @@ ACID is four letters, and each one promises something different. Read them with 
 | **Isolation** | Concurrent transactions are kept apart to the degree the chosen level says. | That every level behaves as if transactions ran one at a time. Only serializable does. |
 | **Durability** | A committed transaction survives a crash. | That a replica has it (see Module 1, Tuesday). |
 
-The letter that hides the most is **I**. Isolation is not one property but a family of them, called isolation levels or, in Jepsen's broader vocabulary, consistency models. Jepsen describes a consistency model as "a safety property which declares what a system can do." Formally, a model is the set of histories (orderings of reads and writes) a system is allowed to produce. A weaker model allows more histories, and some of those histories break your invariants.
+The letter that hides the most is **I**. Isolation is not one property but a menu of levels, and each level allows a different set of surprises. Only the strongest level, serializable, guarantees that the result matches some order of running the transactions one at a time. Every level below that trades some of that guarantee for fewer aborts and less waiting.
 
 So "it runs in a transaction" is not an answer to "can this go negative?". The real answer always names an isolation level and an anomaly.
 
-## 2. The map of isolation levels
+## 2. The four levels, as Postgres implements them
 
-*Main source: Jepsen, "Consistency Models" map and the pages "Read Committed" and "Snapshot Isolation".*
+*Main source: PostgreSQL documentation, "Transaction Isolation", Table 13.1 and the definitions above it.*
 
-Jepsen's map draws models as a tree where an arrow means "implies". The transactional part of the tree, simplified, looks like this:
+The SQL standard defines four levels by the phenomena each one forbids. The Postgres docs define the phenomena in one sentence each. In wallet terms:
 
-```
-strict serializable
-        |
-   serializable
-     /        \
-repeatable   snapshot
-  read       isolation
-     \        /
-monotonic atomic view   (cursor stability also sits here)
-        |
-  read committed
-        |
- read uncommitted
-```
+- **Dirty read.** "A transaction reads data written by a concurrent uncommitted transaction." You see a debit that later rolls back.
+- **Nonrepeatable read.** A transaction reads a row again and finds it changed by another transaction that committed in between. You read Ana's balance twice in one transaction and get 100, then 70.
+- **Phantom read.** A transaction re-runs a query with a search condition and the set of matching rows has changed because another transaction committed. You sum today's Pix transfers twice and a new one appears.
+- **Serialization anomaly.** "The result of successfully committing a group of transactions is inconsistent with all possible orderings of running those transactions one at a time." Each transaction looked fine, but together they produced a state no serial order could produce.
 
-Two facts from the map matter most for this week:
+Table 13.1 then says which level allows what. Note the two "but not in PG" cells, because they are where Postgres is stricter than the standard:
 
-- **Serializable implies snapshot isolation.** Every serializable history is also a valid snapshot history, but not the other way around.
-- **Snapshot isolation and repeatable read are incomparable.** Jepsen points out that each allows a phenomenon the other prohibits. This matters because Postgres uses the name "repeatable read" for what is really snapshot isolation (section 4).
+| Level | Dirty read | Nonrepeatable read | Phantom read | Serialization anomaly |
+| --- | --- | --- | --- | --- |
+| Read uncommitted | Allowed, but not in PG | Possible | Possible | Possible |
+| Read committed | Not possible | Possible | Possible | Possible |
+| Repeatable read | Not possible | Not possible | Allowed, but not in PG | Possible |
+| Serializable | Not possible | Not possible | Not possible | Not possible |
 
-**Read committed.** Jepsen's page says it in one line: "transactions are not allowed to observe writes from transactions which do not commit." It forbids dirty writes (P0: overwriting someone's uncommitted write) and dirty reads (P1: reading someone's uncommitted write). It allows fuzzy reads (P2: you read a row, someone commits a change, you read it again and see a different value) and phantoms (P3: you query a set of rows, someone commits a new row that matches, and your set changes). Jepsen notes that read committed can be totally available, which means every node can keep working during a network partition.
+Three practical facts follow, all from the same page:
 
-**Snapshot isolation.** Jepsen's definition: "In a snapshot isolated system, each transaction appears to operate on an independent, consistent snapshot of the database." Your transaction reads from a frozen picture taken when it starts. Its writes stay invisible until commit, and then all appear at once. Snapshot isolation also has a **first-committer-wins** rule: if two concurrent transactions write the same object, the second one to commit must abort. That rule is what prevents lost updates. Snapshot isolation cannot be totally available, so on a partition some nodes must stop.
+- **Read committed is the default.** If you never set a level, every transaction in your NestJS service runs at it.
+- **Postgres implements only three levels.** Read uncommitted behaves like read committed, so there are no dirty reads in Postgres.
+- **Repeatable read works on a snapshot.** Your transaction sees the data as of its first statement, so nonrepeatable reads and classic phantoms do not happen. It still allows serialization anomalies, which section 3 shows with money.
 
-What snapshot isolation still allows is the subject of section 3. Jepsen's page is direct: "The most notable phenomena allowed by snapshot isolation are write skews".
+One more behavior matters for the lab. At repeatable read, if you update a row that another transaction changed and committed after your snapshot was taken, Postgres refuses with `ERROR: could not serialize access due to concurrent update`, and the docs say to retry the whole transaction. This first-committer-wins rule stops the lost update but not write skew.
 
-**Serializable.** Every committed result is equivalent to running the transactions one at a time, in some order. Nothing on the anomaly list can happen.
+At serializable, the failure has a different message, `could not serialize access due to read/write dependencies among transactions`, and both messages share SQLSTATE `40001`. The docs recommend a generic way to catch `40001` and retry. Tuesday's lesson builds that retry.
 
 ## 3. Lost update, write skew and phantoms, in wallet terms
 
-*Main sources: Justin Jaffray, "What write skew looks like" (Cockroach Labs blog), for write skew; PostgreSQL documentation, section 13.2, for the phenomena definitions.*
+*Main sources: Justin Jaffray, "What write skew looks like" (Cockroach Labs blog), for write skew; PostgreSQL wiki, "SSI", for the overdraft and intersecting-data examples; PostgreSQL documentation, section 13.2, for the phenomena definitions.*
 
 These three anomalies are the ones that break balances. Learn them as three stories, each with two concurrent transactions T1 and T2.
 
@@ -80,59 +76,62 @@ These three anomalies are the ones that break balances. Learn them as three stor
 | 5 | | `UPDATE ... SET balance = 50` (waits, then runs) |
 | 6 | | `COMMIT` |
 
-The final balance is 50. The 30 purchase happened, but its debit was overwritten. Both transactions wrote the **same row**, and the second write erased the first. This is the classic read-modify-write bug, and it lives in application code that reads a value, does arithmetic in TypeScript, and writes the result.
+The final balance is 50. The 30 purchase happened, but its debit was overwritten. Both transactions wrote the **same row**, and the second write erased the first. This is the classic read-modify-write bug, and it lives in application code that reads a value, does arithmetic in TypeScript, and writes the result. At repeatable read, step 5 fails with the "concurrent update" error from section 2 instead.
 
-**Write skew.** Carla and Diego have a joint plan: two wallets, A and B, with the rule "A + B must stay at or above zero". A has 100 and B has 0. Carla withdraws 100 from A while Diego withdraws 100 from B. Each transaction reads both balances, checks the rule against its snapshot, and writes only its own wallet.
+**Write skew.** The PostgreSQL wiki page on SSI has a banking example that fits a wallet almost word for word. Kevin has two accounts, savings and checking, with 500 each. The bank lets a customer withdraw "up to the total of what they have in all accounts" and moves funds between accounts later to close the day positive. Someone submits two withdrawals of 900 at the same time, one from each account. Each transaction checks that the total covers the amount, sees 1,000, decides 900 is fine, and updates only its own account.
 
-| Step | T1 (Carla, from A) | T2 (Diego, from B) |
+| Step | T1 (900 from savings) | T2 (900 from checking) |
 | --- | --- | --- |
-| 1 | reads A=100, B=0; sum 100 ≥ 100, OK | |
-| 2 | | reads A=100, B=0; sum 100 ≥ 100, OK |
-| 3 | `UPDATE wallet A` → 0 | |
-| 4 | | `UPDATE wallet B` → -100 |
+| 1 | reads savings=500, checking=500; total 1,000, OK | |
+| 2 | | reads savings=500, checking=500; total 1,000, OK |
+| 3 | `UPDATE` savings → -400 | |
+| 4 | | `UPDATE` checking → -400 |
 | 5 | `COMMIT` | `COMMIT` |
 
-The sum is now -100. Neither transaction broke the rule on its own, and they wrote **different rows**, so first-committer-wins sees no conflict. Jaffray's article explains the general shape: two concurrent transactions read overlapping data, write to disjoint places, and both commit with a result that no serial order could produce. His own example is abstract and worth reading: transaction P copies register x into y, transaction Q copies y into x, and under snapshot isolation the two values end up swapped. As he puts it, that is "an outcome not possible in either serial execution."
+The total is now -800. Neither transaction broke the rule on its own, and they wrote **different rows**, so first-committer-wins sees no conflict. The wiki says that at repeatable read this "could work", meaning both withdrawals go through. At serializable, Postgres lets the first committer win and fails the other with a serialization error. On retry, the second transaction sees a net of 100, and the application rejects the 900 withdrawal.
 
-**Phantom.** The Postgres docs define a phantom read as re-running a query with a search condition and finding a different set of rows because another transaction committed. In a wallet, the dangerous case is a check that reads a **set** of rows and then inserts a new one. Say the daily Pix limit is 1,000. T1 sums today's transfers (800), sees room for 200, and inserts a 200 transfer. T2 does the same at the same time with another 200. Both commit, and the day ends at 1,200. No existing row was updated by both. The conflict is about a row that did not exist yet when each one read. Hermitage calls this "write skew on predicate read" (G2), as opposed to write skew on rows that already exist (G2-item).
+Jaffray's article explains the general shape: two concurrent transactions read overlapping data, write to disjoint places, and both commit. In his example, P copies x into y while Q copies y into x, and the values end up swapped, "an outcome not possible in either serial execution."
 
-A quick way to tell them apart:
+**Phantom-style write skew.** The dangerous case for a wallet is a check that reads a **set** of rows and then inserts a new one. Say the daily Pix limit is 1,000. T1 sums today's transfers (800), sees room for 200, and inserts a 200 transfer. T2 does the same at the same time with another 200. Both commit, and the day ends at 1,200. No existing row was updated by both. The conflict is about a row that did not exist yet when each one read.
 
-| Anomaly | Both transactions write... | What the check read | Typical wallet bug |
-| --- | --- | --- | --- |
-| Lost update | the same row | that same row | read balance, subtract in code, write back |
-| Write skew | different rows | rows the other one writes | shared limit across two wallets |
-| Phantom (G2) | new rows | a set defined by a condition | daily limit by summing transfers |
+The Postgres docs and the wiki both use the same shape with a table `mytab(class, value)`: one transaction sums class 1 and inserts the result as class 2, the other sums class 2 and inserts the result as class 1. At repeatable read both commit. At serializable one fails. Note the subtlety: Table 13.1 says repeatable read in Postgres has no phantom reads, and that is true: neither transaction ever sees the other's new row. That is exactly the problem, since each one decided on an outdated snapshot. Hermitage calls this "write skew on predicate read" (G2), as opposed to write skew on rows that already exist (G2-item, "write skew on disjoint read").
 
 ## 4. Why serializable fixes write skew
 
-*Main source: Justin Jaffray, "What write skew looks like", sections "Who cares?" and "When is Snapshot not Serializable?".*
+*Main sources: Justin Jaffray, "What write skew looks like", sections "Who cares?" and "When is Snapshot not Serializable?"; PostgreSQL wiki, "SSI".*
 
 Jaffray's article explains the theory behind the fix, and it is worth knowing for interviews.
 
 Draw each transaction as a node. Add an edge when one transaction depends on another. There are three kinds of dependency: **wr** (T2 reads what T1 wrote), **ww** (T2 overwrites what T1 wrote) and **rw**, also called an anti-dependency (T1 read a value that T2 then overwrote, so T1 must come before T2). Jaffray states the key result: "A history is serializable if and only if its serialization graph has no cycles."
 
-In the joint-wallet story, T1 read B and T2 wrote B, so T1 must come before T2. T2 read A and T1 wrote A, so T2 must come before T1. That is a cycle of two rw edges, and no serial order exists.
+In Kevin's story, T1 read checking and T2 wrote checking, so T1 must come before T2. T2 read savings and T1 wrote savings, so T2 must come before T1. That is a cycle of two rw edges, and no serial order exists.
 
-Jaffray also notes that between concurrent snapshot transactions, the only possible dependency is rw. He cites a theorem by Fekete and colleagues: every cycle in a snapshot history contains two consecutive rw edges. Postgres's **Serializable Snapshot Isolation (SSI)** uses that result. It tracks rw dependencies, and when it sees a dangerous pattern it aborts one transaction. It sometimes aborts a transaction that was not really part of a cycle, which is the price of checking cheaply.
+Jaffray also notes that between concurrent snapshot transactions, the only possible dependency is rw, and that every cycle in a non-serializable snapshot history contains two consecutive rw edges. Postgres's **Serializable Snapshot Isolation (SSI)** is built on that observation. It tracks rw dependencies, and when it sees a dangerous pattern it aborts one transaction. The wiki's overdraft example describes exactly this: SSI detects a "dangerous structure" and cancels one of the two withdrawals.
+
+The wiki adds two practical warnings that matter for your code:
+
+- **Ignore results from a failed transaction.** The wiki says any query results from a failed serializable transaction "must be ignored; use the results from the retry." If your handler already computed a response from the first attempt, throw it away.
+- **Retries must be generic.** In the wiki's three-transaction example (the "Primary Colors" case), the wiki says the fate of the third transaction "is not deterministic": it might commit or it might get a serialization failure. You cannot predict which transaction gets the error, so every transaction that touches balances needs the same retry wrapper.
 
 The practical reason to prefer serializable is what Jaffray calls local reasoning. Under serializable, "it's sufficient to verify that every individual transaction maintains this invariant on its own". Under weaker levels, "one must consider the interactions between every transaction to ensure said invariants are upheld". For a wallet with dozens of operations that touch balances, that difference is huge. Under serializable, you review each operation once. Under snapshot isolation, you have to review every pair.
+
+The wiki's "Deposit Report" example is a back-office version of the same problem: a receipt that slips into a batch already closed and taken to the bank. Reconciliation jobs in Module 7 have that shape.
 
 ## 5. What Postgres actually gives you
 
 *Main source: Martin Kleppmann, Hermitage repository, PostgreSQL rows of the results table.*
 
-Hermitage is a set of tests Kleppmann wrote to check which anomalies each database really prevents at each isolation level. His README starts from a blunt observation: "Unfortunately, those weaker isolation levels are quite poorly understood." He adds that vendor documentation about them is "frustratingly vague". Each test is a sequence of SQL statements typed into two or more sessions, so you can reproduce any row yourself with two `psql` windows.
+Hermitage is a set of tests Kleppmann wrote to check which anomalies each database really prevents at each isolation level. His README starts from a blunt observation: "Unfortunately, those weaker isolation levels are quite poorly understood." He adds that vendor documentation about them is "frustratingly vague". Each test is a sequence of SQL statements typed into two or more sessions, so you can reproduce any row yourself with two `psql` windows. That is what makes it practical: it is a test suite, not a theory.
 
-Kleppmann bases the project on Adya's formal definition of weak isolation, as extended by Bailis and colleagues, and that is where the anomaly codes come from. The ones that matter here:
+The anomaly codes that matter here, with the names Hermitage gives them:
 
 | Code | Name in Hermitage | Wallet meaning |
 | --- | --- | --- |
 | G0 | write cycles (dirty writes) | two transfers interleave writes on the same rows |
-| G1a, G1b, G1c | dirty reads | you see a debit that later rolls back |
+| G1a, G1b, G1c | aborted reads, intermediate reads, circular information flow | you see a debit that later rolls back, or half of a transaction |
 | P4 | lost update | section 3 |
 | G-single | read skew | a statement shows A after a transfer and B before it |
-| G2-item | write skew on disjoint read | joint-wallet rule |
+| G2-item | write skew on disjoint read | Kevin's two accounts |
 | G2 | write skew on predicate read | daily limit by summing rows |
 
 The PostgreSQL rows, as Hermitage reports them:
@@ -162,7 +161,9 @@ The lab asks you to reproduce a lost update in two `psql` sessions under READ CO
 5. In session 2, write its own computed literal and commit.
 6. Read the balance and compare it with what it should be.
 
-Then repeat the same steps with `BEGIN ISOLATION LEVEL REPEATABLE READ` in both sessions. Hermitage predicts that the second writer now gets an error instead of silently erasing the first write. Write down the error text; tomorrow's reading names it.
+Then repeat the same steps with `BEGIN ISOLATION LEVEL REPEATABLE READ` in both sessions. Hermitage and the Postgres docs both predict that the second writer now gets `could not serialize access due to concurrent update` instead of silently erasing the first write. Write down the full error text.
+
+If time is left, paste Kevin's overdraft example from the wiki into the same two sessions, at repeatable read and then at serializable.
 
 ## Notes to write today
 
@@ -180,12 +181,13 @@ These make good flashcards (see the [flashcards guide](../../FLASHCARDS.md)).
 - Why does first-committer-wins not stop write skew?
 - What does Postgres's "repeatable read" level really implement, according to Hermitage?
 - Which ACID letter covers the rule "a couple's combined balance never goes below zero"? Who enforces it?
-- What is a phantom, and what wallet check is exposed to one?
+- Table 13.1 says Postgres's repeatable read has no phantom reads. Why can a daily-limit check still be broken at that level?
 - What makes a history serializable, in terms of its dependency graph?
+- Which SQLSTATE do both serialization errors share, and what should your code do with it?
 
 ## References
 
 - **Main source:** Martin Kleppmann, ["Hermitage: testing transaction isolation levels"](https://github.com/ept/hermitage), GitHub repository. Read the README's results table, focusing on the PostgreSQL rows, then open the `postgres.md` test file to see the exact session-by-session commands. Free.
-- Jepsen, ["Consistency Models"](https://jepsen.io/consistency) map, plus the model pages ["Read Committed"](https://jepsen.io/consistency/models/read-committed) and ["Snapshot Isolation"](https://jepsen.io/consistency/models/snapshot-isolation). Read the map first, then both pages, skipping the formal definitions on a first pass. Free.
+- **Main source:** PostgreSQL wiki, ["SSI"](https://wiki.postgresql.org/wiki/SSI). Read the Overview, the three "Simple Write Skew" examples (Black and White, Intersecting Data, Overdraft Protection) and "Deposit Report". Each one is a session-by-session script you can paste into `psql`. Free.
 - Justin Jaffray, ["What write skew looks like"](https://www.cockroachlabs.com/blog/what-write-skew-looks-like/), Cockroach Labs blog, 2022. Read it all; the dependency-graph part is the hardest and the most useful. The article focuses on write skew; lost updates and phantoms come from Hermitage and the Postgres docs. Free.
-- PostgreSQL documentation, ["Transaction Isolation"](https://www.postgresql.org/docs/current/transaction-iso.html) (section 13.2), Table 13.1 and the definitions above it. Free. This is tomorrow's main reading; today, read only the table.
+- PostgreSQL documentation, ["Transaction Isolation"](https://www.postgresql.org/docs/current/transaction-iso.html) (section 13.2). Today, read the introduction, the phenomena definitions and Table 13.1. Free. This is tomorrow's main reading, so the rest of the page can wait.
