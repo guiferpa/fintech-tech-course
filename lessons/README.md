@@ -18,3 +18,5 @@ Every text is based on the references listed at its end, and each section names 
 | 8. Security, compliance and risk | [Hashing, encryption, keys and mTLS](08-security-compliance-risk/day-1.md) | [API risks, threat modeling, PCI scope and LGPD](08-security-compliance-risk/day-2.md) | [Tokens, authorization, fraud limits and KYC](08-security-compliance-risk/day-3.md) |
 | 9. Resilience, high availability and consensus | [Timeouts, retries, circuit breakers and bulkheads](09-resilience-and-consensus/day-1.md) | [Overload, backlogs and consensus](09-resilience-and-consensus/day-2.md) | [Disaster recovery, safe migrations and feature flags](09-resilience-and-consensus/day-3.md) |
 | 10. Observability and operations | [Symptoms, golden signals, SLOs and burn-rate alerts](10-observability-and-operations/day-1.md) | [Traces, context propagation and business metrics](10-observability-and-operations/day-2.md) | [Incidents, runbooks, postmortems and the double-charge detector](10-observability-and-operations/day-3.md) |
+
+Checkpoint 2 also has one course text, for its Monday: [Cross-border payments](checkpoint-2-cross-border-payments/day-1.md).

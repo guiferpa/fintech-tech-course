@@ -86,18 +86,18 @@ Fork this repository, tick the boxes in [PROGRESS.md](PROGRESS.md) as you delive
 
 ## Main sources
 
-Every reading in the sessions and module pages has the full name and a link. Free material comes first; a paid book is used only where nothing free covers the topic as well.
+Every reading in the sessions and module pages has the full name and a link. Free material comes first; a paid book is used only where nothing free covers the topic as well. There are no academic papers or lecture notes: every reading comes from the companies and products that run these systems, with practical examples.
 
 Free (used most):
 
-1. [Martin Kleppmann, "Distributed Systems" lecture notes (University of Cambridge)](https://www.cl.cam.ac.uk/teaching/2122/ConcDisSys/dist-sys-notes.pdf): failures, clocks, replication, quorums, consensus and consistency (modules 1 and 9).
-2. [PostgreSQL documentation](https://www.postgresql.org/docs/current/) and [Jepsen consistency models](https://jepsen.io/consistency): replication, isolation levels and locking (modules 1 and 3).
+1. [Azure Cosmos DB documentation](https://learn.microsoft.com/azure/cosmos-db/consistency-levels), [Apache Cassandra documentation](https://cassandra.apache.org/doc/latest/cassandra/architecture/dynamo.html) and [Amazon DynamoDB Developer Guide](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/bp-partition-key-design.html): replication, quorums, partitioning and consistency levels in real databases (module 1).
+2. [PostgreSQL documentation](https://www.postgresql.org/docs/current/): replication, isolation levels and locking (modules 1 and 3).
 3. [microservices.io](https://microservices.io/patterns/), by Chris Richardson: saga, transactional outbox and idempotent consumer (modules 2 and 4).
 4. [Stripe blog on idempotency](https://stripe.com/blog/idempotency) and [Stripe's Ledger post](https://stripe.dev/blog/ledger-stripe-system-for-tracking-and-validating-money-movement) (modules 2 and 6).
 5. [Modern Treasury journal and ebooks](https://www.moderntreasury.com/journal/accounting-for-developers-part-i) and the [TigerBeetle documentation](https://docs.tigerbeetle.com/) (module 6).
 6. [Banco Central do Brasil, Pix](https://www.bcb.gov.br/estabilidadefinanceira/pix): regulation, manuals and MED (module 7).
 7. [OWASP Cheat Sheet Series](https://cheatsheetseries.owasp.org/) and [OWASP API Security Top 10](https://owasp.org/API-Security/editions/2023/en/0x11-t10/) (module 8).
-8. [Amazon Builders' Library](https://aws.amazon.com/builders-library/): timeouts, retries, backlogs and load shedding (module 9).
+8. [Amazon Builders' Library](https://aws.amazon.com/builders-library/): failures, timeouts, retries, backlogs and load shedding (modules 1 and 9).
 9. [Google, "Site Reliability Engineering"](https://sre.google/sre-book/table-of-contents/) and ["The Site Reliability Workbook"](https://sre.google/workbook/table-of-contents/) (module 10).
 10. [Gwen Shapira et al., "Kafka: The Definitive Guide", 2nd edition](https://www.confluent.io/resources/kafka-the-definitive-guide-v2/): free from Confluent with a sign-up form (module 5).
 
