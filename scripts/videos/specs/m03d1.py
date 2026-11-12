@@ -1,0 +1,141 @@
+META = dict(id="m03d1", file="m03-dia1-niveis-de-isolamento-e-anomalias", label="M3 · Dia 1 · Isolamento e anomalias",
+            title="Níveis de isolamento e anomalias", subtitle="Módulo 3 · Transações, concorrência e Postgres · Dia 1")
+EN_TERMS = ["READ COMMITTED", "read committed", "repeatable read", "REPEATABLE READ", "serializable", "read uncommitted", "dirty read",
+            "nonrepeatable read", "phantom read", "phantom", "serialization anomaly", "lost update", "write skew", "first-committer-wins",
+            "Justin Jaffray", "Hermitage", "Kleppmann", "Serializable Snapshot Isolation", "SSI", "snapshot isolation", "dangerous structure",
+            "Primary Colors", "Deposit Report", "psql", "NestJS", "SQLSTATE", "Kevin", "wr", "ww", "rw", "G2-item", "G-single", "read skew",
+            "could not serialize access due to concurrent update", "CHECK", "UNIQUE", "foreign keys", "read-modify-write", "TypeScript"]
+EN_SAY = {"SSI": "S S I", "psql": "P S Q L", "wr": "W R", "ww": "W W", "rw": "R W", "G2-item": "G two item", "G-single": "G single", "SQLSTATE": "S Q L state"}
+SCENES = [
+ dict(section="Abertura", type="title", questions=["O que “roda numa transação” garante?", "Lost update ou write skew?", "O que o Postgres impede de verdade?"], beats=[
+  (0, "Esta é a aula em vídeo do módulo três, dia um: níveis de isolamento e anomalias."),
+  (1, "Uma carteira guarda dinheiro em linhas, e muitas requisições mexem nas mesmas linhas ao mesmo tempo. Cada requisição está certa sozinha, mas juntas o saldo pode terminar errado. O Postgres roda em READ COMMITTED por padrão, e esse nível deixa duas transferências corretas produzirem um saldo negativo. Hoje você aprende exatamente qual anomalia cada nível permite."),
+ ]),
+ dict(section="O que o ACID promete", type="table", title="ACID, letra por letra", header=["Letra", "Promete", "NÃO promete"], widths=[330, 720, 670], size=27, rows=[
+   ("Atomicidade", "Abortou: nenhuma escrita fica. Débito nunca sem crédito", "Que vai dar certo, ou que retry é seguro"),
+   ("Consistência", "Constraints declaradas valem após o commit", "Regras de negócio que você não declarou"),
+   ("Isolamento", "Separação no grau do nível escolhido", "Que todo nível pareça serial. Só o serializable"),
+   ("Durabilidade", "Commit sobrevive a um crash", "Que a réplica já tenha o dado")],
+   callout=("“Roda numa transação” não responde “pode ficar negativo?”", "a resposta de verdade cita um nível de isolamento e uma anomalia", "red"), beats=[
+  (0, "O ACID são quatro letras, e cada uma promete uma coisa diferente. Pense numa transferência da Ana para o Bruno: um débito, um crédito, uma transação."),
+  (1, "Atomicidade: se a transação abortar, nenhuma escrita fica. O débito nunca fica sem o crédito. Mas não promete que vai dar certo."),
+  (2, "Consistência: as constraints que você declarou, como CHECK e UNIQUE, valem depois de todo commit. Regras de negócio que você não declarou, como o saldo somado de um casal nunca ficar negativo, são trabalho do seu código."),
+  (3, "Isolamento é a letra que mais esconde coisas. Não é uma propriedade, é um cardápio de níveis. E só o serializable garante que o resultado bate com alguma ordem de execução uma de cada vez."),
+  (4, "Durabilidade: o commit sobrevive a um crash, mas não promete que a réplica já tem o dado."),
+  (5, "Então rodar dentro de uma transação não responde se o saldo pode ficar negativo. A resposta de verdade sempre cita um nível de isolamento e uma anomalia."),
+ ]),
+ dict(section="Os fenômenos", type="cards", title="Os quatro fenômenos do padrão SQL", cards=[
+   ("Dirty read", "Você vê um débito que depois sofre rollback. Não existe no Postgres.", "green"),
+   ("Nonrepeatable read", "Lê o saldo da Ana duas vezes na mesma transação: 100, depois 70.", "amber"),
+   ("Phantom read", "Soma os Pix de hoje duas vezes, e aparece um novo.", "amber"),
+   ("Serialization anomaly", "Cada transação parecia certa, mas juntas dão um estado que nenhuma ordem serial daria.", "red")], beats=[
+  (0, "O padrão SQL define os níveis pelos fenômenos que cada um proíbe. São quatro."),
+  (1, "Dirty read: você lê um dado de uma transação que ainda não fez commit. Vê um débito que depois sofre rollback. No Postgres isso não existe."),
+  (2, "Nonrepeatable read: você lê a mesma linha duas vezes e ela mudou, porque outra transação fez commit no meio. Cem, depois setenta."),
+  (3, "Phantom read: você repete uma consulta com condição, e o conjunto de linhas mudou. Soma os Pix de hoje e aparece um novo."),
+  (4, "E serialization anomaly: cada transação parecia correta, mas juntas produziram um estado que nenhuma ordem serial produziria. É a mais traiçoeira."),
+ ]),
+ dict(section="Os níveis no Postgres", type="table", title="O que cada nível permite (Tabela 13.1)", header=["Nível", "Dirty", "Nonrepeatable", "Phantom", "Anomalia"], widths=[440, 260, 360, 330, 330], rows=[
+   ("Read uncommitted", "não no PG", "sim", "sim", "sim"), ("Read committed (padrão)", "não", "sim", "sim", "sim"),
+   ("Repeatable read", "não", "não", "não no PG", "sim"), ("Serializable", "não", "não", "não", "não")],
+   callout=("Repeatable read: concurrent update → aborta (first-committer-wins)", "SQLSTATE 40001: refaça a transação inteira", "amber"), beats=[
+  (0, "Agora a tabela do Postgres. Ele implementa só três níveis de fato."),
+  (1, "Read uncommitted se comporta como read committed. Por isso não existe dirty read."),
+  (2, "Read committed é o padrão. Se você nunca define um nível, todo o seu serviço roda nele. E ele permite todo o resto."),
+  (3, "Repeatable read trabalha sobre um snapshot: a transação enxerga os dados como estavam no primeiro comando. Nonrepeatable e phantom clássicos não acontecem. Mas serialization anomaly ainda pode."),
+  (4, "Só serializable proíbe tudo."),
+  (5, "Um comportamento para o lab: em repeatable read, se você atualiza uma linha que outra transação alterou depois do seu snapshot, o Postgres recusa com could not serialize access due to concurrent update. É a regra first-committer-wins. Em serializable, a mensagem é outra, mas o SQLSTATE é o mesmo, quatro zero zero zero um. Nos dois, você refaz a transação inteira."),
+ ]),
+ dict(section="Lost update", type="table", title="Lost update: duas compras, saldo 100", header=["Passo", "T1 (compra de 30)", "T2 (compra de 50)"], widths=[200, 760, 760], rows=[
+   ("1", "SELECT balance → 100", ""), ("2", "", "SELECT balance → 100"), ("3", "UPDATE SET balance = 70", ""),
+   ("4", "COMMIT", ""), ("5", "", "UPDATE SET balance = 50 (espera, roda)"), ("6", "", "COMMIT → saldo final 50")],
+   callout=("A mesma linha, a segunda escrita apaga a primeira", "o bug do read-modify-write: lê, faz a conta em TypeScript, grava", "red"), beats=[
+  (0, "Três anomalias quebram saldos. Aprenda como três histórias. A primeira é o lost update. A carteira da Ana tem cem. Duas compras, de trinta e de cinquenta, rodam juntas."),
+  (2, "As duas transações leem o saldo, cem."),
+  (4, "T um calcula setenta, grava e faz commit."),
+  (6, "T dois calculou cinquenta, grava e faz commit. Saldo final: cinquenta. A compra de trinta aconteceu, mas o débito dela foi sobrescrito."),
+  (7, "As duas gravaram a mesma linha, e a segunda apagou a primeira. É o bug clássico do read-modify-write: o código lê um valor, faz a conta em TypeScript e grava. Em repeatable read, o passo cinco falharia com o erro de concurrent update."),
+ ]),
+ dict(section="Write skew", type="table", title="Write skew: as contas do Kevin, 500 + 500", header=["Passo", "T1 (900 da poupança)", "T2 (900 da corrente)"], widths=[200, 760, 760], rows=[
+   ("1", "lê 500 + 500 = 1.000, ok", ""), ("2", "", "lê 500 + 500 = 1.000, ok"),
+   ("3", "UPDATE poupança → −400", ""), ("4", "", "UPDATE corrente → −400"), ("5", "COMMIT", "COMMIT → total −800")],
+   callout=("Linhas DIFERENTES: first-committer-wins não vê conflito", "repeatable read deixa passar; serializable aborta uma das duas", "red"), beats=[
+  (0, "A segunda história é o write skew, da wiki do Postgres. O Kevin tem poupança e corrente, quinhentos em cada. O banco deixa sacar até o total das duas contas. Alguém envia dois saques de novecentos ao mesmo tempo, um de cada conta."),
+  (2, "Cada transação confere o total, vê mil, e decide que novecentos está ok."),
+  (4, "Cada uma atualiza só a própria conta. Menos quatrocentos e menos quatrocentos."),
+  (5, "As duas fazem commit. Total: menos oitocentos. Nenhuma quebrou a regra sozinha."),
+  (6, "E elas gravaram linhas diferentes, então o first-committer-wins não vê conflito. Em repeatable read, os dois saques passam. Em serializable, o Postgres aborta um deles, e no retry a aplicação recusa o saque."),
+  ("P", "Pergunta: qual a diferença entre lost update e write skew?"),
+  (6, "No lost update, as duas transações gravam a mesma linha e uma apaga a outra. No write skew, elas leem dados que se sobrepõem e gravam linhas diferentes, quebrando juntas uma regra que cada uma respeitou."),
+ ]),
+ dict(section="Write skew com phantom", type="flow", title="Limite diário de Pix: R$ 1.000",
+      nodes=[("T1 soma o dia: 800", "acc", "espaço para 200"), ("T2 soma o dia: 800", "acc", "espaço para 200"), ("Ambas inserem 200", "amber"), ("Dia termina em 1.200", "red")],
+      notes=[("O conflito é sobre uma linha que ainda NÃO existia quando cada uma leu", "red"),
+             ("Repeatable read não mostra phantom: cada uma decidiu num snapshot velho", "amber"),
+             ("Hermitage: G2-item = linhas existentes; G2 = predicado (este caso)", "acc")], beats=[
+  (4, "A terceira história é a mais perigosa numa carteira: uma verificação que lê um conjunto de linhas e depois insere uma nova. O limite diário de Pix é mil. T um soma as transferências de hoje, oitocentos, vê espaço para duzentos e insere duzentos. T dois faz o mesmo ao mesmo tempo. O dia termina em mil e duzentos."),
+  (5, "Nenhuma linha existente foi atualizada pelas duas. O conflito é sobre uma linha que ainda não existia."),
+  (6, "E repare a sutileza. A tabela diz que o repeatable read do Postgres não tem phantom. É verdade: nenhuma das duas vê a linha nova da outra. Esse é justamente o problema: cada uma decidiu num snapshot desatualizado."),
+  (7, "O Hermitage chama de G dois item o write skew sobre linhas existentes, como o Kevin, e de G dois o write skew sobre um predicado, como o limite diário."),
+  ("P", "Pergunta: se o repeatable read não tem phantom reads, por que o limite diário ainda pode ser quebrado?"),
+  (7, "Porque cada transação soma sobre o próprio snapshot e não vê a inserção da outra. As duas decidem com dados velhos, e as duas inserem."),
+ ]),
+ dict(section="Por que serializable resolve", type="bullets", title="O grafo de dependências (Justin Jaffray)", items=[
+   ("Arestas: wr (leu o que o outro gravou), ww (sobrescreveu), rw (leu algo que o outro sobrescreveu)", "acc"),
+   ("Histórico é serializable se e somente se o grafo não tem ciclos", "green"),
+   ("Kevin: T1 → T2 e T2 → T1 por duas arestas rw: ciclo, nenhuma ordem serial", "red"),
+   ("SSI do Postgres rastreia arestas rw e aborta ao ver uma “dangerous structure”", "green"),
+   ("Ignore resultados da tentativa que falhou; o retry precisa ser genérico", "amber")],
+   callout=("Serializable = raciocínio local", "revise cada operação uma vez, não cada par de operações", "green"), beats=[
+  (1, "Por que serializable resolve? Desenhe cada transação como um nó e ligue as dependências. Há três tipos: W R, quando uma lê o que a outra gravou. W W, quando sobrescreve. E R W, quando uma leu um valor que a outra depois sobrescreveu."),
+  (2, "O resultado principal: um histórico é serializable se e somente se o grafo não tem ciclos."),
+  (3, "No caso do Kevin, T um leu a corrente que T dois gravou, então T um vem antes. E T dois leu a poupança que T um gravou, então T dois vem antes. Ciclo. Nenhuma ordem serial existe."),
+  (4, "O Serializable Snapshot Isolation do Postgres é construído sobre isso. Ele rastreia arestas R W e, ao ver uma estrutura perigosa, aborta uma transação."),
+  (5, "Dois avisos práticos. Ignore os resultados da tentativa que falhou; use os do retry. E você não consegue prever qual transação vai receber o erro, então toda transação que mexe em saldo precisa do mesmo wrapper de retry."),
+  (6, "O motivo para preferir serializable é o raciocínio local. Basta verificar que cada transação mantém a regra sozinha. Em níveis mais fracos, você precisa revisar cada par de operações. Com dezenas de operações, a diferença é enorme."),
+  ("P", "Pergunta: o que torna um histórico serializable, em termos do grafo de dependências?"),
+  (6, "Não ter ciclos. Se o grafo tem ciclo, nenhuma ordem serial explica o resultado."),
+ ]),
+ dict(section="O que o Postgres entrega", type="table", title="Hermitage: o que cada nível do Postgres é de verdade", header=["Você pede", "É de verdade", "Ainda permite"], widths=[560, 560, 600], rows=[
+   ("read committed (padrão)", "monotonic atomic view", "lost update, read skew, write skew"),
+   ("repeatable read", "snapshot isolation", "write skew (G2-item e G2)"),
+   ("serializable", "serializable", "nada: aborta com 40001")],
+   callout=("O plano da semana", "segunda: lost update em read committed  ·  terça: write skew e o retry do 40001", "acc"), beats=[
+  (0, "O Hermitage, de Martin Kleppmann, é uma suíte de testes que verifica quais anomalias cada banco impede de verdade. Cada teste é uma sequência de comandos em duas sessões de psql, então você pode reproduzir qualquer linha."),
+  (1, "No Postgres, read committed é na verdade monotonic atomic view. Ele permite lost update, read skew e write skew."),
+  (2, "Repeatable read é snapshot isolation. Impede lost update, mas permite write skew."),
+  (3, "E serializable impede tudo, abortando uma transação com o erro quatro zero zero zero um."),
+  (4, "Esse é o plano da semana. Hoje, o lost update em read committed. Amanhã, o write skew e como fazer retry do erro de serialização."),
+  ("P", "Pergunta: o que o repeatable read do Postgres implementa de fato, segundo o Hermitage?"),
+  (4, "Snapshot isolation. Impede lost update, mas ainda permite write skew."),
+ ]),
+ dict(section="O lab de hoje", type="steps", title="Reproduza um lost update em dois psql", items=[
+   ("Crie uma tabela com uma carteira e um saldo conhecido", "acc"),
+   ("Sessões 1 e 2: BEGIN e SELECT do saldo", "acc"),
+   ("Sessão 1: UPDATE com o literal calculado, COMMIT", "acc"),
+   ("Sessão 2: UPDATE com o literal dela, COMMIT; confira o saldo", "red"),
+   ("Repita com REPEATABLE READ: anote o erro de concurrent update", "green")], beats=[
+  (5, "O lab de hoje é reproduzir um lost update com duas sessões de psql em read committed. Crie uma carteira com saldo conhecido. Nas duas sessões, inicie a transação e leia o saldo. Na primeira, grave o novo saldo como um literal, do jeito que seu código calcularia, e faça commit. Na segunda, grave o literal dela e faça commit. Confira o saldo errado. Depois repita em repeatable read e anote o texto completo do erro. Um detalhe: um UPDATE que faz a conta no próprio comando, saldo igual a saldo menos trinta, não perde a atualização. Amanhã você vê por quê."),
+ ]),
+ dict(section="Revisão relâmpago", type="recap", title="Revisão relâmpago", qa=[
+   ("Nível padrão do Postgres permite lost update?", "Sim. Read committed permite, com read-modify-write na aplicação."),
+   ("Por que first-committer-wins não impede write skew?", "Porque as transações gravam linhas diferentes: não há conflito de escrita."),
+   ("Qual letra do ACID cobre “saldo do casal nunca negativo”?", "Nenhuma sozinha: é regra de negócio não declarada, trabalho do seu código (ou do serializable).")], beats=[
+  (0, "Hora da revisão relâmpago. São três perguntas, sem olhar."),
+  ("P", "Pergunta um: o nível padrão do Postgres permite lost update?"),
+  (1, "Permite. Read committed deixa o read-modify-write da aplicação perder uma atualização."),
+  ("P", "Pergunta dois: por que o first-committer-wins não impede write skew?"),
+  (2, "Porque as transações gravam linhas diferentes. Não existe conflito de escrita para ele detectar."),
+  ("P", "Pergunta três: qual letra do ACID garante que o saldo somado do casal nunca fica negativo?"),
+  (3, "Nenhuma sozinha. É uma regra de negócio que você não declarou. Quem garante é o seu código, ou o serializable, que faz cada transação poder ser verificada sozinha."),
+ ]),
+ dict(section="O que anotar e próximo passo", type="bullets", title="Anote com as suas palavras", items=[
+   ("Os 4 níveis: o que cada um proíbe e o que ainda permite", "acc"),
+   ("Lost update, write skew e phantom: uma frase e um exemplo de carteira cada", "acc"),
+   ("As três linhas do Postgres no Hermitage, e o que surpreendeu", "acc"),
+   ("Do lab: a sequência que deu lost update e o erro em repeatable read", "green")],
+   callout=("Próximo passo: o lab nos dois psql", "fontes: Postgres 13.2, wiki SSI, Jaffray e Hermitage", "green"), beats=[
+  (4, "Anote com as suas palavras: a tabela dos quatro níveis. Lost update, write skew e phantom, com um exemplo de carteira cada. As linhas do Postgres no Hermitage. E, do lab, a sequência de comandos e o erro que você viu."),
+  (5, "Agora abra duas janelas de psql e faça o lab. Até a próxima aula."),
+ ]),
+]

@@ -1,3 +1,4 @@
 node_modules/
 *.ics
 .DS_Store
+videos/*.mp3
