@@ -1,0 +1,116 @@
+META = dict(id="m10d1", file="m10-dia1-sinais-slos-e-burn-rate", label="M10 · Dia 1 · Sinais, SLOs e burn rate",
+            title="Sinais de ouro, SLOs e alertas por burn rate", subtitle="Módulo 10 · Observabilidade e operação · Dia 1")
+EN_TERMS = ["chargebacks", "SLIs", "SLOs", "SLI", "SLO", "SLA", "error budget", "burn rate", "white-box", "black-box", "NestJS", "dashboard", "pages", "page",
+            "tickets", "ticket", "Kafka", "inbox", "p99", "5xx", "consumer lag", "Chubby", "Google", "SRE", "workbook", "precision", "recall",
+            "for", "Prometheus", "recording rules", "and", "SDK", "OpenTelemetry", "Jaeger", "PENDING", "throughput", "big data", "Postgres", "retries",
+            "backoff", "outcome", "transfer_requests_total"]
+EN_SAY = {"SLIs": "S L Is", "SLOs": "S L Os", "SLI": "S L I", "SLO": "S L O", "SLA": "S L A", "p99": "P 99", "5xx": "5 X X", "SRE": "S R E",
+          "SDK": "S D K", "transfer_requests_total": "transfer requests total"}
+SCENES = [
+ dict(section="Abertura", type="title", questions=["Alerta por sintoma ou por causa?", "Quantas falhas cabem num SLO de 99,9%?", "Por que alertas simples falham?"], beats=[
+  (0, "Esta é a aula em vídeo do módulo dez, dia um: sinais de ouro, SLOs e alertas por burn rate."),
+  (1, "Numa carteira, as piores falhas são silenciosas. Uma API que devolve 500 é percebida em minutos. Um worker que cobra alguns clientes duas vezes, ou um provedor que recusa em silêncio trinta por cento dos pagamentos, roda por horas até alguém abrir um chamado. A essa altura, o dinheiro já se moveu. O objetivo do módulo é saber que o sistema está errado antes do cliente. Hoje: o que observar, o que é bom o suficiente, e quando acordar um humano."),
+ ]),
+ dict(section="Vocabulário", type="compare", title="White-box e black-box",
+      left=("White-box", ["Dados que o sistema expõe sobre si", "Métricas, logs, páginas internas", "Vê problemas prestes a acontecer"], "acc"),
+      right=("Black-box", ["Testa por fora, como o usuário", "Sonda que faz POST /transfers a cada minuto", "Só vê o que já está acontecendo"], "green"),
+      callout=("Page interrompe agora; ticket espera o horário comercial", "alerta é uma notificação feita para um humano ler", "amber"), beats=[
+  (0, "O livro de S R E do Google define monitoramento como coletar, processar, agregar e exibir números em tempo real sobre um sistema. E divide em dois."),
+  (1, "Monitoramento white-box usa dados que o sistema expõe sobre o próprio funcionamento: métricas, logs, páginas de status. Seu serviço contando requisições por rota é white-box. Ele vê problemas prestes a acontecer, como uma fila que não para de crescer."),
+  (2, "Monitoramento black-box testa por fora, como o usuário: uma sonda que chama a API de transferência com uma conta de teste a cada minuto. Só vê o que já está acontecendo. A posição do livro: uso intenso de white-box, e um uso modesto, mas crítico, de black-box."),
+  (3, "E um alerta é uma notificação feita para um humano ler. O livro separa tickets, e-mails e pages. Um page interrompe alguém agora, talvez às três da manhã. Um ticket espera o horário comercial."),
+ ]),
+ dict(section="Sintomas x causas", type="table", title="O que está quebrado, e por quê?", header=["Sintoma (o usuário sente)", "Causa possível"], widths=[860, 860], size=26, rows=[
+   ("Transferências devolvem 500", "Pool do Postgres esgotado"),
+   ("Transferências levam 4 segundos", "Banco parceiro lento, retries acumulando"),
+   ("Mais cartões recusados que o normal", "Provedor rejeitando certificado novo"),
+   ("Um cliente cobrado duas vezes", "Consumer reprocessou sem checar o inbox"),
+   ("Saldos desatualizados no app", "Réplica de leitura atrasada")],
+   callout=("Page por sintoma; causas são ferramentas de depuração", "page por CPU acima de 80% acorda à toa e perde a falha que você não imaginou", "green"), beats=[
+  (0, "A ideia central: seu monitoramento responde duas perguntas. O que está quebrado, e por quê. O que está quebrado é o sintoma. O porquê é a causa."),
+  (1, "Transferências devolvem 500: a causa pode ser o pool do Postgres esgotado."),
+  (2, "Transferências levam quatro segundos: banco parceiro lento, com retries se acumulando."),
+  (3, "Mais cartões recusados que o normal: o provedor rejeitando um certificado novo."),
+  (4, "Um cliente cobrado duas vezes: um consumer reprocessou uma mensagem do Kafka sem checar o inbox."),
+  (5, "Saldos desatualizados: a réplica de leitura está atrasada."),
+  (6, "Por que importa? A lista de causas não tem fim, e a de sintomas é curta. Page por causa, como CPU acima de oitenta por cento, acorda à toa e perde falhas em que você não pensou. Page por sintoma garante que cada page é um problema real, e as causas viram ferramentas de depuração. E o sintoma de um time é a causa de outro: queries lentas são causa para a API, e sintoma para o time de banco."),
+  ("P", "Pergunta: CPU a noventa por cento deve gerar um page?"),
+  (6, "Não, sozinha não. É uma causa possível. O page deve vir do sintoma, como transferências falhando ou lentas para o usuário."),
+ ]),
+ dict(section="Sinais de ouro", type="table", title="Os quatro sinais de ouro", header=["Sinal", "Na carteira"], widths=[480, 1240], rows=[
+   ("Latência", "p99 de POST /transfers, separando sucessos e falhas"),
+   ("Tráfego", "Transferências por segundo; pagamentos por provedor"),
+   ("Erros", "5xx, mais 200 com conteúdo errado, mais lentos demais"),
+   ("Saturação", "Pool do banco em uso, consumer lag, profundidade da fila")],
+   callout=("Média de 100 ms pode esconder 1% levando 5 s", "registre latência como histograma, com faixas crescendo ~3x", "amber"), beats=[
+  (0, "Se você só puder medir quatro coisas de um sistema voltado ao usuário, meça estas."),
+  (1, "Latência: o tempo de resposta, como o P 99 da API de transferência. E separe sucessos de falhas: um 500 rápido puxa a média para baixo e faz tudo parecer melhor. E um erro lento é ainda pior que um rápido."),
+  (2, "Tráfego: transferências por segundo, pagamentos por provedor."),
+  (3, "Erros: mais do que status codes. Falhas explícitas, como 500. Implícitas, como um 200 com conteúdo errado. E por política, como uma resposta prometida em um segundo que levou mais. Uma transferência que devolve 201 mas grava um posting desbalanceado é um erro."),
+  (4, "Saturação: o quão cheio o serviço está. Pool do banco em uso, consumer lag do Kafka, profundidade da fila. Muitos sistemas degradam antes de cem por cento: um pool a noventa e cinco por cento ainda não falha, mas toda requisição nova espera."),
+  (5, "E cuidado com médias. Mil requisições por segundo com média de cem milissegundos podem ter um por cento levando cinco segundos. São dez clientes por segundo olhando um spinner, e alguns vão tocar em pagar de novo. Registre a latência como histograma, com faixas que crescem umas três vezes: zero a dez, dez a trinta, trinta a cem milissegundos."),
+  ("P", "Pergunta: por que separar a latência de sucessos e de falhas?"),
+  (5, "Porque falhas rápidas puxam a latência média para baixo e escondem o problema. E erros lentos, que são os piores, ficam misturados."),
+ ]),
+ dict(section="SLI, SLO e SLA", type="table", title="SLIs da carteira: eventos bons ÷ eventos válidos", header=["SLI", "Evento bom", "Evento válido"], widths=[520, 660, 540], size=26, rows=[
+   ("Disponibilidade", "Resposta que não é 5xx", "Todo POST /transfers bem formado"),
+   ("Latência", "Respondida em < 300 ms", "Todo POST /transfers bem formado"),
+   ("Atualidade da liquidação", "Sai de PENDING em até 10 min", "Todo pagamento criado")],
+   callout=("SLO: “99,9% das transferências dão certo, em 30 dias”", "SLA = SLO com consequência em contrato, e mais folgado que o SLO interno", "acc"), beats=[
+  (0, "Três termos que as pessoas confundem. O S L I é um número bem definido que mede o serviço, como a fração de transferências que dão certo. O S L O é uma meta para o S L I: noventa e nove vírgula nove por cento, em trinta dias. E o S L A é um contrato, com consequências se não cumprir. O teste: o que acontece se o S L O não for cumprido? Se nada explícito, não é S L A. E o S L A deve ser mais folgado que o S L O interno, para sobrar espaço para reagir. Escreva cada S L I como eventos bons divididos por eventos válidos."),
+  (1, "Disponibilidade: resposta que não é 5 X X, sobre toda transferência bem formada."),
+  (2, "Latência: respondida em menos de trezentos milissegundos. Percentis, não médias: noventa e nove por cento abaixo de trezentos."),
+  (3, "Atualidade da liquidação: o pagamento sai de pendente em até dez minutos."),
+  (4, "Para escolher metas: comece pelo que importa ao usuário, não pelo fácil de medir. Poucos S L Os. Nada de cem por cento. E comece folgado, porque afrouxar uma meta de que os usuários já dependem é difícil. O Google chegou a derrubar o Chubby, o serviço de locks, de propósito, porque ele era tão confiável que outros times passaram a supor que nunca falharia. Os usuários dependem da confiabilidade que você entrega, não da que você promete."),
+  ("P", "Pergunta: qual a diferença entre um S L O e um S L A?"),
+  (4, "O S L O é a meta interna. O S L A é um contrato com consequências quando a meta não é cumprida, e deve ser mais folgado que o S L O."),
+ ]),
+ dict(section="Error budget", type="statement", text="2 milhões de transferências × 0,1% = 2.000 falhas permitidas em 30 dias", sub="sobrou budget: arrisque mais. Queimou 80% numa tarde: desacelere os releases. Cobrança dupla nunca entra no budget", color="acc", beats=[
+  (1, "Se o S L O é noventa e nove vírgula nove por cento, então zero vírgula um por cento de falha é permitido. Essa margem é o error budget. Cem por cento é irreal e indesejável. Um exemplo: dois milhões de transferências em trinta dias, com S L O de noventa e nove vírgula nove. O budget é de duas mil transferências com falha. Cada falha gasta uma unidade."),
+  (2, "O budget vira regra de decisão. Se sobrou quase todo perto do fim do mês, o time pode publicar mudanças mais arriscadas. Se um deploy ruim queimou oitenta por cento numa tarde, os releases desaceleram e confiabilidade sobe na prioridade."),
+  (2, "E uma pegadinha de fintech: nem toda falha é igual. Um 503 com retry seguro custa segundos ao cliente. Uma cobrança dupla custa dinheiro e confiança, e nunca entra no budget. Ela ganha um detector próprio, com limiar perto de zero, na quarta."),
+  ("P", "Pergunta: com quinhentas mil transferências por mês e S L O de noventa e nove vírgula nove, qual o error budget?"),
+  (2, "Quinhentas falhas por mês. Zero vírgula um por cento de quinhentas mil."),
+ ]),
+ dict(section="Burn rate", type="table", title="Burn rate para um SLO de 99,9% em 30 dias", header=["Burn rate", "Taxa de erro", "Budget acaba em"], widths=[540, 560, 620], rows=[
+   ("1", "0,1%", "30 dias"), ("2", "0,2%", "15 dias"), ("10", "1%", "3 dias"), ("1.000", "100%", "43 minutos")],
+   callout=("Alertas simples falham: precisão, recall, detecção, reset", "10 min no limite: 144 alertas/dia; janela de 36 h: reset terrível; for: 1h: atrasa", "red"), beats=[
+  (0, "Burn rate é a velocidade, relativa ao S L O, com que o serviço consome o error budget."),
+  (1, "Burn rate um gasta o budget exatamente na janela: taxa de erro de zero vírgula um, trinta dias."),
+  (2, "Burn rate dois: zero vírgula dois por cento, acaba em quinze dias."),
+  (3, "Dez: um por cento de erro, acaba em três dias."),
+  (4, "Mil: cem por cento de erro, acaba em quarenta e três minutos."),
+  (5, "O workbook julga alertas por precisão, recall, tempo de detecção e tempo de reset. E mostra regras simples que falham. Alertar quando a taxa de erro em dez minutos passa do S L O: rápido, mas pode dar cento e quarenta e quatro alertas por dia com o S L O sendo cumprido. Janela de trinta e seis horas: preciso, mas depois de uma queda o alerta fica disparando trinta e seis horas. Duração de uma hora: uma queda total só gera page depois de uma hora, e uma taxa oscilante pode nunca gerar. E um único burn rate: o de trinta e cinco nunca alerta, mesmo gastando tudo em menos de um dia."),
+ ]),
+ dict(section="Multijanela", type="table", title="Multijanela e multi-burn-rate", header=["Severidade", "Janela longa", "Curta", "Burn rate", "Budget"], widths=[340, 360, 300, 340, 380], rows=[
+   ("Page", "1 hora", "5 min", "14,4", "2%"), ("Page", "6 horas", "30 min", "6", "5%"), ("Ticket", "3 dias", "6 horas", "1", "10%")],
+   callout=("Dispara só quando as DUAS janelas estão acima do limite", "janela curta = 1/12 da longa: o alerta reseta minutos após a recuperação", "green"), beats=[
+  (0, "A resposta do workbook combina duas ideias. Vários burn rates: queima rápida gera page, queima lenta abre ticket. O budget consumido é burn rate vezes a janela, dividido pelo período, setecentas e vinte horas."),
+  (1, "Page: burn rate de catorze vírgula quatro em uma hora, dois por cento do budget. Confira: catorze vírgula quatro vezes uma hora, dividido por setecentos e vinte, dá dois por cento. Nesse ritmo, o budget dura cinquenta horas. Alguém precisa olhar agora."),
+  (2, "Page: burn rate seis em seis horas, cinco por cento."),
+  (3, "Ticket: burn rate um em três dias, dez por cento."),
+  (4, "E a segunda ideia: uma janela curta para confirmar, com um doze avos da longa. O alerta só dispara quando as duas estão acima do limite. Quando os erros param, a janela curta cai em minutos, e o alerta reseta. No Prometheus, são recording rules da taxa de erro em cada janela, e alertas que as combinam com and. E com pouco tráfego a matemática quebra: dez requisições por hora, uma falha é burn rate de mil. No projeto local, gere carga com um script ao testar."),
+  ("P", "Pergunta: para que serve a janela curta no alerta multijanela?"),
+  (4, "Para o alerta resetar rápido depois da recuperação, e para confirmar que o problema ainda está acontecendo agora."),
+ ]),
+ dict(section="Revisão relâmpago", type="recap", title="Revisão relâmpago", qa=[
+   ("Quais os quatro sinais de ouro?", "Latência, tráfego, erros, saturação."),
+   ("SLO 99,9%, 2 milhões/mês: error budget?", "2.000 falhas."),
+   ("Burn rate 14,4 em 1 h consome quanto?", "2% do budget mensal.")], beats=[
+  (0, "Hora da revisão relâmpago. São três perguntas, sem olhar."),
+  ("P", "Pergunta um: quais são os quatro sinais de ouro?"),
+  (1, "Latência, tráfego, erros e saturação."),
+  ("P", "Pergunta dois: S L O de noventa e nove vírgula nove, dois milhões de transferências por mês. Qual o error budget?"),
+  (2, "Duas mil falhas por mês."),
+  ("P", "Pergunta três: um burn rate de catorze vírgula quatro durante uma hora consome quanto do budget mensal?"),
+  (3, "Dois por cento. Catorze vírgula quatro vezes uma hora, sobre setecentas e vinte horas."),
+ ]),
+ dict(section="O que anotar e próximo passo", type="bullets", title="Anote com as suas palavras", items=[
+   ("5 sintomas da carteira com 2 causas cada; os sinais de ouro da API", "acc"),
+   ("Seu SLI e SLO: evento bom, válido, meta, janela, budget em requisições", "acc"),
+   ("Sua tabela de burn rate (2%, 5%, 10%) com as contas", "green")],
+   callout=("Próximo passo: OpenTelemetry no NestJS, traces no Jaeger", "e escolha hoje o SLI para ligar os fios na quinta", "green"), beats=[
+  (3, "Anote com as suas palavras: cinco sintomas com duas causas cada, e os sinais de ouro da API de transferências. O seu S L I e S L O, com o budget em número de requisições. E a tabela de burn rate, com as contas."),
+  (4, "Depois, no lab, instale o OpenTelemetry no Nest J S e envie traces para o Jaeger. Até a próxima aula."),
+ ]),
+]
